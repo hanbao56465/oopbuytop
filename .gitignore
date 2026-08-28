@@ -5,5 +5,9 @@ dist/
 .env.*
 !src/data/.gitkeep
 src/data/*.json
+!src/data/_meta.json
+!src/data/categories.json
+!src/data/outfits.json
+!src/data/products.json
 maisonlooks-api-handoff.md
 oopbuytop-pages.zip
