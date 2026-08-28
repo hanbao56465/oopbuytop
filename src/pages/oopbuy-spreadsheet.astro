@@ -2,6 +2,31 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { catalogCategories } from '../lib/catalog';
 ---
-<BaseLayout title="Oopbuy Spreadsheet: How to Browse Finds in 2026 | OopbuyTop" description="A practical guide to using an Oopbuy spreadsheet: browse categories, compare details, and check a listing before ordering.">
-  <article class="prose"><p class="eyebrow">Oopbuy buyer guide</p><h1>What is an Oopbuy Spreadsheet?</h1><p>An Oopbuy spreadsheet is a structured way to discover product links by category. It can make initial research faster, but it does not replace reading the live listing, checking sizing, or understanding an agent's shipping rules.</p><h2>Use it in four steps</h2><ol><li>Start with the category you actually need.</li><li>Compare photos, price range and listing options.</li><li>Check sizing, delivery terms and current availability on the live destination.</li><li>Only then submit the link through the official shopping agent you choose.</li></ol><h2>Browse the catalog</h2><div class="category-grid">{catalogCategories.slice(0, 18).map((category) => <a class="category-card" href={`/category/${category.slug}/`}><strong>{category.name}</strong><span>Explore category →</span></a>)}</div><h2>Before you order</h2><p>Products, prices and availability can change. Treat every catalog as a starting point and verify the specific listing yourself. OopbuyTop is independent and is not an official Oopbuy service.</p></article>
+<BaseLayout title="Oopbuy Spreadsheet: How to Browse Finds in 2026 | OopbuyTop" description="A practical Oopbuy spreadsheet guide: browse categories, compare current finds, review QC photo availability and verify a listing before ordering.">
+  <article class="prose">
+    <p class="eyebrow">Oopbuy spreadsheet guide · updated 2026</p>
+    <h1>What Is an Oopbuy Spreadsheet?</h1>
+    <p>An Oopbuy spreadsheet is a product-discovery guide. Instead of starting with a huge list of unrelated links, it groups current-looking finds into categories and gives you a faster route to research. It is useful when you want a shortlist; it is not a checkout page and it cannot confirm a product is still available.</p>
+    <p>The best way to use a spreadsheet is to treat every card as a question: is this the right item type, does the visible price make sense, are QC photos available, and does the live listing still match what you are looking for?</p>
+    <h2>Step 1: Start with a specific category</h2>
+    <p>Choose the product type first. Comparing sneakers with sneakers, or bags with bags, makes differences in title, photos, options and price context easier to spot. Starting from a narrow category also reduces the temptation to save dozens of links you never review.</p>
+    <div class="category-grid">{catalogCategories.slice(0, 18).map((category) => <a class="category-card" href={`/category/${category.slug}/`}><strong>{category.name}</strong><span>Explore category →</span></a>)}</div>
+    <h2>Step 2: Use the card for context, not a final decision</h2>
+    <p>A product card can show a title, a displayed price range, a brand label and the number of available QC photos. Those are useful research signals. They are not a promise that the exact variant is available, that measurements will fit, or that the final price will be unchanged.</p>
+    <p>When a card looks relevant, keep it on a small shortlist. Compare it with two or three similar listings before you spend time on a full review. This is usually more useful than picking the first item with the most attractive photo.</p>
+    <h2>Step 3: Open the current listing and verify it</h2>
+    <p>The live listing is where you verify the details that matter: the selectable color or size, measurements, seller images, stated materials, price and availability. Listings change often, so an old link or cached card should never override what is currently shown on the destination page.</p>
+    <p>Check that the visible option is the one you actually want. A price may belong to a different size, color or configuration. If a detail is unclear, do not assume that a similar listing is identical.</p>
+    <h2>Step 4: Review QC before you plan a parcel</h2>
+    <p>QC photos are warehouse reference images taken after an item arrives. They can help you compare the received item with the option you selected. Look first at color, labels, construction, obvious marks and completeness. A larger photo count gives you more angles, but it is not a quality guarantee.</p>
+    <p>Make the QC decision before an item is included in a shipment. If a key detail is not visible, use the current support options provided by the service you are using rather than guessing from an old image.</p>
+    <h2>Step 5: Keep shipping as a separate decision</h2>
+    <p>Shipping depends on destination, parcel details and the options visible when you check out. Product discovery cannot promise a shipping price, delivery date or eligibility. After you have reviewed your items, read the current shipping information in the official account you use.</p>
+    <h2>Oopbuy spreadsheet checklist</h2>
+    <ol><li>Choose one focused category.</li><li>Compare a short set of relevant products.</li><li>Verify the exact live listing, size and variant.</li><li>Review QC photos before approving shipment.</li><li>Use official account pages for payment, support and delivery choices.</li></ol>
+    <h2>Frequently asked questions</h2>
+    <h3>Does a spreadsheet sell the product?</h3><p>No. It is a discovery resource. Orders, payment and support belong on the official service you choose.</p>
+    <h3>Can I rely on the displayed price?</h3><p>Use it as comparison context only. Confirm the current price and exact option on the live listing.</p>
+    <p><a class="button button-hot" href="/categories/">Browse Oopbuy spreadsheet categories →</a></p>
+  </article>
 </BaseLayout>

@@ -5,5 +5,5 @@ export function getStaticPaths() { return Object.entries(guides).map(([slug, gui
 const { guide } = Astro.props;
 ---
 <BaseLayout title={`${guide.title} | OopbuyTop`} description={guide.intro}>
- <article class="prose"><p class="eyebrow">Oopbuy buyer guide</p><h1>{guide.title}</h1><p>{guide.intro}</p><h2>Checklist</h2><ol>{guide.steps.map((step) => <li>{step}</li>)}</ol><p><a class="button" href="/categories/">Browse current categories</a></p></article>
+ <article class="prose"><p class="eyebrow">Oopbuy buyer guide</p><h1>{guide.title}</h1><p>{guide.intro}</p>{guide.sections.map((section) => <section><h2>{section.heading}</h2>{section.paragraphs.map((paragraph) => <p>{paragraph}</p>)}</section>)}<h2>Practical checklist</h2><ol>{guide.steps.map((step) => <li>{step}</li>)}</ol><p><a class="button" href="/categories/">Browse current categories</a></p></article>
 </BaseLayout>

@@ -1,5 +1,7 @@
 ---
 import '../styles/global.css';
+import '../styles/compact-products.css';
+import '../styles/reference-layout.css';
 interface Props { title: string; description: string; canonical?: string; noindex?: boolean }
 const { title, description, canonical, noindex = false } = Astro.props;
 const url = canonical ?? new URL(Astro.url.pathname, Astro.site).href;
@@ -15,8 +17,8 @@ const url = canonical ?? new URL(Astro.url.pathname, Astro.site).href;
     {noindex && <meta name="robots" content="noindex,follow" />}
   </head>
   <body>
-    <header class="site-header"><a class="brand" href="/">OopbuyTop</a><nav aria-label="Primary"><a href="/oopbuy-spreadsheet/">Spreadsheet</a><a href="/categories/">Categories</a><a href="/guides/">Guides</a></nav></header>
+    <header class="site-header"><a class="brand" href="/"><img src="/oopbuy-logo.png" alt="Oopbuy" /></a><nav aria-label="Primary"><a href="/">Home</a><a href="/categories/">Categories</a><a href="/guides/how-to-use-oopbuy-spreadsheet/">Guide</a><a href="/guides/qc-photo-checklist/">QC checklist</a><a href="/#how-it-works">How it works</a><a href="/about/">About</a></nav><div class="header-actions"><a class="header-cta" href="https://maisonlooks.com" rel="sponsored">Browse finds ↗</a></div></header>
     <main><slot /></main>
-    <footer><p>OopbuyTop is an independent product-discovery resource. We may earn a commission when you follow a partner link, at no extra cost to you.</p><p><a href="/about/">About & disclosure</a></p></footer>
+    <footer class="site-footer"><div class="footer-grid"><div><h2>Customer Service</h2><a href="/about/">About & disclosure</a><a href="/guides/">Buyer guides</a></div><div><h2>Spreadsheet Guide</h2><a href="/oopbuy-spreadsheet/">How it works</a><a href="/categories/">Browse categories</a><a href="/guides/oopbuy-spreadsheet-categories/">Category guide</a></div><div><h2>QC & Research</h2><a href="/guides/oopbuy-qc-photos/">Oopbuy QC photos</a><a href="/guides/qc-photo-checklist/">QC checklist</a><a href="/guides/dead-links-and-current-listings/">Check live listings</a></div><div><h2>Delivery</h2><a href="/guides/oopbuy-shipping-guide/">Shipping guide</a><a href="/guides/how-to-use-oopbuy-spreadsheet/">Before ordering</a></div><div><h2>Current Finds</h2><a href="https://maisonlooks.com" rel="sponsored">Browse live listings ↗</a><a href="/categories/">All discovery categories</a></div></div><div class="footer-bottom"><span>© 2026 OopbuyTop · Independent discovery resource</span><a href="/about/">Disclosure</a><a href="/guides/">Guides</a></div></footer>
   </body>
 </html>
