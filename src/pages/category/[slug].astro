@@ -1,0 +1,16 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ProductCard from '../../components/ProductCard.astro';
+import { catalogCategories, maisonCategoryUrl, productsForCategory } from '../../lib/catalog';
+import { categoryContent } from '../../lib/category-content';
+export function getStaticPaths() { return catalogCategories.map((category) => ({ params: { slug: category.slug }, props: { category } })); }
+const { category } = Astro.props;
+const products = productsForCategory(category.slug).slice(0, 24);
+const content = categoryContent(category.slug, category.name);
+const title = `${content.title} Finds (2026) | OopbuyTop`;
+---
+<BaseLayout title={title} description={`Browse ${category.name.toLowerCase()} discovery data, price context and pre-order checks in this independent Oopbuy spreadsheet category guide.`}>
+ <section class="hero compact"><p class="eyebrow">Oopbuy spreadsheet category</p><h1>{content.title}</h1><p>{content.intro}</p><a class="button" href={maisonCategoryUrl(category.slug)} rel="sponsored">Browse live {category.name} listings</a></section>
+ <section><h2>Current {category.name} listings to explore</h2><p class="section-intro">This catalog preview is a starting point. Open the live category for current options and availability.</p>{products.length ? <div class="product-grid">{products.map((product) => <ProductCard product={product} />)}</div> : <p>Catalog items are being refreshed. Open the live category to browse current listings.</p>}</section>
+ <section class="notice"><h2>Before you choose</h2><ul>{content.checklist.map((item) => <li>{item}</li>)}</ul><p><a class="text-link" href={`/guides/${content.guideSlug}/`}>{content.guideLabel} →</a></p></section>
+</BaseLayout>

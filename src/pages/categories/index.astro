@@ -1,0 +1,8 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { catalogCategories } from '../../lib/catalog';
+---
+<BaseLayout title="Oopbuy Spreadsheet Categories | OopbuyTop" description="Browse current product-discovery categories, from sneakers and outerwear to bags and accessories.">
+ <section class="hero compact"><p class="eyebrow">Catalog navigation</p><h1>Oopbuy Spreadsheet Categories</h1><p>Start with a specific category to browse available product data and a focused research checklist.</p></section>
+ <section><div class="category-grid">{catalogCategories.map((category) => <a class="category-card" href={`/category/${category.slug}/`}><strong>{category.name}</strong><span>{category.productCount ? `${category.productCount.toLocaleString()} products` : 'Browse finds'} →</span></a>)}</div></section>
+</BaseLayout>

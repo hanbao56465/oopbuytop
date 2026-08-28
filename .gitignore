@@ -1,0 +1,9 @@
+node_modules/
+dist/
+.astro/
+.env
+.env.*
+!src/data/.gitkeep
+src/data/*.json
+maisonlooks-api-handoff.md
+oopbuytop-pages.zip

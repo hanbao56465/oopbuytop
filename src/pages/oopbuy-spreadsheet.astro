@@ -1,0 +1,7 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { catalogCategories } from '../lib/catalog';
+---
+<BaseLayout title="Oopbuy Spreadsheet: How to Browse Finds in 2026 | OopbuyTop" description="A practical guide to using an Oopbuy spreadsheet: browse categories, compare details, and check a listing before ordering.">
+  <article class="prose"><p class="eyebrow">Oopbuy buyer guide</p><h1>What is an Oopbuy Spreadsheet?</h1><p>An Oopbuy spreadsheet is a structured way to discover product links by category. It can make initial research faster, but it does not replace reading the live listing, checking sizing, or understanding an agent's shipping rules.</p><h2>Use it in four steps</h2><ol><li>Start with the category you actually need.</li><li>Compare photos, price range and listing options.</li><li>Check sizing, delivery terms and current availability on the live destination.</li><li>Only then submit the link through the official shopping agent you choose.</li></ol><h2>Browse the catalog</h2><div class="category-grid">{catalogCategories.slice(0, 18).map((category) => <a class="category-card" href={`/category/${category.slug}/`}><strong>{category.name}</strong><span>Explore category →</span></a>)}</div><h2>Before you order</h2><p>Products, prices and availability can change. Treat every catalog as a starting point and verify the specific listing yourself. OopbuyTop is independent and is not an official Oopbuy service.</p></article>
+</BaseLayout>

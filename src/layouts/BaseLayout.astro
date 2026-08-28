@@ -1,0 +1,22 @@
+---
+import '../styles/global.css';
+interface Props { title: string; description: string; canonical?: string; noindex?: boolean }
+const { title, description, canonical, noindex = false } = Astro.props;
+const url = canonical ?? new URL(Astro.url.pathname, Astro.site).href;
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={url} />
+    {noindex && <meta name="robots" content="noindex,follow" />}
+  </head>
+  <body>
+    <header class="site-header"><a class="brand" href="/">OopbuyTop</a><nav aria-label="Primary"><a href="/oopbuy-spreadsheet/">Spreadsheet</a><a href="/categories/">Categories</a><a href="/guides/">Guides</a></nav></header>
+    <main><slot /></main>
+    <footer><p>OopbuyTop is an independent product-discovery resource. We may earn a commission when you follow a partner link, at no extra cost to you.</p><p><a href="/about/">About & disclosure</a></p></footer>
+  </body>
+</html>

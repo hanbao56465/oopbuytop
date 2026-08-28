@@ -1,0 +1,9 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { guides } from '../../lib/guides';
+export function getStaticPaths() { return Object.entries(guides).map(([slug, guide]) => ({ params: { slug }, props: { guide } })); }
+const { guide } = Astro.props;
+---
+<BaseLayout title={`${guide.title} | OopbuyTop`} description={guide.intro}>
+ <article class="prose"><p class="eyebrow">Oopbuy buyer guide</p><h1>{guide.title}</h1><p>{guide.intro}</p><h2>Checklist</h2><ol>{guide.steps.map((step) => <li>{step}</li>)}</ol><p><a class="button" href="/categories/">Browse current categories</a></p></article>
+</BaseLayout>

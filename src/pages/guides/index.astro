@@ -1,0 +1,8 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+const guides = [{slug:'how-to-use-oopbuy-spreadsheet', title:'How to use an Oopbuy spreadsheet'}, {slug:'qc-photo-checklist', title:'QC photo checklist before ordering'}, {slug:'dead-links-and-current-listings', title:'What to do when a product link is dead'}];
+---
+<BaseLayout title="Oopbuy Spreadsheet Guides | OopbuyTop" description="Useful Oopbuy spreadsheet guides for browsing, checking listings and avoiding outdated links.">
+ <section class="hero compact"><p class="eyebrow">Research guides</p><h1>Oopbuy Spreadsheet Guides</h1><p>Short, practical guides for product discovery and safer research.</p></section>
+ <section class="guide-list">{guides.map((guide) => <a class="guide-card" href={`/guides/${guide.slug}/`}><h2>{guide.title}</h2><span>Read guide →</span></a>)}</section>
+</BaseLayout>
