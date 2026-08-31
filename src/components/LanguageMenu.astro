@@ -1,0 +1,18 @@
+---
+const languages = [['en', 'English'], ['de', 'Deutsch'], ['es', 'Español'], ['fr', 'Français'], ['it', 'Italiano'], ['pt', 'Português'], ['nl', 'Nederlands'], ['pl', 'Polski'], ['ar', 'العربية'], ['sv', 'Svenska'], ['cs', 'Čeština']];
+---
+<div class="language-menu notranslate" data-language-menu translate="no">
+  <button class="language-trigger notranslate" type="button" aria-expanded="false" aria-controls="language-options" translate="no">🌐 <span class="notranslate" translate="no">English</span><b>⌄</b></button>
+  <div class="language-options" id="language-options" hidden>
+    {languages.map(([code, label]) => <button class="notranslate" type="button" data-language={code} lang={code} translate="no">{label}</button>)}
+  </div>
+  <div id="google_translate_element" class="google-translate-element" aria-hidden="true"></div>
+</div>
+<script is:inline>
+  window.googleTranslateElementInit = () => new google.translate.TranslateElement({ pageLanguage: 'en', includedLanguages: 'en,de,es,fr,it,pt,nl,pl,ar,sv,cs', autoDisplay: false }, 'google_translate_element');
+  const script = document.createElement('script'); script.src = 'https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit'; script.async = true; document.head.appendChild(script);
+  const menu = document.querySelector('[data-language-menu]'); const trigger = menu?.querySelector('.language-trigger'); const options = menu?.querySelector('.language-options');
+  trigger?.addEventListener('click', () => { const open = trigger.getAttribute('aria-expanded') === 'true'; trigger.setAttribute('aria-expanded', String(!open)); options.hidden = open; });
+  options?.addEventListener('click', (event) => { const button = event.target.closest('[data-language]'); if (!button) return; const language = button.dataset.language; const select = document.querySelector('.goog-te-combo'); if (!select) return; select.value = language; select.dispatchEvent(new Event('change')); trigger.querySelector('span').textContent = button.textContent; trigger.setAttribute('aria-expanded', 'false'); options.hidden = true; });
+  document.addEventListener('click', (event) => { if (menu && !menu.contains(event.target)) { trigger?.setAttribute('aria-expanded', 'false'); if (options) options.hidden = true; } });
+</script>

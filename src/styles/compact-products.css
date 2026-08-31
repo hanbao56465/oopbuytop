@@ -6,6 +6,8 @@
   .product-card img { aspect-ratio: auto; height: 100%; width: 100%; }
   .qc-overlay { position: absolute; right: 8px; bottom: 8px; border-radius: 999px; background: #f21d70; color: #fff; font-size: .68rem; font-weight: 850; line-height: 1; padding: 6px 8px; }
   .qc-overlay-empty { background: #38353a; color: #d5d1d5; }
+  .product-card-qc { border-color: #f21d7070; box-shadow: inset 0 3px 0 #f21d70; }
+  .product-card-no-qc .product-meta { justify-content: flex-start; }
   .card-body { flex: 1; overflow: hidden; padding: 10px; }
   .card-body .eyebrow { margin-bottom: 4px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
   .card-body h3 { display: -webkit-box; overflow: hidden; -webkit-box-orient: vertical; -webkit-line-clamp: 2; font-size: .84rem; line-height: 1.25; }
@@ -18,6 +20,17 @@
 
 .brand::before { display: none; }
 .brand img { display: block; width: 104px; height: auto; }
+.listing-heading { align-items: end; display: flex; gap: 18px; justify-content: space-between; margin-bottom: 7px; }
+.listing-heading h2 { margin: 0; }
+.listing-qc-count { border: 1px solid var(--rule); border-radius: 999px; color: #746c74; font-size: .74rem; font-weight: 800; padding: 7px 10px; white-space: nowrap; }
+.listing-qc-count.has-qc { background: #fff0f6; border-color: #ffc8df; color: #d91463; }
+.live-category-link { display: inline-block; margin-top: 18px; }
+@media (max-width: 640px) { .listing-heading { align-items: flex-start; flex-direction: column; gap: 7px; } }
+.category-grid-fourteen { grid-template-columns: repeat(7, minmax(0, 1fr)); }
+.category-grid-fourteen .category-card { min-height: 142px; }
+.neon-categories.category-grid-fourteen .category-card { min-height: 192px; }
+@media (max-width: 800px) { .category-grid-fourteen { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 640px) { .category-grid-fourteen { grid-template-columns: repeat(2, 1fr); } }
 
 .browse-hubs { padding-top: 70px; }
 .brand-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 10px; }

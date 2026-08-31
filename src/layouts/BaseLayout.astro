@@ -2,6 +2,7 @@
 import '../styles/global.css';
 import '../styles/compact-products.css';
 import '../styles/reference-layout.css';
+import LanguageMenu from '../components/LanguageMenu.astro';
 interface Props { title: string; description: string; canonical?: string; noindex?: boolean }
 const { title, description, canonical, noindex = false } = Astro.props;
 const url = canonical ?? new URL(Astro.url.pathname, Astro.site).href;
@@ -11,14 +12,15 @@ const url = canonical ?? new URL(Astro.url.pathname, Astro.site).href;
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={url} />
     {noindex && <meta name="robots" content="noindex,follow" />}
   </head>
   <body>
-    <header class="site-header"><a class="brand" href="/"><img src="/oopbuy-logo.png" alt="Oopbuy" /></a><nav aria-label="Primary"><a href="/">Home</a><a href="/categories/">Categories</a><a href="/guides/how-to-use-oopbuy-spreadsheet/">Guide</a><a href="/guides/qc-photo-checklist/">QC checklist</a><a href="/#how-it-works">How it works</a><a href="/about/">About</a></nav><div class="header-actions"><a class="header-cta" href="https://maisonlooks.com" rel="sponsored">Browse finds ↗</a></div></header>
+    <header class="site-header"><a class="brand" href="/"><img src="/oopbuy-logo.png" alt="Oopbuy" /></a><nav aria-label="Primary"><a href="/">Home</a><a href="/categories/">Categories</a><a href="/oopbuy-spreadsheet/">Guide</a><a href="/guides/oopbuy-qc-photos/">QC photos</a><a href="/buyer-shares/">Buyer shares</a><a href="/blog/">Blog</a></nav><div class="header-actions"><LanguageMenu /><a class="header-cta" href="https://maisonlooks.com" target="_blank" rel="sponsored noopener noreferrer">Browse finds ↗</a></div></header>
     <main><slot /></main>
-    <footer class="site-footer"><div class="footer-grid"><div><h2>Customer Service</h2><a href="/about/">About & disclosure</a><a href="/guides/">Buyer guides</a></div><div><h2>Spreadsheet Guide</h2><a href="/oopbuy-spreadsheet/">How it works</a><a href="/categories/">Browse categories</a><a href="/guides/oopbuy-spreadsheet-categories/">Category guide</a></div><div><h2>QC & Research</h2><a href="/guides/oopbuy-qc-photos/">Oopbuy QC photos</a><a href="/guides/qc-photo-checklist/">QC checklist</a><a href="/guides/dead-links-and-current-listings/">Check live listings</a></div><div><h2>Delivery</h2><a href="/guides/oopbuy-shipping-guide/">Shipping guide</a><a href="/guides/how-to-use-oopbuy-spreadsheet/">Before ordering</a></div><div><h2>Current Finds</h2><a href="https://maisonlooks.com" rel="sponsored">Browse live listings ↗</a><a href="/categories/">All discovery categories</a></div></div><div class="footer-bottom"><span>© 2026 OopbuyTop · Independent discovery resource</span><a href="/about/">Disclosure</a><a href="/guides/">Guides</a></div></footer>
+    <footer class="site-footer"><div class="footer-grid"><div><h2>Customer Service</h2><a href="/about/">About & disclosure</a><a href="/guides/">Buyer guides</a></div><div><h2>Spreadsheet Guide</h2><a href="/oopbuy-spreadsheet/">How it works</a><a href="/categories/">Browse categories</a><a href="/guides/oopbuy-spreadsheet-categories/">Category guide</a></div><div><h2>QC & Research</h2><a href="/guides/oopbuy-qc-photos/">Oopbuy QC photos</a><a href="/guides/oopbuy-qc-photos/#qc-finds">Finds with QC</a><a href="/guides/dead-links-and-current-listings/">Check live listings</a></div><div><h2>Delivery</h2><a href="/guides/oopbuy-shipping-guide/">Shipping guide</a><a href="/oopbuy-spreadsheet/">Before ordering</a></div><div><h2>Current Finds</h2><a href="https://maisonlooks.com" rel="sponsored">Browse live listings ↗</a><a href="/categories/">All discovery categories</a></div></div><div class="footer-bottom"><span>© 2026 OopbuyTop · Independent discovery resource</span><a href="/about/">Disclosure</a><a href="/guides/">Guides</a></div></footer>
   </body>
 </html>

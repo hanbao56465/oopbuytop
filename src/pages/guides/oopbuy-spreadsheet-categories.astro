@@ -1,6 +1,10 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { catalogCategories } from '../../lib/catalog';
+import { priorityCategorySlugs } from '../../lib/category-content';
+const categoryIcons: Record<string, string> = { 't-shirts': '👕', dresses: '👗', jackets: '🧥', shoes: '👟', heels: '👠', 'trousers-pants': '👖', eyewear: '🕶️', perfume: '🧴', headwear: '🧢', 'underwear-swim': '🩱', electronics: '📱', 'scarves-ties': '🧣', 'jewelry-watches': '💍', 'socks-hosiery': '🧦' };
+const categoryLabels: Record<string, string> = { heels: 'High Heels', 'trousers-pants': 'Pants', eyewear: 'Sunglasses', headwear: 'Hats', 'underwear-swim': 'Underwear', 'scarves-ties': 'Scarves', 'jewelry-watches': 'Jewelry', 'socks-hosiery': 'Socks' };
+const guideCategories = priorityCategorySlugs.map((slug) => catalogCategories.find((category) => category.slug === slug)).filter(Boolean);
 ---
 <BaseLayout title="Oopbuy Spreadsheet Categories: Find Products Faster (2026) | OopbuyTop" description="Browse Oopbuy spreadsheet categories for shoes, clothing, bags, accessories and more. Use category pages to compare current finds and QC availability.">
   <article class="prose">
@@ -25,7 +29,7 @@ import { catalogCategories } from '../../lib/catalog';
 
     <h2>Browse the current categories</h2>
     <p>These category pages group the currently indexed finds. Counts and products can change as the catalogue updates; use them as a route into comparison, then verify the live listing.</p>
-    <div class="category-grid">{catalogCategories.slice(0, 24).map((category) => <a class="category-card" href={`/category/${category.slug}/`}><strong>{category.name}</strong><span>{category.productCount ? `${category.productCount.toLocaleString()} current finds` : 'Browse finds'} →</span></a>)}</div>
+    <div class="guide-category-grid">{guideCategories.map((category) => category && <a class="guide-category-card" href={`/category/${category.slug}/`}><b aria-hidden="true">{categoryIcons[category.slug]}</b><span>{categoryLabels[category.slug] ?? category.name}</span><i aria-hidden="true">→</i></a>)}</div>
 
     <h2>What to compare inside a category</h2>
     <ul>

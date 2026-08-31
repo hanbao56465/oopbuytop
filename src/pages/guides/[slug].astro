@@ -1,9 +1,11 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import { guides } from '../../lib/guides';
 export function getStaticPaths() { return Object.entries(guides).map(([slug, guide]) => ({ params: { slug }, props: { guide } })); }
 const { guide } = Astro.props;
 ---
 <BaseLayout title={`${guide.title} | OopbuyTop`} description={guide.intro}>
+ <Breadcrumbs items={[{ label: 'Guides', href: '/guides/' }, { label: guide.title }]} />
  <article class="prose"><p class="eyebrow">Oopbuy buyer guide</p><h1>{guide.title}</h1><p>{guide.intro}</p>{guide.sections.map((section) => <section><h2>{section.heading}</h2>{section.paragraphs.map((paragraph) => <p>{paragraph}</p>)}</section>)}<h2>Practical checklist</h2><ol>{guide.steps.map((step) => <li>{step}</li>)}</ol><p><a class="button" href="/categories/">Browse current categories</a></p></article>
 </BaseLayout>

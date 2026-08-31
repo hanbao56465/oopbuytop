@@ -1,0 +1,54 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import { communityTopics, getCommunityTopic } from '../../lib/community';
+
+export function getStaticPaths() {
+  return communityTopics.map((topic) => ({ params: { slug: topic.slug } }));
+}
+
+const topic = getCommunityTopic(Astro.params.slug ?? '');
+if (!topic) throw new Error('Unknown community topic');
+const isOopbuyShare = topic.label === 'Oopbuy haul';
+const detailDescription = isOopbuyShare
+  ? `${topic.title}: a public Oopbuy buyer-share reference covering ${topic.weight}, with the original Reddit discussion linked.`
+  : `${topic.title}: a public community reference for haul, product or sizing context. It is not an Oopbuy order report.`;
+
+const schema = JSON.stringify({
+  '@context': 'https://schema.org', '@type': 'Article',
+  headline: `${topic.title} — Community research note`,
+  description: detailDescription,
+  mainEntityOfPage: `https://oopbuytop.net/buyer-shares/${topic.slug}/`,
+  isBasedOn: topic.sourceUrl,
+  author: { '@type': 'Organization', name: 'OopbuyTop' }
+});
+---
+<BaseLayout title={`${topic.title} | ${isOopbuyShare ? 'Oopbuy Buyer Share' : 'Community Haul Reference'}`} description={detailDescription}>
+  <Breadcrumbs items={[{ label: 'Buyer shares', href: '/buyer-shares/' }, { label: topic.title }]} />
+  <script type="application/ld+json" set:html={schema}></script>
+  <article class="community-detail">
+    <a class="back-link" href="/buyer-shares/">← All community questions</a>
+    <p class="eyebrow">{topic.label} · {topic.subreddit} · {topic.agent}</p>
+    <h1>{topic.title}</h1>
+    <p class="community-deck">{topic.postTakeaway}</p>
+
+    {!isOopbuyShare && <p class="community-reference-note"><strong>Community reference:</strong> this post is not an Oopbuy order. It is included for comparison context only.</p>}
+
+    <section class="original-post" aria-label="Original public post">
+      <div class="original-label"><span>Original public post</span><b>REDDIT · {topic.subreddit}</b></div>
+      <div class="reddit-source-embed">
+        <blockquote class="reddit-embed-bq" data-embed-height="500"><a href={topic.sourceUrl}>{topic.title}</a></blockquote>
+      </div>
+      <div class="original-copy"><p class="eyebrow">Source title</p><h2>{topic.title}</h2><p>The original author and Reddit retain their content. This page summarizes the haul format and comment topics without presenting it as OopbuyTop’s own review.</p><a class="button-link" href={topic.sourceUrl} target="_blank" rel="nofollow noopener noreferrer">Open original Reddit post ↗</a></div>
+    </section>
+
+    <section class="community-analysis">
+      <p class="eyebrow">Our practical reading</p>
+      <div class="analysis-row"><span>01</span><div><h2>What the post documents</h2><p>{topic.postTakeaway}</p></div></div>
+      <div class="analysis-row"><span>02</span><div><h2>What commenters focus on</h2><p>{topic.commentTakeaway}</p></div></div>
+    </section>
+
+    <section class="community-next"><p class="eyebrow">Next step</p><h2>Turn the question into a check.</h2><p>Community discussion can help you identify what to verify. The live listing, your order record and the current parcel screen are the details that decide your own order.</p><a class="button-link" href={topic.related.href}>{topic.related.label} →</a></section>
+  </article>
+</BaseLayout>
+<script is:inline async src="https://embed.reddit.com/widgets.js" charset="UTF-8"></script>

@@ -1,8 +1,12 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { catalogCategories } from '../lib/catalog';
+import { priorityCategorySlugs } from '../lib/category-content';
+const categoryIcons: Record<string, string> = { 't-shirts': '👕', dresses: '👗', jackets: '🧥', shoes: '👟', heels: '👠', 'trousers-pants': '👖', eyewear: '🕶️', perfume: '🧴', headwear: '🧢', 'underwear-swim': '🩱', electronics: '📱', 'scarves-ties': '🧣', 'jewelry-watches': '💍', 'socks-hosiery': '🧦' };
+const categoryLabels: Record<string, string> = { heels: 'High Heels', 'trousers-pants': 'Pants', eyewear: 'Sunglasses', headwear: 'Hats', 'underwear-swim': 'Underwear', 'scarves-ties': 'Scarves', 'jewelry-watches': 'Jewelry', 'socks-hosiery': 'Socks' };
+const guideCategories = priorityCategorySlugs.map((slug) => catalogCategories.find((category) => category.slug === slug)).filter(Boolean);
 ---
-<BaseLayout title="Oopbuy Spreadsheet: How to Browse Finds in 2026 | OopbuyTop" description="A practical Oopbuy spreadsheet guide: browse categories, compare current finds, review QC photo availability and verify a listing before ordering.">
+<BaseLayout title="Oopbuy Spreadsheet Guide: Browse Finds | OopbuyTop" description="A practical Oopbuy spreadsheet guide: browse categories, compare current finds, review QC photo availability and verify a listing before ordering.">
   <article class="prose">
     <p class="eyebrow">Oopbuy spreadsheet guide · updated 2026</p>
     <h1>What Is an Oopbuy Spreadsheet?</h1>
@@ -10,7 +14,7 @@ import { catalogCategories } from '../lib/catalog';
     <p>The best way to use a spreadsheet is to treat every card as a question: is this the right item type, does the visible price make sense, are QC photos available, and does the live listing still match what you are looking for?</p>
     <h2>Step 1: Start with a specific category</h2>
     <p>Choose the product type first. Comparing sneakers with sneakers, or bags with bags, makes differences in title, photos, options and price context easier to spot. Starting from a narrow category also reduces the temptation to save dozens of links you never review.</p>
-    <div class="category-grid">{catalogCategories.slice(0, 18).map((category) => <a class="category-card" href={`/category/${category.slug}/`}><strong>{category.name}</strong><span>Explore category →</span></a>)}</div>
+    <div class="guide-category-grid">{guideCategories.map((category) => category && <a class="guide-category-card" href={`/category/${category.slug}/`}><b aria-hidden="true">{categoryIcons[category.slug]}</b><span>{categoryLabels[category.slug] ?? category.name}</span><i aria-hidden="true">→</i></a>)}</div>
     <h2>Step 2: Use the card for context, not a final decision</h2>
     <p>A product card can show a title, a displayed price range, a brand label and the number of available QC photos. Those are useful research signals. They are not a promise that the exact variant is available, that measurements will fit, or that the final price will be unchanged.</p>
     <p>When a card looks relevant, keep it on a small shortlist. Compare it with two or three similar listings before you spend time on a full review. This is usually more useful than picking the first item with the most attractive photo.</p>

@@ -1,9 +1,12 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { catalogCategories } from '../../lib/catalog';
-const icons: Record<string, string> = { sneakers: '👟', boots: '🥾', heels: '👠', sandals: '🩴', bags: '👜', 'bags-backpacks': '🎒', jewelry: '💍', 'jewelry-watches': '⌚', eyewear: '🕶️', headwear: '🧢', belts: '⛓️', hoodies: '🧥', 'hoodies-sweatshirts': '🧥', jackets: '🧥', coats: '🧥', 't-shirts': '👕', shirts: '👔', 'shirts-blouses': '👔', dresses: '👗', skirts: '👗', jeans: '👖', trousers: '👖', shorts: '🩳', perfume: '🧴', skincare: '🧴', makeup: '💄', audio: '🎧', electronics: '📱', 'phone-accessories': '📱', watches: '⌚' };
+import { priorityCategorySlugs } from '../../lib/category-content';
+const icons: Record<string, string> = { 't-shirts': '👕', dresses: '👗', jackets: '🧥', shoes: '👟', heels: '👠', 'trousers-pants': '👖', eyewear: '🕶️', perfume: '🧴', headwear: '🧢', 'underwear-swim': '🩱', electronics: '📱', 'scarves-ties': '🧣', 'jewelry-watches': '💍', 'socks-hosiery': '🧦' };
+const labels: Record<string, string> = { shoes: 'Shoes', heels: 'High Heels', 'trousers-pants': 'Pants', eyewear: 'Sunglasses', headwear: 'Hats', 'underwear-swim': 'Underwear', 'scarves-ties': 'Scarves', 'jewelry-watches': 'Jewelry', 'socks-hosiery': 'Socks' };
+const categories = priorityCategorySlugs.map((slug) => catalogCategories.find((category) => category.slug === slug)).filter(Boolean);
 ---
 <BaseLayout title="Oopbuy Spreadsheet Categories | OopbuyTop" description="Browse current product-discovery categories, from sneakers and outerwear to bags and accessories.">
  <section class="hero compact"><p class="eyebrow">Catalog navigation</p><h1>Oopbuy Spreadsheet Categories</h1><p>Start with a specific category to browse available product data and a focused research checklist.</p></section>
- <section><div class="category-grid">{catalogCategories.filter((category) => icons[category.slug]).slice(0, 25).map((category) => <a class="category-card" href={`/category/${category.slug}/`}><b class="category-icon" aria-hidden="true">{icons[category.slug]}</b><strong>{category.name}</strong><span>{category.productCount ? `${category.productCount.toLocaleString()} products` : 'Browse finds'} →</span></a>)}</div></section>
+ <section><div class="category-grid category-grid-fourteen">{categories.map((category) => category && <a class="category-card" href={`/category/${category.slug}/`}><b class="category-icon" aria-hidden="true">{icons[category.slug]}</b><strong>{labels[category.slug] ?? category.name}</strong><span>Browse finds →</span></a>)}</div></section>
 </BaseLayout>

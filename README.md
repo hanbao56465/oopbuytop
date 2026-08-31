@@ -19,3 +19,9 @@ npm run build
 ## Deployment
 
 Set `MAISONLOOKS_API_KEY` as a server-side build secret in the hosting provider. Do not use a `PUBLIC_` environment variable. The API is queried only during the build, and the published site contains static HTML and the product snapshot rendered into it.
+
+## Daily catalog refresh
+
+The repository includes `.github/workflows/refresh-catalog.yml`. It runs once per day, refreshes only `src/data/`, and commits a change only when the API snapshot has changed. A connected Cloudflare Pages project will then deploy the updated snapshot from GitHub.
+
+Before enabling it, add a GitHub Actions repository secret named `MAISONLOOKS_API_KEY` with the server-side API key. Never put that key in source files, `.env.example`, browser code, or a `PUBLIC_` environment variable. You can also run the workflow manually from the repository's **Actions** tab after adding the secret.

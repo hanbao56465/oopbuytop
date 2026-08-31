@@ -1,0 +1,16 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import { blogPosts, getBlogPost } from '../../lib/blog';
+export function getStaticPaths() { return blogPosts.map((post) => ({ params: { slug: post.slug } })); }
+const post = getBlogPost(Astro.params.slug || '');
+if (!post) throw new Error('Blog post not found');
+const postSchema = JSON.stringify({ '@context': 'https://schema.org', '@type': 'BlogPosting', headline: post.title, description: post.description, datePublished: post.published, dateModified: post.published, mainEntityOfPage: `https://oopbuytop.net/blog/${post.slug}/`, author: { '@type': 'Organization', name: 'OopbuyTop', url: 'https://oopbuytop.net/about/' }, publisher: { '@type': 'Organization', name: 'OopbuyTop', url: 'https://oopbuytop.net/' }, keywords: post.keywords.join(', ') });
+const faqSchema = post.faq ? JSON.stringify({ '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: post.faq.map((item) => ({ '@type': 'Question', name: item.question, acceptedAnswer: { '@type': 'Answer', text: item.answer } })) }) : null;
+---
+<BaseLayout title={post.seoTitle ?? `${post.title} | OopbuyTop`} description={post.description}>
+  <Breadcrumbs items={[{ label: 'Blog', href: '/blog/' }, { label: post.title }]} />
+  <article class="prose blog-post"><p class="eyebrow">{post.category} · Updated {new Date(post.published).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</p><h1>{post.title}</h1><p class="blog-post-deck">{post.description}</p><p>{post.intro}</p>{post.sections.map((section) => <section><h2>{section.heading}</h2>{section.paragraphs.map((paragraph) => <p>{paragraph}</p>)}</section>)}{post.faq && <section class="blog-faq"><p class="eyebrow">Frequently asked questions</p><h2>Quick answers</h2>{post.faq.map((item) => <details><summary>{item.question}</summary><p>{item.answer}</p></details>)}</section>}<aside class="blog-related"><p class="eyebrow">Continue your research</p><h2>Related guides</h2>{post.related.map((link) => <a href={link.href}>{link.label} →</a>)}</aside></article>
+  <script type="application/ld+json" set:html={postSchema} />
+  {faqSchema && <script type="application/ld+json" set:html={faqSchema} />}
+</BaseLayout>

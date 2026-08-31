@@ -4,7 +4,8 @@ import path from 'node:path';
 const API_BASE = 'https://api.maisonlooks.com/public/v1';
 const OUT_DIR = path.resolve('src/data');
 const API_KEY = process.env.MAISONLOOKS_API_KEY;
-const PER_PAGE = clamp(Number(process.env.MAISONLOOKS_MAX_PER_CATEGORY ?? 60), 1, 100);
+const PER_PAGE = 100;
+const MAX_PER_CATEGORY = clamp(Number(process.env.MAISONLOOKS_MAX_PER_CATEGORY ?? 200), 1, 500);
 const OUTFITS_LIMIT = clamp(Number(process.env.MAISONLOOKS_OUTFITS_LIMIT ?? 24), 0, 100);
 
 await fs.mkdir(OUT_DIR, { recursive: true });
@@ -18,8 +19,14 @@ if (!API_KEY) {
 try {
   const categories = await api('/categories');
   const productsByCategory = await Promise.all(categories.map(async (category) => {
-    const response = await api(`/products?category=${encodeURIComponent(category.slug)}&limit=${PER_PAGE}&offset=0`);
-    return Array.isArray(response) ? response : response.data ?? [];
+    const collected = [];
+    for (let offset = 0; offset < MAX_PER_CATEGORY; offset += PER_PAGE) {
+      const response = await api(`/products?category=${encodeURIComponent(category.slug)}&limit=${PER_PAGE}&offset=${offset}`);
+      const page = Array.isArray(response) ? response : response.data ?? [];
+      collected.push(...page);
+      if (page.length < PER_PAGE) break;
+    }
+    return collected.slice(0, MAX_PER_CATEGORY);
   }));
   const outfitsResponse = OUTFITS_LIMIT ? await api(`/outfits?featured=true&limit=${OUTFITS_LIMIT}`) : [];
   const products = productsByCategory.flat();
@@ -29,7 +36,7 @@ try {
     categoryCount: categories.length,
     productCount: products.length,
     outfitCount: outfits.length,
-    maxPerCategory: PER_PAGE,
+    maxPerCategory: MAX_PER_CATEGORY,
   };
 
   await Promise.all([

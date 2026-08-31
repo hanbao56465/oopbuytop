@@ -1,0 +1,22 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { communityTopics } from '../../../lib/community';
+const perPage = 4;
+const totalPages = Math.ceil(communityTopics.length / perPage);
+export function getStaticPaths() { return Array.from({ length: Math.ceil(communityTopics.length / 4) - 1 }, (_, index) => ({ params: { page: String(index + 2) } })); }
+const currentPage = Number(Astro.params.page);
+const pageTopics = communityTopics.slice((currentPage - 1) * perPage, currentPage * perPage);
+const previous = currentPage === 2 ? '/buyer-shares/' : `/buyer-shares/page/${currentPage - 1}/`;
+const next = currentPage < totalPages ? `/buyer-shares/page/${currentPage + 1}/` : null;
+---
+<BaseLayout title={`Oopbuy Buyer Shares · Page ${currentPage} | OopbuyTop`} description="Public Oopbuy and community haul notes, with original Reddit sources.">
+  <section class="resource-hero buyer-hero compact-story-hero"><p class="eyebrow">Community research notes</p><h1>Buyer haul stories.</h1><p>Oopbuy buyer shares are listed first. Other-agent posts are retained as clearly labelled community references, not Oopbuy order evidence.</p></section>
+  <section class="buyer-notes">
+    <div class="buyer-grid">
+      {pageTopics.map((topic) => <a class="buyer-card buyer-story" href={`/buyer-shares/${topic.slug}/`}>
+        <div class="story-main"><div class="buyer-card-top"><b>{topic.label}</b><span>{topic.weight}</span></div><h3>{topic.title}</h3><p>{topic.postTakeaway} {topic.commentTakeaway}</p><small>{topic.subreddit} · {topic.agent}</small></div><span class="story-link">Read full story →</span>
+      </a>)}
+    </div>
+    <nav class="story-pagination" aria-label="Buyer share pages"><a href={previous}>← Previous page</a><span>Page {currentPage} of {totalPages}</span>{next ? <a href={next}>Next page →</a> : <span></span>}</nav>
+  </section>
+</BaseLayout>

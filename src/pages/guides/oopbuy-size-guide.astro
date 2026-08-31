@@ -1,0 +1,54 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+const sizeFaqSchema = JSON.stringify({
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    { '@type': 'Question', name: 'Should I choose an item by its size label alone?', acceptedAnswer: { '@type': 'Answer', text: 'No. Size names differ between sellers and product types. Compare the listed measurements with an item you already own.' } },
+    { '@type': 'Question', name: 'Can QC photos confirm the size I ordered?', acceptedAnswer: { '@type': 'Answer', text: 'QC photos can help confirm a visible label or selected option, but they cannot guarantee fit. Use the current listing measurements for the initial decision.' } },
+    { '@type': 'Question', name: 'What should I measure before ordering clothing?', acceptedAnswer: { '@type': 'Answer', text: 'Measure a similar item you own and compare chest, length, shoulder, sleeve, waist, rise and inseam according to the product type.' } }
+  ]
+});
+---
+<BaseLayout title="Oopbuy Size Guide: How to Check Measurements Before Ordering | OopbuyTop" description="Use this Oopbuy size guide to compare clothing, shoe and accessory measurements with a similar item you own before ordering.">
+  <article class="prose">
+    <p class="eyebrow">Oopbuy size guide</p>
+    <h1>How to Check Product Sizes Before Ordering</h1>
+    <p>Size labels are a starting point, not an answer. The same “M”, “42” or “US 9” can represent different measurements across sellers, factories and product types. The safest routine is simple: compare the current listing’s measurements with a similar item that already fits you.</p>
+    <p>This guide helps you make that comparison before you order. It does not promise fit, and a warehouse photo can only confirm visible details after an item arrives. The live listing and its current measurement chart should guide the first decision.</p>
+
+    <h2>Build a personal measurement reference</h2>
+    <p>Choose one or two items you already own and like the fit of. Lay each item flat without stretching it, then note the measurements that matter for its type. Keep the notes in centimetres so they are easy to compare with seller charts. A repeatable reference is much more useful than relying on a generic conversion table.</p>
+    <ul>
+      <li><strong>T-shirts and hoodies:</strong> chest width, length, shoulder width and sleeve length.</li>
+      <li><strong>Jackets:</strong> chest, length, shoulder, sleeve and any room needed for layers.</li>
+      <li><strong>Trousers and shorts:</strong> waist, hip, rise, inseam and leg opening where useful.</li>
+      <li><strong>Shoes:</strong> insole or foot length, not only the regional size label.</li>
+      <li><strong>Bags:</strong> width, height, depth and strap drop for the way you will use it.</li>
+    </ul>
+
+    <h2>Read a live size chart carefully</h2>
+    <p>Open the exact listing and selected variant. Look for the unit used, how the seller measured it and whether the chart describes the garment or the wearer. A garment chest measurement is different from a recommended body measurement. If the listing does not make this clear, treat it as uncertainty rather than filling in the gap with an assumption.</p>
+    <p>Allow for ordinary measurement variation. A chart can be approximate, and fabric stretch, cut and intended fit all matter. Instead of choosing the closest number mechanically, compare the whole set of dimensions against your reference item and decide whether the cut is meant to be slim, regular, oversized or layered.</p>
+
+    <h2>Clothing: compare the dimensions that change fit</h2>
+    <h3>Tops and outerwear</h3>
+    <p>Chest width and length are usually the first useful checks. Shoulder and sleeve measurements matter when a garment has a structured fit or when you plan to layer it. A hoodie that is wide enough may still feel short; a jacket that matches in chest width may restrict movement at the shoulder.</p>
+    <h3>Bottoms</h3>
+    <p>Waist numbers can be presented as flat width, circumference or an elastic range. Read the chart closely. Rise and inseam strongly affect how trousers sit and where they end, while thigh and leg opening can affect the silhouette. Compare like with like: do not use jean measurements to choose elastic shorts without accounting for the different cut.</p>
+
+    <h2>Shoes, bags and accessories</h2>
+    <p>For shoes, use the seller’s insole or internal-length information when it is available, then compare it with a pair you already wear comfortably. Regional conversions are only a rough cross-check. For bags, read the dimensions as a usable volume question: will your daily items actually fit, and is the strap length right for how you carry it?</p>
+    <p>For belts, jewellery, hats and other accessories, identify the one measurement that changes usability: belt length to the holes, ring diameter, hat circumference or bracelet length. Product titles rarely communicate these details as clearly as the live specification does.</p>
+
+    <h2>Use QC as a later verification step</h2>
+    <p>When an item reaches a warehouse, QC photos may show the visible label, a ruler reference or the overall cut. Use them to confirm that the received option appears consistent with your order record. They do not guarantee fit, because lighting, perspective and a visible label cannot replace the measurement comparison you made from the listing.</p>
+    <p>If the size label or key detail does not appear to match what you selected, resolve that specific question through the current agent workflow before including the item in a parcel.</p>
+
+    <h2>Size-check checklist</h2>
+    <ol><li>Open the live listing and choose the exact variant.</li><li>Confirm the chart unit and what is being measured.</li><li>Compare the relevant dimensions with a similar item you own.</li><li>Account for intended fit, fabric and layering.</li><li>Save the selected option and chart before ordering.</li><li>Use QC photos later to confirm visible order details before shipping.</li></ol>
+    <p><a class="text-link" href="/guides/oopbuy-qc-photos/">Continue to the QC photo guide →</a></p>
+  </article>
+  <section class="guide-faq"><p class="eyebrow">Size guide FAQ</p><h2>Measure first, then decide.</h2><details open><summary>Should I choose an item by its size label alone?</summary><p>No. Size labels vary. Compare the listed measurements with a similar item you already own.</p></details><details><summary>Can QC photos confirm my size?</summary><p>They can help confirm a visible label or option, but cannot guarantee fit. Use the current listing measurements first.</p></details><details><summary>What if a listing has no clear chart?</summary><p>Treat that as uncertainty. Check the current seller information or choose a listing with enough detail to compare responsibly.</p></details></section>
+  <script type="application/ld+json" set:html={sizeFaqSchema} />
+</BaseLayout>

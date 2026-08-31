@@ -6,15 +6,33 @@ export type Category = { slug: string; name: string; parentSlug: string | null; 
 export type Product = { slug: string; title: string; description: string | null; category: string | null; brand: string | null; priceCnyRange: [number, number] | null; priceCny: number | null; priceUsdEstimate: [number, number] | null; images: string[]; qcPhotoCount: number; hasTryOn: boolean; updatedAt: string };
 
 export const catalogCategories = categories as Category[];
-export const catalogProducts = products as Product[];
+export const catalogProducts = (products as Product[]).filter((product) => product.brand !== 'Louis Vuitton');
 export const catalogMeta = meta as { fetchedAt: string; categoryCount: number; productCount: number; outfitCount: number };
 
 export function productsForCategory(slug: string) {
-  return catalogProducts.filter((product) => product.category === slug);
+  // Parent categories (for example, Dresses & One-piece) have their listings
+  // stored in child categories such as Casual and Formal. Include descendants
+  // so a valid category page never renders as an empty catalog.
+  const categorySlugs = new Set([slug]);
+  let changed = true;
+  while (changed) {
+    changed = false;
+    for (const category of catalogCategories) {
+      if (category.parentSlug && categorySlugs.has(category.parentSlug) && !categorySlugs.has(category.slug)) {
+        categorySlugs.add(category.slug);
+        changed = true;
+      }
+    }
+  }
+  return catalogProducts.filter((product) => product.category && categorySlugs.has(product.category));
 }
 
 export function maisonCategoryUrl(slug: string) {
   return `https://maisonlooks.com/c/${encodeURIComponent(slug)}`;
+}
+
+export function maisonProductUrl(slug: string) {
+  return `https://maisonlooks.com/en/p/${encodeURIComponent(slug)}`;
 }
 
 export function displayPrice(product: Product) {

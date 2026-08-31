@@ -1,0 +1,45 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { communityTopics } from '../lib/community';
+const pageTopics = communityTopics.slice(0, 4);
+
+const schema = JSON.stringify({
+  '@context': 'https://schema.org', '@type': 'CollectionPage',
+  name: 'Oopbuy community questions and research notes',
+  description: 'A responsible summary of common public Oopbuy spreadsheet, QC, sizing and shipping questions.',
+  url: 'https://oopbuytop.net/buyer-shares/'
+});
+---
+<BaseLayout title="Oopbuy Buyer Shares: Community Questions & Research | OopbuyTop" description="Common Oopbuy buyer questions from public discussions: QC photos, shipping cost, sizing and changed spreadsheet links.">
+  <script type="application/ld+json" set:html={schema}></script>
+  <section class="resource-hero buyer-hero">
+    <p class="eyebrow">Community research notes</p>
+    <h1>What buyers ask before they commit.</h1>
+    <p>Oopbuy buyer shares appear first. Other-agent posts remain available as clearly marked community references for product, sizing or haul context — never as Oopbuy order evidence.</p>
+  </section>
+
+  <section class="buyer-notes">
+    <div class="section-heading">
+      <div><p class="eyebrow">Common questions</p><h2>Use community experience as a prompt, not a promise.</h2></div>
+      <p>Individual posts can be incomplete, outdated or specific to one order. “Oopbuy haul” identifies an Oopbuy order; “Community reference” identifies a comparison example from another public community.</p>
+    </div>
+    <div class="buyer-grid">
+      {pageTopics.map((topic) => <a class="buyer-card buyer-story" href={`/buyer-shares/${topic.slug}/`}>
+        <div class="story-main">
+          <div class="buyer-card-top"><b>{topic.label}</b><span>{topic.weight}</span></div>
+          <h3>{topic.title}</h3>
+          <p>{topic.postTakeaway} {topic.commentTakeaway}</p>
+          <small>{topic.subreddit} · {topic.agent}</small>
+        </div>
+        <span class="story-link">Read full story →</span>
+      </a>)}
+    </div>
+    <nav class="story-pagination" aria-label="Buyer share pages"><span>Page 1 of 3</span><a href="/buyer-shares/page/2/">Next page →</a></nav>
+  </section>
+
+  <section class="buyer-disclosure">
+    <p class="eyebrow">Editorial note</p>
+    <h2>This is not a review scorecard.</h2>
+    <p>OopbuyTop does not verify anonymous posters, publish invented buyer reviews, or claim that a personal report predicts your order. Product availability, QC timing, checkout options and parcel prices can change. Check the live service and your own order details before acting.</p>
+  </section>
+</BaseLayout>

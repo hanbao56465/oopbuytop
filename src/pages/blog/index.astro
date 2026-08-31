@@ -1,0 +1,14 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { blogPosts } from '../../lib/blog';
+const featured = blogPosts.slice(0, 4);
+const latest = blogPosts.slice(4);
+const blogSchema = JSON.stringify({ '@context': 'https://schema.org', '@type': 'ItemList', name: 'OopbuyTop Blog', numberOfItems: blogPosts.length, itemListElement: blogPosts.map((post, index) => ({ '@type': 'ListItem', position: index + 1, url: `https://oopbuytop.net/blog/${post.slug}/`, name: post.title })) });
+---
+<BaseLayout title="Oopbuy Blog: QC, Shipping & Size Guides | OopbuyTop" description="Oopbuy blog articles about spreadsheet research, QC photos, shipping costs, product links and sizing before you order.">
+  <section class="guides-hero blog-hero"><p class="eyebrow">OopbuyTop blog</p><h1>Buyer research articles</h1><p>Practical answers for Oopbuy spreadsheet research: category discovery, live listings, QC photos, sizing and shipping planning.</p></section>
+  <section class="blog-section"><div class="section-heading"><div><p class="eyebrow">Start here</p><h2>Core Oopbuy guides</h2><p class="section-intro">Six search-led articles built around questions that happen before an order or parcel decision.</p></div></div><div class="blog-grid">{featured.map((post) => <a class="blog-card" href={`/blog/${post.slug}/`}><div class="blog-card-meta"><span>{post.category}</span><b>Featured</b></div><h3>{post.title}</h3><p>{post.description}</p><ul>{post.keywords.map((keyword) => <li>{keyword}</li>)}</ul><footer><span>Updated {new Date(post.published).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })} · {post.readTime}</span><strong>Read article →</strong></footer></a>)}</div></section>
+  <section class="blog-section blog-latest"><div class="section-heading"><div><p class="eyebrow">Latest articles</p><h2>Current research topics</h2><p class="section-intro">Focused long-tail guides that connect product discovery to a practical next check.</p></div></div><div class="blog-grid">{latest.map((post) => <a class="blog-card" href={`/blog/${post.slug}/`}><div class="blog-card-meta"><span>{post.category}</span><b>New</b></div><h3>{post.title}</h3><p>{post.description}</p><ul>{post.keywords.map((keyword) => <li>{keyword}</li>)}</ul><footer><span>Updated {new Date(post.published).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })} · {post.readTime}</span><strong>Read article →</strong></footer></a>)}</div></section>
+  <section class="guide-faq"><p class="eyebrow">Editorial standard</p><h2>What these articles do—and do not claim.</h2><p>We use articles to explain a research decision. We do not promise delivery times, confirm authenticity, publish unverified reviews or treat a past price as a current quote. Check the live listing and current agent interface before you act.</p></section>
+  <script type="application/ld+json" set:html={blogSchema} />
+</BaseLayout>

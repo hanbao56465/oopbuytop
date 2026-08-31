@@ -1,18 +1,18 @@
 ---
 import type { Product } from '../lib/catalog';
-import { displayPrice, maisonCategoryUrl } from '../lib/catalog';
-const { product } = Astro.props as { product: Product };
+import { displayPrice, maisonProductUrl } from '../lib/catalog';
+const { product, hideMissingQc = false } = Astro.props as { product: Product; hideMissingQc?: boolean };
 const image = product.images?.[0];
 ---
-<article class="product-card">
+<a class:list={['product-card', { 'product-card-qc': Boolean(product.qcPhotoCount), 'product-card-no-qc': !product.qcPhotoCount }]} href={maisonProductUrl(product.slug)} target="_blank" rel="sponsored noopener noreferrer" aria-label={`Open current listing for ${product.title}`}>
   <div class="product-media">
     {image && <img src={image} alt={product.title} loading="lazy" width="420" height="420" />}
-    {product.qcPhotoCount ? <span class="qc-overlay">QC · {product.qcPhotoCount}</span> : <span class="qc-overlay qc-overlay-empty">No QC</span>}
+    {product.qcPhotoCount ? <span class="qc-overlay">QC · {product.qcPhotoCount}</span> : !hideMissingQc && <span class="qc-overlay qc-overlay-empty">No QC</span>}
   </div>
   <div class="card-body">
     <p class="eyebrow">{product.brand || 'Curated find'}</p>
     <h3>{product.title}</h3>
-    <div class="product-meta"><span>{displayPrice(product)}</span><span class:list={['qc-badge', { 'has-qc': Boolean(product.qcPhotoCount) }]}>{product.qcPhotoCount ? `${product.qcPhotoCount} QC photos` : 'No QC photos'}</span></div>
-    <a class="text-link" href={maisonCategoryUrl(product.category || '')} rel="sponsored">Browse listings →</a>
+    <div class="product-meta"><span>{displayPrice(product)}</span>{product.qcPhotoCount ? <span class="qc-badge has-qc">{product.qcPhotoCount} QC photos</span> : !hideMissingQc && <span class="qc-badge">No QC photos</span>}</div>
+    <span class="text-link">{product.qcPhotoCount ? 'Open find + QC →' : 'Open live listing →'}</span>
   </div>
-</article>
+</a>
