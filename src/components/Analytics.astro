@@ -1,0 +1,42 @@
+---
+interface Props {
+  measurementId: string;
+}
+
+const { measurementId } = Astro.props;
+---
+
+<script is:inline src={`https://www.googletagmanager.com/gtag/js?id=${measurementId}`}></script>
+<script is:inline define:vars={{ measurementId }}>
+  window.dataLayer = window.dataLayer || [];
+  function gtag() { window.dataLayer.push(arguments); }
+  window.gtag = window.gtag || gtag;
+  window.gtag('js', new Date());
+  window.gtag('config', measurementId);
+
+  document.addEventListener('click', (event) => {
+    const clicked = event.target;
+    if (!(clicked instanceof Element)) return;
+
+    const link = clicked.closest('a[href]');
+    if (!link) return;
+
+    let outbound;
+    try {
+      outbound = new URL(link.href, window.location.href);
+    } catch {
+      return;
+    }
+
+    if (outbound.searchParams.get('utm_source') !== 'oopbuytop') return;
+
+    const placement = outbound.searchParams.get('utm_content');
+    if (!placement) return;
+
+    window.gtag('event', 'outbound_click', {
+      outbound_placement: placement,
+      outbound_destination: `${outbound.origin}${outbound.pathname}`,
+      transport_type: 'beacon',
+    });
+  });
+</script>
