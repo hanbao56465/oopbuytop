@@ -1,345 +1,345 @@
-﻿[
-    {
-        "slug":  "audio",
-        "name":  "Audio",
-        "parentSlug":  "electronics",
-        "imageUrl":  null,
-        "productCount":  null
-    },
-    {
-        "slug":  "bags-backpacks",
-        "name":  "Bags \u0026 Backpacks",
-        "parentSlug":  "accessories",
-        "imageUrl":  null,
-        "productCount":  null
-    },
-    {
-        "slug":  "belts",
-        "name":  "Belts",
-        "parentSlug":  "accessories",
-        "imageUrl":  null,
-        "productCount":  null
-    },
-    {
-        "slug":  "blazers",
-        "name":  "Blazers",
-        "parentSlug":  "outerwear",
-        "imageUrl":  null,
-        "productCount":  null
-    },
-    {
-        "slug":  "boots",
-        "name":  "Boots",
-        "parentSlug":  "shoes",
-        "imageUrl":  null,
-        "productCount":  null
-    },
-    {
-        "slug":  "bottoms",
-        "name":  "Bottoms",
-        "parentSlug":  "clothing",
-        "imageUrl":  null,
-        "productCount":  null
-    },
-    {
-        "slug":  "casual-dresses",
-        "name":  "Casual",
-        "parentSlug":  "dresses",
-        "imageUrl":  null,
-        "productCount":  null
-    },
-    {
-        "slug":  "coats",
-        "name":  "Coats",
-        "parentSlug":  "outerwear",
-        "imageUrl":  null,
-        "productCount":  null
-    },
-    {
-        "slug":  "coord-sets",
-        "name":  "Co-ord Sets",
-        "parentSlug":  "sets-suits",
-        "imageUrl":  null,
-        "productCount":  null
-    },
-    {
-        "slug":  "dresses",
-        "name":  "Dresses \u0026 One-piece",
-        "parentSlug":  "clothing",
-        "imageUrl":  null,
-        "productCount":  null
-    },
-    {
-        "slug":  "eyewear",
-        "name":  "Eyewear",
-        "parentSlug":  "accessories",
-        "imageUrl":  null,
-        "productCount":  null
-    },
-    {
-        "slug":  "formal-dresses",
-        "name":  "Formal",
-        "parentSlug":  "dresses",
-        "imageUrl":  null,
-        "productCount":  null
-    },
-    {
-        "slug":  "headwear",
-        "name":  "Headwear",
-        "parentSlug":  "accessories",
-        "imageUrl":  null,
-        "productCount":  null
-    },
-    {
-        "slug":  "heels",
-        "name":  "Heels",
-        "parentSlug":  "shoes",
-        "imageUrl":  null,
-        "productCount":  null
-    },
-    {
-        "slug":  "hoodies-sweatshirts",
-        "name":  "Hoodies \u0026 Sweatshirts",
-        "parentSlug":  "tops",
-        "imageUrl":  null,
-        "productCount":  null
-    },
-    {
-        "slug":  "jackets",
-        "name":  "Jackets",
-        "parentSlug":  "tops",
-        "imageUrl":  null,
-        "productCount":  null
-    },
-    {
-        "slug":  "jeans",
-        "name":  "Jeans",
-        "parentSlug":  "bottoms",
-        "imageUrl":  null,
-        "productCount":  null
-    },
-    {
-        "slug":  "jewelry-watches",
-        "name":  "Jewelry \u0026 Watches",
-        "parentSlug":  "accessories",
-        "imageUrl":  null,
-        "productCount":  null
-    },
-    {
-        "slug":  "jumpsuits-rompers",
-        "name":  "Jumpsuits \u0026 Rompers",
-        "parentSlug":  "dresses",
-        "imageUrl":  null,
-        "productCount":  null
-    },
-    {
-        "slug":  "loafers-flats",
-        "name":  "Loafers \u0026 Flats",
-        "parentSlug":  "shoes",
-        "imageUrl":  null,
-        "productCount":  null
-    },
-    {
-        "slug":  "makeup",
-        "name":  "Makeup",
-        "parentSlug":  "beauty",
-        "imageUrl":  null,
-        "productCount":  null
-    },
-    {
-        "slug":  "accessory-others",
-        "name":  "Others",
-        "parentSlug":  "accessories",
-        "imageUrl":  null,
-        "productCount":  null
-    },
-    {
-        "slug":  "outerwear",
-        "name":  "Outerwear",
-        "parentSlug":  "clothing",
-        "imageUrl":  null,
-        "productCount":  null
-    },
-    {
-        "slug":  "parkas-down-jackets",
-        "name":  "Parkas \u0026 Down Jackets",
-        "parentSlug":  "outerwear",
-        "imageUrl":  null,
-        "productCount":  null
-    },
-    {
-        "slug":  "perfume",
-        "name":  "Perfume",
-        "parentSlug":  "beauty",
-        "imageUrl":  null,
-        "productCount":  null
-    },
-    {
-        "slug":  "personal-care-devices",
-        "name":  "Personal Care Devices",
-        "parentSlug":  "electronics",
-        "imageUrl":  null,
-        "productCount":  null
-    },
-    {
-        "slug":  "phone-accessories",
-        "name":  "Phone Accessories",
-        "parentSlug":  "electronics",
-        "imageUrl":  null,
-        "productCount":  null
-    },
-    {
-        "slug":  "sandals-slippers",
-        "name":  "Sandals \u0026 Slippers",
-        "parentSlug":  "shoes",
-        "imageUrl":  null,
-        "productCount":  null
-    },
-    {
-        "slug":  "scarves-ties",
-        "name":  "Scarves \u0026 Ties",
-        "parentSlug":  "accessories",
-        "imageUrl":  null,
-        "productCount":  null
-    },
-    {
-        "slug":  "sets-suits",
-        "name":  "Sets \u0026 Suits",
-        "parentSlug":  "clothing",
-        "imageUrl":  null,
-        "productCount":  null
-    },
-    {
-        "slug":  "shirts-blouses",
-        "name":  "Shirts \u0026 Blouses",
-        "parentSlug":  "tops",
-        "imageUrl":  null,
-        "productCount":  null
-    },
-    {
-        "slug":  "shorts",
-        "name":  "Shorts",
-        "parentSlug":  "bottoms",
-        "imageUrl":  null,
-        "productCount":  null
-    },
-    {
-        "slug":  "skincare",
-        "name":  "Skincare",
-        "parentSlug":  "beauty",
-        "imageUrl":  null,
-        "productCount":  null
-    },
-    {
-        "slug":  "skirts",
-        "name":  "Skirts",
-        "parentSlug":  "bottoms",
-        "imageUrl":  null,
-        "productCount":  null
-    },
-    {
-        "slug":  "sneakers",
-        "name":  "Sneakers",
-        "parentSlug":  "shoes",
-        "imageUrl":  null,
-        "productCount":  null
-    },
-    {
-        "slug":  "socks-hosiery",
-        "name":  "Socks \u0026 Hosiery",
-        "parentSlug":  "accessories",
-        "imageUrl":  null,
-        "productCount":  null
-    },
-    {
-        "slug":  "suits",
-        "name":  "Suits",
-        "parentSlug":  "sets-suits",
-        "imageUrl":  null,
-        "productCount":  null
-    },
-    {
-        "slug":  "sweaters-knits",
-        "name":  "Sweaters \u0026 Knits",
-        "parentSlug":  "tops",
-        "imageUrl":  null,
-        "productCount":  null
-    },
-    {
-        "slug":  "tops",
-        "name":  "Tops",
-        "parentSlug":  "clothing",
-        "imageUrl":  null,
-        "productCount":  null
-    },
-    {
-        "slug":  "tracksuits",
-        "name":  "Tracksuits",
-        "parentSlug":  "sets-suits",
-        "imageUrl":  null,
-        "productCount":  null
-    },
-    {
-        "slug":  "trousers-pants",
-        "name":  "Trousers \u0026 Pants",
-        "parentSlug":  "bottoms",
-        "imageUrl":  null,
-        "productCount":  null
-    },
-    {
-        "slug":  "t-shirts",
-        "name":  "T-Shirts",
-        "parentSlug":  "tops",
-        "imageUrl":  null,
-        "productCount":  null
-    },
-    {
-        "slug":  "underwear-swim",
-        "name":  "Underwear \u0026 Swim",
-        "parentSlug":  "clothing",
-        "imageUrl":  null,
-        "productCount":  null
-    },
-    {
-        "slug":  "wearables",
-        "name":  "Wearables",
-        "parentSlug":  "electronics",
-        "imageUrl":  null,
-        "productCount":  null
-    },
-    {
-        "slug":  "clothing",
-        "name":  "Clothing",
-        "parentSlug":  null,
-        "imageUrl":  null,
-        "productCount":  null
-    },
-    {
-        "slug":  "shoes",
-        "name":  "Shoes",
-        "parentSlug":  null,
-        "imageUrl":  null,
-        "productCount":  null
-    },
-    {
-        "slug":  "accessories",
-        "name":  "Accessories",
-        "parentSlug":  null,
-        "imageUrl":  null,
-        "productCount":  null
-    },
-    {
-        "slug":  "beauty",
-        "name":  "Beauty \u0026 Fragrance",
-        "parentSlug":  null,
-        "imageUrl":  null,
-        "productCount":  null
-    },
-    {
-        "slug":  "electronics",
-        "name":  "Electronics",
-        "parentSlug":  null,
-        "imageUrl":  null,
-        "productCount":  null
-    }
+[
+  {
+    "slug": "audio",
+    "name": "Audio",
+    "parentSlug": "electronics",
+    "imageUrl": null,
+    "productCount": null
+  },
+  {
+    "slug": "bags-backpacks",
+    "name": "Bags & Backpacks",
+    "parentSlug": "accessories",
+    "imageUrl": null,
+    "productCount": null
+  },
+  {
+    "slug": "belts",
+    "name": "Belts",
+    "parentSlug": "accessories",
+    "imageUrl": null,
+    "productCount": null
+  },
+  {
+    "slug": "blazers",
+    "name": "Blazers",
+    "parentSlug": "outerwear",
+    "imageUrl": null,
+    "productCount": null
+  },
+  {
+    "slug": "boots",
+    "name": "Boots",
+    "parentSlug": "shoes",
+    "imageUrl": null,
+    "productCount": null
+  },
+  {
+    "slug": "bottoms",
+    "name": "Bottoms",
+    "parentSlug": "clothing",
+    "imageUrl": null,
+    "productCount": null
+  },
+  {
+    "slug": "casual-dresses",
+    "name": "Casual",
+    "parentSlug": "dresses",
+    "imageUrl": null,
+    "productCount": null
+  },
+  {
+    "slug": "coats",
+    "name": "Coats",
+    "parentSlug": "outerwear",
+    "imageUrl": null,
+    "productCount": null
+  },
+  {
+    "slug": "coord-sets",
+    "name": "Co-ord Sets",
+    "parentSlug": "sets-suits",
+    "imageUrl": null,
+    "productCount": null
+  },
+  {
+    "slug": "dresses",
+    "name": "Dresses & One-piece",
+    "parentSlug": "clothing",
+    "imageUrl": null,
+    "productCount": null
+  },
+  {
+    "slug": "eyewear",
+    "name": "Eyewear",
+    "parentSlug": "accessories",
+    "imageUrl": null,
+    "productCount": null
+  },
+  {
+    "slug": "formal-dresses",
+    "name": "Formal",
+    "parentSlug": "dresses",
+    "imageUrl": null,
+    "productCount": null
+  },
+  {
+    "slug": "headwear",
+    "name": "Headwear",
+    "parentSlug": "accessories",
+    "imageUrl": null,
+    "productCount": null
+  },
+  {
+    "slug": "heels",
+    "name": "Heels",
+    "parentSlug": "shoes",
+    "imageUrl": null,
+    "productCount": null
+  },
+  {
+    "slug": "hoodies-sweatshirts",
+    "name": "Hoodies & Sweatshirts",
+    "parentSlug": "tops",
+    "imageUrl": null,
+    "productCount": null
+  },
+  {
+    "slug": "jackets",
+    "name": "Jackets",
+    "parentSlug": "tops",
+    "imageUrl": null,
+    "productCount": null
+  },
+  {
+    "slug": "jeans",
+    "name": "Jeans",
+    "parentSlug": "bottoms",
+    "imageUrl": null,
+    "productCount": null
+  },
+  {
+    "slug": "jewelry-watches",
+    "name": "Jewelry & Watches",
+    "parentSlug": "accessories",
+    "imageUrl": null,
+    "productCount": null
+  },
+  {
+    "slug": "jumpsuits-rompers",
+    "name": "Jumpsuits & Rompers",
+    "parentSlug": "dresses",
+    "imageUrl": null,
+    "productCount": null
+  },
+  {
+    "slug": "loafers-flats",
+    "name": "Loafers & Flats",
+    "parentSlug": "shoes",
+    "imageUrl": null,
+    "productCount": null
+  },
+  {
+    "slug": "makeup",
+    "name": "Makeup",
+    "parentSlug": "beauty",
+    "imageUrl": null,
+    "productCount": null
+  },
+  {
+    "slug": "accessory-others",
+    "name": "Others",
+    "parentSlug": "accessories",
+    "imageUrl": null,
+    "productCount": null
+  },
+  {
+    "slug": "outerwear",
+    "name": "Outerwear",
+    "parentSlug": "clothing",
+    "imageUrl": null,
+    "productCount": null
+  },
+  {
+    "slug": "parkas-down-jackets",
+    "name": "Parkas & Down Jackets",
+    "parentSlug": "outerwear",
+    "imageUrl": null,
+    "productCount": null
+  },
+  {
+    "slug": "perfume",
+    "name": "Perfume",
+    "parentSlug": "beauty",
+    "imageUrl": null,
+    "productCount": null
+  },
+  {
+    "slug": "personal-care-devices",
+    "name": "Personal Care Devices",
+    "parentSlug": "electronics",
+    "imageUrl": null,
+    "productCount": null
+  },
+  {
+    "slug": "phone-accessories",
+    "name": "Phone Accessories",
+    "parentSlug": "electronics",
+    "imageUrl": null,
+    "productCount": null
+  },
+  {
+    "slug": "sandals-slippers",
+    "name": "Sandals & Slippers",
+    "parentSlug": "shoes",
+    "imageUrl": null,
+    "productCount": null
+  },
+  {
+    "slug": "scarves-ties",
+    "name": "Scarves & Ties",
+    "parentSlug": "accessories",
+    "imageUrl": null,
+    "productCount": null
+  },
+  {
+    "slug": "sets-suits",
+    "name": "Sets & Suits",
+    "parentSlug": "clothing",
+    "imageUrl": null,
+    "productCount": null
+  },
+  {
+    "slug": "shirts-blouses",
+    "name": "Shirts & Blouses",
+    "parentSlug": "tops",
+    "imageUrl": null,
+    "productCount": null
+  },
+  {
+    "slug": "shorts",
+    "name": "Shorts",
+    "parentSlug": "bottoms",
+    "imageUrl": null,
+    "productCount": null
+  },
+  {
+    "slug": "skincare",
+    "name": "Skincare",
+    "parentSlug": "beauty",
+    "imageUrl": null,
+    "productCount": null
+  },
+  {
+    "slug": "skirts",
+    "name": "Skirts",
+    "parentSlug": "bottoms",
+    "imageUrl": null,
+    "productCount": null
+  },
+  {
+    "slug": "sneakers",
+    "name": "Sneakers",
+    "parentSlug": "shoes",
+    "imageUrl": null,
+    "productCount": null
+  },
+  {
+    "slug": "socks-hosiery",
+    "name": "Socks & Hosiery",
+    "parentSlug": "accessories",
+    "imageUrl": null,
+    "productCount": null
+  },
+  {
+    "slug": "suits",
+    "name": "Suits",
+    "parentSlug": "sets-suits",
+    "imageUrl": null,
+    "productCount": null
+  },
+  {
+    "slug": "sweaters-knits",
+    "name": "Sweaters & Knits",
+    "parentSlug": "tops",
+    "imageUrl": null,
+    "productCount": null
+  },
+  {
+    "slug": "tops",
+    "name": "Tops",
+    "parentSlug": "clothing",
+    "imageUrl": null,
+    "productCount": null
+  },
+  {
+    "slug": "tracksuits",
+    "name": "Tracksuits",
+    "parentSlug": "sets-suits",
+    "imageUrl": null,
+    "productCount": null
+  },
+  {
+    "slug": "trousers-pants",
+    "name": "Trousers & Pants",
+    "parentSlug": "bottoms",
+    "imageUrl": null,
+    "productCount": null
+  },
+  {
+    "slug": "t-shirts",
+    "name": "T-Shirts",
+    "parentSlug": "tops",
+    "imageUrl": null,
+    "productCount": null
+  },
+  {
+    "slug": "underwear-swim",
+    "name": "Underwear & Swim",
+    "parentSlug": "clothing",
+    "imageUrl": null,
+    "productCount": null
+  },
+  {
+    "slug": "wearables",
+    "name": "Wearables",
+    "parentSlug": "electronics",
+    "imageUrl": null,
+    "productCount": null
+  },
+  {
+    "slug": "clothing",
+    "name": "Clothing",
+    "parentSlug": null,
+    "imageUrl": null,
+    "productCount": null
+  },
+  {
+    "slug": "shoes",
+    "name": "Shoes",
+    "parentSlug": null,
+    "imageUrl": null,
+    "productCount": null
+  },
+  {
+    "slug": "accessories",
+    "name": "Accessories",
+    "parentSlug": null,
+    "imageUrl": null,
+    "productCount": null
+  },
+  {
+    "slug": "beauty",
+    "name": "Beauty & Fragrance",
+    "parentSlug": null,
+    "imageUrl": null,
+    "productCount": null
+  },
+  {
+    "slug": "electronics",
+    "name": "Electronics",
+    "parentSlug": null,
+    "imageUrl": null,
+    "productCount": null
+  }
 ]

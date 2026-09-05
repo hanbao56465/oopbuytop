@@ -1,7 +1,7 @@
-﻿{
-    "maxPerCategory":  60,
-    "categoryCount":  49,
-    "fetchedAt":  "2026-08-28T03:30:09.4526258Z",
-    "productCount":  2180,
-    "outfitCount":  24
+{
+  "fetchedAt": "2026-09-05T05:58:27.614Z",
+  "categoryCount": 49,
+  "productCount": 6778,
+  "outfitCount": 24,
+  "maxPerCategory": 200
 }
