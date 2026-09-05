@@ -6,37 +6,56 @@ interface Props {
 const { measurementId } = Astro.props;
 ---
 
-<script is:inline src={`https://www.googletagmanager.com/gtag/js?id=${measurementId}`}></script>
 <script is:inline define:vars={{ measurementId }}>
-  window.dataLayer = window.dataLayer || [];
-  function gtag() { window.dataLayer.push(arguments); }
-  window.gtag = window.gtag || gtag;
-  window.gtag('js', new Date());
-  window.gtag('config', measurementId);
+  const consentKey = 'oopbuytop_analytics_consent';
+  let analyticsLoaded = false;
 
-  document.addEventListener('click', (event) => {
-    const clicked = event.target;
-    if (!(clicked instanceof Element)) return;
+  const trackOutboundClicks = () => {
+    document.addEventListener('click', (event) => {
+      const clicked = event.target;
+      if (!(clicked instanceof Element)) return;
+      const link = clicked.closest('a[href]');
+      if (!link) return;
 
-    const link = clicked.closest('a[href]');
-    if (!link) return;
+      let outbound;
+      try {
+        outbound = new URL(link.href, window.location.href);
+      } catch {
+        return;
+      }
+      if (outbound.searchParams.get('utm_source') !== 'oopbuytop') return;
 
-    let outbound;
-    try {
-      outbound = new URL(link.href, window.location.href);
-    } catch {
-      return;
-    }
-
-    if (outbound.searchParams.get('utm_source') !== 'oopbuytop') return;
-
-    const placement = outbound.searchParams.get('utm_content');
-    if (!placement) return;
-
-    window.gtag('event', 'outbound_click', {
-      outbound_placement: placement,
-      outbound_destination: `${outbound.origin}${outbound.pathname}`,
-      transport_type: 'beacon',
+      const placement = outbound.searchParams.get('utm_content');
+      if (!placement) return;
+      window.gtag('event', 'outbound_click', {
+        outbound_placement: placement,
+        outbound_destination: `${outbound.origin}${outbound.pathname}`,
+        transport_type: 'beacon',
+      });
     });
+  };
+
+  const loadAnalytics = () => {
+    if (analyticsLoaded) return;
+    analyticsLoaded = true;
+    window.dataLayer = window.dataLayer || [];
+    window.gtag = window.gtag || function gtag() { window.dataLayer.push(arguments); };
+    window.gtag('consent', 'default', {
+      ad_storage: 'denied', analytics_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied',
+    });
+    window.gtag('consent', 'update', { analytics_storage: 'granted' });
+    window.gtag('js', new Date());
+    window.gtag('config', measurementId, { allow_google_signals: false, allow_ad_personalization_signals: false });
+
+    const script = document.createElement('script');
+    script.async = true;
+    script.src = `https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(measurementId)}`;
+    document.head.append(script);
+    trackOutboundClicks();
+  };
+
+  if (window.localStorage.getItem(consentKey) === 'granted') loadAnalytics();
+  window.addEventListener('oopbuytop:analytics-consent', (event) => {
+    if (event.detail === 'granted') loadAnalytics();
   });
 </script>

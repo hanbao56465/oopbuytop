@@ -1,0 +1,32 @@
+<aside class="consent-banner" data-consent-banner role="dialog" aria-label="Cookie choices" aria-live="polite" hidden>
+  <div>
+    <p class="eyebrow">Your choice</p>
+    <h2>Optional analytics cookies</h2>
+    <p>With your permission, we use analytics to understand page visits and voluntary outbound clicks. Essential site functions do not depend on this choice.</p>
+    <a href="/about/#privacy">Privacy details</a>
+  </div>
+  <div class="consent-actions">
+    <button class="consent-decline" type="button" data-analytics-choice="denied">Decline</button>
+    <button class="consent-accept" type="button" data-analytics-choice="granted">Accept analytics</button>
+  </div>
+</aside>
+
+<script>
+  const consentKey = 'oopbuytop_analytics_consent';
+  const banner = document.querySelector<HTMLElement>('[data-consent-banner]');
+  const storedChoice = window.localStorage.getItem(consentKey);
+
+  if (banner && !storedChoice) banner.hidden = false;
+
+  banner?.addEventListener('click', (event) => {
+    const clicked = event.target;
+    if (!(clicked instanceof Element)) return;
+    const button = clicked.closest('[data-analytics-choice]');
+    if (!button) return;
+    const choice = button.getAttribute('data-analytics-choice');
+    if (choice !== 'granted' && choice !== 'denied') return;
+    window.localStorage.setItem(consentKey, choice);
+    banner.hidden = true;
+    window.dispatchEvent(new CustomEvent('oopbuytop:analytics-consent', { detail: choice }));
+  });
+</script>
