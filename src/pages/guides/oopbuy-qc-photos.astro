@@ -2,6 +2,7 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import ProductCard from '../../components/ProductCard.astro';
 import { catalogProducts } from '../../lib/catalog';
+import { trackedOutboundUrl } from '../../lib/outbound';
 
 const qcProducts = catalogProducts.filter((product) => product.qcPhotoCount > 0).sort((a, b) => b.qcPhotoCount - a.qcPhotoCount).slice(0, 8);
 const faqSchema = JSON.stringify({
@@ -16,9 +17,9 @@ const faqSchema = JSON.stringify({
 ---
 <BaseLayout title="Oopbuy QC Photos: What to Check Before Shipping (2026) | OopbuyTop" description="Browse Oopbuy finds with warehouse QC photos, then use a practical QC checklist before shipping.">
   <section class="qc-finds qc-primary" id="qc-finds">
-    <div class="section-heading qc-finds-head"><div><p class="eyebrow">A1 · QC finds</p><h1>Finds that include<br />warehouse QC photos</h1></div><a class="button button-hot" href="https://maisonlooks.com" rel="sponsored">Browse live finds ↗</a></div>
+    <div class="section-heading qc-finds-head"><div><p class="eyebrow">A1 · QC finds</p><h1>Finds that include<br />warehouse QC photos</h1></div><a class="button button-hot" href={trackedOutboundUrl('https://maisonlooks.com', 'qc_hero_cta')} target="_blank" rel="sponsored noopener noreferrer">Browse live finds ↗</a></div>
     <p class="qc-intro">Cards show QC photo counts when available. Open a find to compare the live listing and warehouse reference images before you decide about shipping.</p>
-    <div class="product-grid">{qcProducts.map((product) => <ProductCard product={product} />)}</div>
+    <div class="product-grid">{qcProducts.map((product) => <ProductCard product={product} placement="qc_card" />)}</div>
     <p class="qc-panel-note">Card images are product previews. Review the full warehouse QC set and current listing details before you approve a parcel.</p>
   </section>
 

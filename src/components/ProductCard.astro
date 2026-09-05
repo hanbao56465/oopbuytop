@@ -1,10 +1,10 @@
 ---
 import type { Product } from '../lib/catalog';
 import { displayPrice, maisonProductUrl } from '../lib/catalog';
-const { product, hideMissingQc = false } = Astro.props as { product: Product; hideMissingQc?: boolean };
+const { product, hideMissingQc = false, placement = 'product_card' } = Astro.props as { product: Product; hideMissingQc?: boolean; placement?: string };
 const image = product.images?.[0];
 ---
-<a class:list={['product-card', { 'product-card-qc': Boolean(product.qcPhotoCount), 'product-card-no-qc': !product.qcPhotoCount }]} href={maisonProductUrl(product.slug)} target="_blank" rel="sponsored noopener noreferrer" aria-label={`Open current listing for ${product.title}`}>
+<a class:list={['product-card', { 'product-card-qc': Boolean(product.qcPhotoCount), 'product-card-no-qc': !product.qcPhotoCount }]} href={maisonProductUrl(product.slug, placement)} target="_blank" rel="sponsored noopener noreferrer" aria-label={`Open current listing for ${product.title}`}>
   <div class="product-media">
     {image && <img src={image} alt={product.title} loading="lazy" width="420" height="420" />}
     {product.qcPhotoCount ? <span class="qc-overlay">QC · {product.qcPhotoCount}</span> : !hideMissingQc && <span class="qc-overlay qc-overlay-empty">No QC</span>}

@@ -1,6 +1,7 @@
 import categories from '../data/categories.json';
 import products from '../data/products.json';
 import meta from '../data/_meta.json';
+import { trackedOutboundUrl } from './outbound';
 
 export type Category = { slug: string; name: string; parentSlug: string | null; imageUrl: string | null; productCount: number | null };
 export type Product = { slug: string; title: string; description: string | null; category: string | null; brand: string | null; priceCnyRange: [number, number] | null; priceCny: number | null; priceUsdEstimate: [number, number] | null; images: string[]; qcPhotoCount: number; hasTryOn: boolean; updatedAt: string };
@@ -33,12 +34,12 @@ export function productsForCategory(slug: string) {
   return catalogProducts.filter((product) => product.category && categorySlugs.has(product.category));
 }
 
-export function maisonCategoryUrl(slug: string) {
-  return `https://maisonlooks.com/c/${encodeURIComponent(slug)}`;
+export function maisonCategoryUrl(slug: string, placement = 'category_live') {
+  return trackedOutboundUrl(`https://maisonlooks.com/c/${encodeURIComponent(slug)}`, placement);
 }
 
-export function maisonProductUrl(slug: string) {
-  return `https://maisonlooks.com/en/p/${encodeURIComponent(slug)}`;
+export function maisonProductUrl(slug: string, placement = 'product_card') {
+  return trackedOutboundUrl(`https://maisonlooks.com/en/p/${encodeURIComponent(slug)}`, placement);
 }
 
 export function displayPrice(product: Product) {
