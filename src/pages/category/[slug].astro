@@ -2,7 +2,7 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import ProductCard from '../../components/ProductCard.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
-import { catalogCategories, catalogMeta, maisonCategoryUrl, productsForCategory } from '../../lib/catalog';
+import { catalogCategories, catalogMeta, formatCatalogCheckedAt, maisonCategoryUrl, productsForCategory } from '../../lib/catalog';
 import { categoryContent, priorityCategorySlugs } from '../../lib/category-content';
 export function getStaticPaths() {
   return catalogCategories
@@ -15,8 +15,8 @@ const products = productsForCategory(category.slug)
   .slice(0, 15);
 const qcCount = products.filter((product) => product.qcPhotoCount > 0).length;
 const representedBrands = new Set(products.map((product) => product.brand).filter(Boolean)).size;
-const pricedItems = products.filter((product) => product.price).length;
-const snapshotDate = catalogMeta.fetchedAt ? new Intl.DateTimeFormat('en', { month: 'long', year: 'numeric' }).format(new Date(catalogMeta.fetchedAt)) : 'the latest catalog snapshot';
+const pricedItems = products.filter((product) => product.priceUsdEstimate || product.priceCny || product.priceCnyRange).length;
+const snapshotDate = formatCatalogCheckedAt();
 const content = categoryContent(category.slug, category.name);
 const title = `${content.title} Finds | OopbuyTop`;
 const faqSchema = content.faq ? JSON.stringify({ '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: content.faq.map((item) => ({ '@type': 'Question', name: item.question, acceptedAnswer: { '@type': 'Answer', text: item.answer } })) }) : null;
@@ -24,7 +24,7 @@ const faqSchema = content.faq ? JSON.stringify({ '@context': 'https://schema.org
 <BaseLayout title={title} description={`Browse ${category.name.toLowerCase()} discovery data, price context and pre-order checks in this independent Oopbuy spreadsheet category guide.`}>
  <Breadcrumbs items={[{ label: 'Categories', href: '/categories/' }, { label: category.name }]} />
  <section class="hero compact"><p class="eyebrow">Oopbuy spreadsheet category</p><h1>{content.title}</h1><p>{content.intro}</p><a class="button" href={maisonCategoryUrl(category.slug)} target="_blank" rel="sponsored noopener noreferrer">Browse live {category.name} listings</a></section>
- <section class="category-listings"><div class="listing-heading"><div><p class="eyebrow">QC-first picks</p><h2>Current {category.name} listings to explore</h2></div><span class:list={['listing-qc-count', { 'has-qc': qcCount > 0 }]}>{qcCount ? `${qcCount} QC pick${qcCount === 1 ? '' : 's'} shown first` : 'No QC picks in this snapshot'}</span></div><p class="section-intro">A focused 15-item preview. QC availability is highlighted only where warehouse photos are actually available; open any card for the current listing and options.</p>{products.length ? <><div class="product-grid">{products.map((product) => <ProductCard product={product} hideMissingQc />)}</div><a class="text-link live-category-link" href={maisonCategoryUrl(category.slug)} target="_blank" rel="sponsored noopener noreferrer">Browse all live {category.name} listings ↗</a></> : <p>Catalog items are being refreshed. Open the live category to browse current listings.</p>}</section>
+ <section class="category-listings"><div class="listing-heading"><div><p class="eyebrow">QC-first picks · snapshot checked {snapshotDate}</p><h2>Current {category.name} listings to explore</h2></div><span class:list={['listing-qc-count', { 'has-qc': qcCount > 0 }]}>{qcCount ? `${qcCount} QC pick${qcCount === 1 ? '' : 's'} shown first` : 'No QC picks in this snapshot'}</span></div><p class="section-intro">A focused 15-item preview. QC availability is highlighted only where warehouse photos are actually available; open any card for the current listing and options.</p>{products.length ? <><div class="product-grid">{products.map((product) => <ProductCard product={product} hideMissingQc />)}</div><a class="text-link live-category-link" href={maisonCategoryUrl(category.slug)} target="_blank" rel="sponsored noopener noreferrer">Browse all live {category.name} listings ↗</a></> : <p>Catalog items are being refreshed. Open the live category to browse current listings.</p>}</section>
  <section class="category-snapshot"><p class="eyebrow">Snapshot boundaries</p><h2>What this {category.name} preview can actually show</h2><div class="snapshot-facts"><div><strong>{products.length}</strong><span>comparison cards</span></div><div><strong>{representedBrands}</strong><span>visible brand labels</span></div><div><strong>{qcCount}</strong><span>cards with QC photos</span></div><div><strong>{pricedItems}</strong><span>cards with price context</span></div></div><p>This page uses a catalog snapshot checked in {snapshotDate}. It is designed to make a small comparison practical: product title, visible image, price context and any actual QC availability. It does not claim that every item is still available or that a card’s price applies to every option.</p><p>Open the current listing before deciding. Confirm the exact variant, measurements or specifications, current price and availability there; leave anything not shown clearly as unresolved.</p></section>
  {content.research && <section class="category-research"><p class="eyebrow">Research notes</p>{content.research.map((section) => <div><h2>{section.heading}</h2>{section.paragraphs.map((paragraph) => <p>{paragraph}</p>)}</div>)}</section>}
  <section class="notice"><h2>Before you choose</h2><ul>{content.checklist.map((item) => <li>{item}</li>)}</ul><p><a class="text-link" href={`/guides/${content.guideSlug}/`}>{content.guideLabel} →</a></p></section>

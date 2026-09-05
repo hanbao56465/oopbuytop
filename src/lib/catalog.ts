@@ -9,6 +9,12 @@ export const catalogCategories = categories as Category[];
 export const catalogProducts = (products as Product[]).filter((product) => product.brand !== 'Louis Vuitton');
 export const catalogMeta = meta as { fetchedAt: string; categoryCount: number; productCount: number; outfitCount: number };
 
+export function formatCatalogCheckedAt(locale = 'en-US') {
+  const date = new Date(catalogMeta.fetchedAt);
+  if (Number.isNaN(date.getTime())) return 'date unavailable';
+  return new Intl.DateTimeFormat(locale, { month: 'long', day: 'numeric', year: 'numeric' }).format(date);
+}
+
 export function productsForCategory(slug: string) {
   // Parent categories (for example, Dresses & One-piece) have their listings
   // stored in child categories such as Casual and Formal. Include descendants
