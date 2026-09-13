@@ -2,6 +2,14 @@
 
 Astro static site for Oopbuy spreadsheet category guides and product discovery.
 
+**Live resource:** [oopbuytop.net](https://oopbuytop.net/)
+
+The site's primary editorial resource is the [Oopbuy spreadsheet guide](https://oopbuytop.net/oopbuy-spreadsheet/). It explains how the category catalogue, current-listing checks and warehouse QC-photo indicators are intended to be used. This repository contains the static-site source, catalogue-refresh workflow and deployment configuration for that public resource.
+
+## Editorial scope
+
+OopbuyTop is an independent discovery resource. It does not sell products, verify authenticity, guarantee stock or publish invented reviews. Catalogue cards are build-time snapshots; visitors must verify the current live listing, selected option, price and delivery terms themselves. See the site's [editorial disclosure](https://oopbuytop.net/about/) for the full methodology and update boundaries.
+
 ## Local setup
 
 1. Copy `.env.example` to `.env` and set `MAISONLOOKS_API_KEY` locally. Do not commit the key.
