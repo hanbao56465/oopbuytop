@@ -272,3 +272,21 @@ footer { border-color: var(--rule); color: #746c74; }
 .qc-panel-note { border-top: 1px solid var(--rule); color: #79717a; font-size: .8rem; margin: 20px 20px 0; padding: 13px 8px 0; }
 @media (max-width: 800px) { .qc-primary .product-grid { grid-template-columns: repeat(2, 1fr); } }
 @media (max-width: 640px) { .qc-primary { margin-top: 24px; } .qc-primary .qc-finds-head { align-items: flex-start; padding: 22px 18px 16px; } .qc-primary .section-heading { gap: 16px; } .qc-intro { margin: 16px 18px; } .qc-primary .product-grid { grid-template-columns: 1fr; padding: 0 14px; } .qc-panel-note { margin: 16px 14px 0; } }
+
+/* Product discovery stays two-up on phones: the full card is the link, so
+   users can scan a compact shortlist without a single card filling the view. */
+@media (max-width: 640px) {
+  .product-grid, .qc-primary .product-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; padding: 0; }
+  .qc-primary .product-grid { padding: 0 14px; }
+  .product-card { min-width: 0; border-radius: 12px; }
+  .product-media { position: relative; }
+  .product-card img { aspect-ratio: 1; }
+  .qc-overlay { background: var(--accent); border-radius: 999px; bottom: 7px; color: #fff; font-size: .62rem; font-weight: 850; line-height: 1; padding: 5px 6px; position: absolute; right: 7px; }
+  .qc-overlay-empty { background: #4e4850; color: #fff; }
+  .card-body { min-width: 0; padding: 10px; }
+  .card-body .eyebrow { font-size: .61rem; margin: 0 0 4px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .card-body h3 { display: -webkit-box; font-size: .84rem; -webkit-box-orient: vertical; -webkit-line-clamp: 2; line-height: 1.25; margin: 0 0 7px; min-height: 2.1em; overflow: hidden; }
+  .product-meta { align-items: flex-start; display: flex; flex-direction: column; font-size: .7rem; gap: 2px; line-height: 1.2; }
+  .qc-badge { font-size: .67rem; }
+  .card-body .text-link { display: block; font-size: .7rem; margin-top: 7px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+}
