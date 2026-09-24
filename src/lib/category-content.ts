@@ -74,6 +74,14 @@ const focusedCategories: Record<string, CategoryContent> = {
 };
 
 export const priorityCategorySlugs = ['t-shirts', 'dresses', 'jackets', 'shoes', 'heels', 'trousers-pants', 'eyewear', 'perfume', 'headwear', 'underwear-swim', 'electronics', 'scarves-ties', 'jewelry-watches', 'socks-hosiery'];
+export const searchCategorySlugs = [...new Set([
+  ...priorityCategorySlugs,
+  'hoodies-sweatshirts', 'sweaters-knits', 'parkas-down-jackets', 'coats', 'blazers',
+  'jeans', 'shorts', 'tracksuits', 'coord-sets',
+  'sneakers', 'boots', 'loafers-flats', 'sandals-slippers',
+  'bags-backpacks', 'belts', 'accessory-others',
+  'audio', 'phone-accessories', 'wearables',
+])];
 
 Object.assign(focusedCategories, {
   't-shirts': { title: 'Oopbuy T-Shirt Spreadsheet', intro: 'Compare T-shirt listings by fit and current option details before ordering.', checklist: ['Compare chest width and length with a shirt you own.', 'Confirm selected colour and print placement.', 'Check current stock and option notes.'], guideSlug: 'oopbuy-size-guide', guideLabel: 'Read the size guide', research: [{ heading: 'Compare measurements before size labels', paragraphs: ['Use chest width and length from a shirt you already wear as the comparison point. A familiar size label can represent a different cut or measuring method.', 'Confirm the exact selected colour and print on the live listing before keeping an item on your shortlist.'] }], qcChecks: ['Confirm the visible size tag and selected colour.', 'Check print placement, seams and visible label details.', 'QC photos do not guarantee fabric feel or fit.'], faq: [{ question: 'What should I measure for a T-shirt?', answer: 'Compare chest width and length with a T-shirt you already own.' }, { question: 'Can QC photos confirm fit?', answer: 'No. Use actual measurements to assess fit.' }, { question: 'Should I trust the card price?', answer: 'Confirm the exact selected option on the live listing.' }] },

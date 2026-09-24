@@ -1,10 +1,12 @@
 ---
 import type { Product } from '../lib/catalog';
-import { displayPrice, maisonProductUrl } from '../lib/catalog';
+import { displayPrice, findPageUrl, maisonProductUrl } from '../lib/catalog';
 const { product, hideMissingQc = false, placement = 'product_card' } = Astro.props as { product: Product; hideMissingQc?: boolean; placement?: string };
 const image = product.images?.[0];
+const hasInternalResearchPage = product.qcPhotoCount > 0 && Boolean(product.description) && Boolean(image);
+const destination = hasInternalResearchPage ? findPageUrl(product) : maisonProductUrl(product.slug, placement);
 ---
-<a class:list={['product-card', { 'product-card-qc': Boolean(product.qcPhotoCount), 'product-card-no-qc': !product.qcPhotoCount }]} href={maisonProductUrl(product.slug, placement)} target="_blank" rel="sponsored noopener noreferrer" aria-label={`Open current listing for ${product.title}`}>
+<a class:list={['product-card', { 'product-card-qc': Boolean(product.qcPhotoCount), 'product-card-no-qc': !product.qcPhotoCount }]} href={destination} target={hasInternalResearchPage ? undefined : '_blank'} rel={hasInternalResearchPage ? undefined : 'sponsored noopener noreferrer'} aria-label={hasInternalResearchPage ? `Research ${product.title}` : `Open current listing for ${product.title}`}>
   <div class="product-media">
     {image && <img src={image} alt={product.title} loading="lazy" width="420" height="420" />}
     {product.qcPhotoCount ? <span class="qc-overlay">QC · {product.qcPhotoCount}</span> : !hideMissingQc && <span class="qc-overlay qc-overlay-empty">No QC</span>}
@@ -13,6 +15,6 @@ const image = product.images?.[0];
     <p class="eyebrow">{product.brand || 'Curated find'}</p>
     <h3>{product.title}</h3>
     <div class="product-meta"><span>{displayPrice(product)}</span>{product.qcPhotoCount ? <span class="qc-badge has-qc">{product.qcPhotoCount} QC photos</span> : !hideMissingQc && <span class="qc-badge">No QC photos</span>}</div>
-    <span class="text-link">{product.qcPhotoCount ? 'Open find + QC →' : 'Open live listing →'}</span>
+    <span class="text-link">{hasInternalResearchPage ? 'View price + QC details →' : 'Open live listing →'}</span>
   </div>
 </a>

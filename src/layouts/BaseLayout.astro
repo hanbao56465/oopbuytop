@@ -6,9 +6,10 @@ import LanguageMenu from '../components/LanguageMenu.astro';
 import Analytics from '../components/Analytics.astro';
 import ConsentBanner from '../components/ConsentBanner.astro';
 import { trackedOutboundUrl } from '../lib/outbound';
-interface Props { title: string; description: string; canonical?: string; noindex?: boolean }
-const { title, description, canonical, noindex = false } = Astro.props;
+interface Props { title: string; description: string; canonical?: string; noindex?: boolean; image?: string }
+const { title, description, canonical, noindex = false, image } = Astro.props;
 const url = canonical ?? new URL(Astro.url.pathname, Astro.site).href;
+const socialImage = new URL(image ?? '/warehouse-mascot.png', Astro.site).href;
 const gaMeasurementId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID?.trim();
 ---
 <!doctype html>
@@ -20,13 +21,23 @@ const gaMeasurementId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID?.trim();
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={url} />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="OopbuyTop" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={url} />
+    <meta property="og:image" content={socialImage} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={socialImage} />
     {noindex && <meta name="robots" content="noindex,follow" />}
     {gaMeasurementId && <Analytics measurementId={gaMeasurementId} />}
   </head>
   <body>
-    <header class="site-header"><a class="brand" href="/"><img src="/oopbuy-logo.png" alt="Oopbuy" /></a><nav aria-label="Primary"><a href="/">Home</a><a href="/categories/">Categories</a><a href="/oopbuy-spreadsheet/">Oopbuy spreadsheet</a><a href="/guides/oopbuy-qc-photos/">QC photos</a><a href="/buyer-shares/">Buyer shares</a><a href="/blog/">Blog</a></nav><div class="header-actions"><LanguageMenu /><a class="header-cta" href={trackedOutboundUrl('https://maisonlooks.com', 'header_cta')} target="_blank" rel="sponsored noopener noreferrer">Browse finds ↗</a></div></header>
+    <header class="site-header"><a class="brand" href="/"><img src="/oopbuy-logo.png" alt="OopbuyTop" /></a><nav aria-label="Primary"><a href="/">Spreadsheet</a><a href="/finds/">QC finds</a><a href="/categories/">Categories</a><a href="/oopbuy-spreadsheet/">How it works</a><a href="/guides/oopbuy-qc-photos/">QC guide</a><a href="/blog/">Blog</a></nav><div class="header-actions"><LanguageMenu /><a class="header-cta" href="/finds/">Search finds</a></div></header>
     <main><slot /></main>
     {gaMeasurementId && <ConsentBanner />}
-    <footer class="site-footer"><div class="footer-grid"><div><h2>Customer Service</h2><a href="/about/">About & disclosure</a><a href="/guides/">Buyer guides</a></div><div><h2>Oopbuy Spreadsheet</h2><a href="/oopbuy-spreadsheet/">Spreadsheet workflow</a><a href="/categories/">Browse categories</a><a href="/guides/oopbuy-spreadsheet-categories/">Category guide</a></div><div><h2>QC & Research</h2><a href="/guides/oopbuy-qc-photos/">Oopbuy QC photos</a><a href="/guides/oopbuy-qc-photos/#qc-finds">Finds with QC</a><a href="/guides/oopbuy-spreadsheet-categories/">Verify current listings</a></div><div><h2>Delivery</h2><a href="/guides/oopbuy-shipping-guide/">Shipping guide</a><a href="/oopbuy-spreadsheet/">Before ordering</a></div><div><h2>Current Finds</h2><a href={trackedOutboundUrl('https://maisonlooks.com', 'footer_cta')} target="_blank" rel="sponsored noopener noreferrer">Browse live listings ↗</a><a href="/categories/">All discovery categories</a></div></div><div class="footer-bottom"><span>© 2026 OopbuyTop · Independent discovery resource</span><a href="/about/">Disclosure</a><a href="/guides/">Guides</a></div></footer>
+    <footer class="site-footer"><div class="footer-grid"><div><h2>About</h2><a href="/about/">About & disclosure</a><a href="/guides/">Buyer guides</a></div><div><h2>Oopbuy Spreadsheet</h2><a href="/">Search the spreadsheet</a><a href="/finds/">Finds with QC references</a><a href="/categories/">Browse categories</a></div><div><h2>QC & Research</h2><a href="/guides/oopbuy-qc-photos/">Oopbuy QC photos</a><a href="/oopbuy-spreadsheet/">How to use the spreadsheet</a><a href="/guides/oopbuy-spreadsheet-categories/">Category guide</a></div><div><h2>Planning</h2><a href="/guides/oopbuy-size-guide/">Size guide</a><a href="/guides/oopbuy-shipping-guide/">Shipping guide</a></div><div><h2>Current Listings</h2><a href={trackedOutboundUrl('https://maisonlooks.com', 'footer_cta')} target="_blank" rel="sponsored noopener noreferrer">Check live listings ↗</a><a href="/buyer-shares/">Community research</a></div></div><div class="footer-bottom"><span>© 2026 OopbuyTop · Independent discovery resource</span><a href="/about/">Disclosure</a><a href="/guides/">Guides</a></div></footer>
   </body>
 </html>

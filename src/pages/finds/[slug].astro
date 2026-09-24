@@ -1,0 +1,101 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import ProductCard from '../../components/ProductCard.astro';
+import {
+  categoryName,
+  displayPrice,
+  formatProductUpdatedAt,
+  maisonProductUrl,
+  qcCatalogProducts,
+} from '../../lib/catalog';
+
+export function getStaticPaths() {
+  return qcCatalogProducts.map((product) => ({ params: { slug: product.slug }, props: { product } }));
+}
+
+const { product } = Astro.props;
+const productCategory = categoryName(product.category);
+const checkedAt = formatProductUpdatedAt(product);
+const relatedCandidates = qcCatalogProducts.filter((candidate) => candidate.slug !== product.slug);
+const related = [
+  ...relatedCandidates.filter((candidate) => candidate.category === product.category),
+  ...relatedCandidates.filter((candidate) => candidate.category !== product.category && candidate.brand && candidate.brand === product.brand),
+  ...relatedCandidates,
+].filter((candidate, index, items) => items.findIndex((item) => item.slug === candidate.slug) === index).slice(0, 5);
+const metaDescription = `${product.title} Oopbuy spreadsheet research page with ${product.qcPhotoCount} warehouse QC-photo references, ${displayPrice(product)} price context and current-listing checks.`;
+const pageUrl = `https://oopbuytop.net/finds/${product.slug}/`;
+const pageSchema = JSON.stringify({
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'WebPage',
+      name: `${product.title} Oopbuy Find`,
+      url: pageUrl,
+      description: metaDescription,
+      dateModified: product.updatedAt,
+      primaryImageOfPage: product.images?.[0] ? { '@type': 'ImageObject', url: product.images[0] } : undefined,
+    },
+    {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://oopbuytop.net/' },
+        { '@type': 'ListItem', position: 2, name: 'Oopbuy finds', item: 'https://oopbuytop.net/finds/' },
+        { '@type': 'ListItem', position: 3, name: product.title, item: pageUrl },
+      ],
+    },
+  ],
+});
+---
+<BaseLayout
+  title={`${product.title} Oopbuy Find: Price & QC Photos | OopbuyTop`}
+  description={metaDescription}
+  image={product.images?.[0]}
+>
+  <Breadcrumbs items={[{ label: 'Oopbuy finds', href: '/finds/' }, { label: product.title }]} />
+  <article class="find-detail">
+    <div class="find-detail-media">
+      {product.images?.[0] && <img src={product.images[0]} alt={product.title} width="760" height="760" loading="eager" />}
+      <span>{product.qcPhotoCount} warehouse QC photo{product.qcPhotoCount === 1 ? '' : 's'} referenced</span>
+    </div>
+    <div class="find-detail-copy">
+      <p class="eyebrow">{productCategory} Oopbuy spreadsheet find</p>
+      <h1>{product.title}</h1>
+      <p class="find-detail-deck">Research this listing with the available snapshot details, then confirm the exact live option, price and availability before ordering.</p>
+      <dl class="find-facts">
+        <div><dt>Brand label</dt><dd>{product.brand || 'Not specified'}</dd></div>
+        <div><dt>Price context</dt><dd>{displayPrice(product)}</dd></div>
+        <div><dt>QC references</dt><dd>{product.qcPhotoCount}</dd></div>
+        <div><dt>Snapshot updated</dt><dd>{checkedAt}</dd></div>
+      </dl>
+      <a class="button button-hot" href={maisonProductUrl(product.slug, 'find_detail_primary')} target="_blank" rel="sponsored noopener noreferrer">Check the current listing ↗</a>
+      <p class="find-detail-disclosure">The displayed price is snapshot context and may refer to a different variant. OopbuyTop does not sell this item or guarantee stock, quality, authenticity, fit or final cost.</p>
+    </div>
+  </article>
+
+  <section class="find-detail-content">
+    <div>
+      <p class="eyebrow">Listing summary</p>
+      <h2>What the current snapshot says</h2>
+      <p>{product.description}</p>
+      <p>This entry was grouped under <a href={`/category/${product.category}/`}>{productCategory}</a>. Use the category page to compare it with similar finds instead of relying on one cover image or price.</p>
+    </div>
+    <aside>
+      <p class="eyebrow">Before ordering</p>
+      <h2>Verify these details</h2>
+      <ol>
+        <li>Match the exact title, image and selected option on the live listing.</li>
+        <li>Confirm the current price, size or configuration and availability.</li>
+        <li>Compare every available warehouse QC angle with the order record.</li>
+        <li>Use current checkout information for shipping and destination restrictions.</li>
+      </ol>
+      <a class="text-link" href="/guides/oopbuy-qc-photos/">Open the QC photo checklist →</a>
+    </aside>
+  </section>
+
+  <section class="find-related">
+    <div class="section-heading"><div><p class="eyebrow">Compare before choosing</p><h2>Related Oopbuy spreadsheet finds</h2></div><a class="section-link" href="/finds/">Search all QC-reference finds →</a></div>
+    <div class="product-grid">{related.map((item) => <ProductCard product={item} placement="find_detail_related" />)}</div>
+  </section>
+  <script type="application/ld+json" set:html={pageSchema} />
+</BaseLayout>

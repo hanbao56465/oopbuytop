@@ -9,6 +9,13 @@ export type Product = { slug: string; title: string; description: string | null;
 export const catalogCategories = categories as Category[];
 export const catalogProducts = (products as Product[]).filter((product) => product.brand !== 'Louis Vuitton');
 export const catalogMeta = meta as { fetchedAt: string; categoryCount: number; productCount: number; outfitCount: number };
+export const qcCatalogProducts = catalogProducts.filter((product) => (
+  product.qcPhotoCount > 0
+  && Boolean(product.slug)
+  && Boolean(product.title)
+  && Boolean(product.description)
+  && Boolean(product.images?.length)
+));
 
 export function formatCatalogCheckedAt(locale = 'en-US') {
   const date = new Date(catalogMeta.fetchedAt);
@@ -38,13 +45,34 @@ export function maisonCategoryUrl(slug: string, placement = 'category_live') {
   return trackedOutboundUrl(`https://maisonlooks.com/c/${encodeURIComponent(slug)}`, placement);
 }
 
+export function formatProductUpdatedAt(product: Product, locale = 'en-US') {
+  const date = new Date(product.updatedAt);
+  if (Number.isNaN(date.getTime())) return formatCatalogCheckedAt(locale);
+  return new Intl.DateTimeFormat(locale, { month: 'long', day: 'numeric', year: 'numeric' }).format(date);
+}
+
+export function categoryName(slug: string | null) {
+  if (!slug) return 'Oopbuy finds';
+  return catalogCategories.find((category) => category.slug === slug)?.name ?? slug.replaceAll('-', ' ');
+}
+
+export function findPageUrl(product: Product) {
+  return `/finds/${product.slug}/`;
+}
+
 export function maisonProductUrl(slug: string, placement = 'product_card') {
   return trackedOutboundUrl(`https://maisonlooks.com/en/p/${encodeURIComponent(slug)}`, placement);
 }
 
 export function displayPrice(product: Product) {
-  if (product.priceUsdEstimate) return `~$${product.priceUsdEstimate[0]}–$${product.priceUsdEstimate[1]}`;
+  if (product.priceUsdEstimate) {
+    const [minimum, maximum] = product.priceUsdEstimate;
+    return minimum === maximum ? `~$${minimum}` : `~$${minimum}–$${maximum}`;
+  }
   if (product.priceCny) return `¥${product.priceCny}`;
-  if (product.priceCnyRange) return `¥${product.priceCnyRange[0]}–¥${product.priceCnyRange[1]}`;
+  if (product.priceCnyRange) {
+    const [minimum, maximum] = product.priceCnyRange;
+    return minimum === maximum ? `¥${minimum}` : `¥${minimum}–¥${maximum}`;
+  }
   return 'See current price';
 }

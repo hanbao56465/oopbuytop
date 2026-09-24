@@ -4,7 +4,7 @@ Astro static site for Oopbuy spreadsheet category guides and product discovery.
 
 **Live resource:** [oopbuytop.net](https://oopbuytop.net/)
 
-The site's primary editorial resource is the [Oopbuy spreadsheet guide](https://oopbuytop.net/oopbuy-spreadsheet/). It explains how the category catalogue, current-listing checks and warehouse QC-photo indicators are intended to be used. This repository contains the static-site source, catalogue-refresh workflow and deployment configuration for that public resource.
+The site's primary discovery resource is the searchable [Oopbuy spreadsheet](https://oopbuytop.net/), supported by a focused [QC-reference finds directory](https://oopbuytop.net/finds/) and the [how-to guide](https://oopbuytop.net/oopbuy-spreadsheet/). The catalog build generates individual research pages only for entries that have current descriptive data, an image and a non-zero warehouse QC-photo count. This repository contains the static-site source, catalogue-refresh workflow and deployment configuration for those public resources.
 
 ## Editorial scope
 
