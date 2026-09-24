@@ -339,7 +339,7 @@ footer { border-color: var(--rule); color: #746c74; }
 .country-guide-panel { align-items: center; background: #211b20; border-radius: 18px; color: #fff; display: grid; gap: 42px; grid-template-columns: 1.25fr 1fr; margin-top: 66px; padding: 36px; }
 .country-guide-panel h2 { font-size: clamp(1.75rem, 3vw, 2.55rem); letter-spacing: -.05em; line-height: 1.06; margin: 0; }
 .country-guide-panel p:not(.eyebrow) { color: #d8cfd5; line-height: 1.6; max-width: 620px; }
-.country-guide-links { display: grid; gap: 10px; }
+.country-guide-links { display: grid; gap: 10px; grid-template-columns: repeat(2, minmax(0, 1fr)); }
 .country-guide-links a { background: #32272d; border: 1px solid #5a414d; border-radius: 12px; color: #fff; padding: 16px; text-decoration: none; }
 .country-guide-links a:hover { border-color: #ff5798; }
 .country-guide-links strong, .country-guide-links span { display: block; }
@@ -386,4 +386,4 @@ footer { border-color: var(--rule); color: #746c74; }
 .priority-find-content > * { min-width: 0; }
 @media (max-width: 1180px) { .locale-hero { margin-left: -24px; margin-right: -24px; } }
 @media (max-width: 800px) { .country-guide-panel, .locale-hero, .priority-find-content { grid-template-columns: minmax(0, 1fr); } .locale-content-grid { grid-template-columns: 1fr; } .priority-find-content aside { border-left: 0; border-top: 1px solid #59424d; padding-left: 0; padding-top: 24px; } }
-@media (max-width: 640px) { .country-guide-panel { padding: 26px 20px; } .locale-hero { padding: 52px 24px 44px; } .locale-proof { grid-template-columns: 1fr; } .locale-category-links { align-items: start; grid-template-columns: 1fr; } .locale-faq, .priority-find-faq, .priority-find-content { padding: 26px 20px; } }
+@media (max-width: 640px) { .country-guide-panel { padding: 26px 20px; } .country-guide-links { grid-template-columns: 1fr; } .locale-hero { padding: 52px 24px 44px; } .locale-proof { grid-template-columns: 1fr; } .locale-category-links { align-items: start; grid-template-columns: 1fr; } .locale-faq, .priority-find-faq, .priority-find-content { padding: 26px 20px; } }

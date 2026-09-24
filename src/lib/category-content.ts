@@ -76,7 +76,7 @@ const focusedCategories: Record<string, CategoryContent> = {
 export const priorityCategorySlugs = ['t-shirts', 'dresses', 'jackets', 'shoes', 'heels', 'trousers-pants', 'eyewear', 'perfume', 'headwear', 'underwear-swim', 'electronics', 'scarves-ties', 'jewelry-watches', 'socks-hosiery'];
 export const searchCategorySlugs = [...new Set([
   ...priorityCategorySlugs,
-  'hoodies-sweatshirts', 'sweaters-knits', 'parkas-down-jackets', 'coats', 'blazers',
+  'hoodies-sweatshirts', 'sweaters-knits', 'shirts-blouses', 'parkas-down-jackets', 'coats', 'blazers',
   'jeans', 'shorts', 'tracksuits', 'coord-sets',
   'sneakers', 'boots', 'loafers-flats', 'sandals-slippers',
   'bags-backpacks', 'belts', 'accessory-others',

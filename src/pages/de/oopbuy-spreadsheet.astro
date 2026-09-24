@@ -3,6 +3,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import ProductCard from '../../components/ProductCard.astro';
 import { catalogMeta, formatCatalogCheckedAt, qcCatalogProducts } from '../../lib/catalog';
 import { priorityFindProducts } from '../../lib/find-content';
+import { countryAlternates } from '../../lib/country-seo';
 
 const focusProducts: typeof priorityFindProducts = [];
 for (const category of ['perfume', 'sneakers', 'hoodies-sweatshirts', 'jackets', 'loafers-flats', 'belts', 'boots']) {
@@ -15,12 +16,6 @@ for (const product of priorityFindProducts) {
   if (!focusProducts.some((selected) => selected.slug === product.slug)) focusProducts.push(product);
 }
 const canonical = 'https://oopbuytop.net/de/oopbuy-spreadsheet/';
-const alternates = [
-  { hreflang: 'x-default', href: 'https://oopbuytop.net/' },
-  { hreflang: 'en', href: 'https://oopbuytop.net/' },
-  { hreflang: 'de-DE', href: canonical },
-  { hreflang: 'en-GB', href: 'https://oopbuytop.net/uk/oopbuy-spreadsheet/' },
-];
 const faq = [
   { question: 'Ist diese Oopbuy Spreadsheet speziell für Deutschland?', answer: 'Diese Seite bündelt deutschsprachige Recherchehinweise und passende Kategorien. Preise, Versandwege, Einfuhrabgaben und Verfügbarkeit müssen immer im aktuellen Checkout für das eigene Ziel geprüft werden.' },
   { question: 'Sind die Preise bereits in Euro und inklusive Versand?', answer: 'Nein. Die angezeigten Produktpreise sind Momentaufnahmen und keine Endpreise. Währungskurs, gewählte Variante, Versand, Versicherung und mögliche Abgaben können den Gesamtbetrag verändern.' },
@@ -42,7 +37,7 @@ const schema = JSON.stringify({
   title="Oopbuy Spreadsheet Deutschland 2026: Funde, Preise & QC"
   description={`Oopbuy Spreadsheet Deutschland mit ${catalogMeta.productCount.toLocaleString('de-DE')} Katalogeinträgen, ${qcCatalogProducts.length} QC-Fundstücken, Preis-Kontext sowie Größen- und Versandchecks.`}
   canonical={canonical}
-  alternates={alternates}
+  alternates={countryAlternates}
 >
   <nav class="locale-breadcrumbs" aria-label="Brotkrümelnavigation"><a href="/">Oopbuy Spreadsheet</a><span>›</span><span>Deutschland</span></nav>
   <section class="locale-hero locale-hero-de">

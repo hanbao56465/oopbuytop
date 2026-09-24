@@ -1,0 +1,54 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ProductCard from '../../components/ProductCard.astro';
+import { catalogMeta, formatCatalogCheckedAt, qcCatalogProducts } from '../../lib/catalog';
+import { countryAlternates, countryLandingConfigs } from '../../lib/country-seo';
+import { priorityFindProducts } from '../../lib/find-content';
+
+export function getStaticPaths() {
+  return countryLandingConfigs.map((config) => ({ params: { country: config.slug }, props: { config } }));
+}
+
+const { config } = Astro.props;
+const focusProducts: typeof priorityFindProducts = [];
+for (const category of config.focusCategories) {
+  const product = priorityFindProducts.find((item) => item.category === category && !focusProducts.some((selected) => selected.slug === item.slug));
+  if (product) focusProducts.push(product);
+  if (focusProducts.length >= 6) break;
+}
+for (const product of priorityFindProducts) {
+  if (focusProducts.length >= 6) break;
+  if (!focusProducts.some((selected) => selected.slug === product.slug)) focusProducts.push(product);
+}
+const canonical = `https://oopbuytop.net/${config.slug}/oopbuy-spreadsheet/`;
+const isFrench = config.lang === 'fr-FR';
+const description = `${config.descriptionLead} avec ${catalogMeta.productCount.toLocaleString(config.locale)} fiches catalogue, ${qcCatalogProducts.length} trouvailles avec références QC, prix et vérifications de taille et de colis.`;
+const englishDescription = `${config.descriptionLead} with ${catalogMeta.productCount.toLocaleString(config.locale)} catalogue records, ${qcCatalogProducts.length} QC-reference finds, price, sizing and parcel checks.`;
+const schema = JSON.stringify({
+  '@context': 'https://schema.org',
+  '@graph': [
+    { '@type': 'WebPage', name: config.title, url: canonical, inLanguage: config.lang, description: isFrench ? description : englishDescription, dateModified: catalogMeta.fetchedAt },
+    { '@type': 'BreadcrumbList', itemListElement: [{ '@type': 'ListItem', position: 1, name: 'Oopbuy Spreadsheet', item: 'https://oopbuytop.net/' }, { '@type': 'ListItem', position: 2, name: config.country, item: canonical }] },
+    { '@type': 'ItemList', name: `${config.country} Oopbuy spreadsheet research finds`, numberOfItems: focusProducts.length, itemListElement: focusProducts.map((product, index) => ({ '@type': 'ListItem', position: index + 1, name: product.title, url: `https://oopbuytop.net/finds/${product.slug}/` })) },
+    { '@type': 'FAQPage', mainEntity: config.faq.map((item) => ({ '@type': 'Question', name: item.question, acceptedAnswer: { '@type': 'Answer', text: item.answer } })) },
+  ],
+});
+---
+<BaseLayout lang={config.lang} title={config.title} description={isFrench ? description : englishDescription} canonical={canonical} alternates={countryAlternates}>
+  <nav class="locale-breadcrumbs" aria-label={isFrench ? 'Fil d’Ariane' : 'Breadcrumb'}><a href="/">Oopbuy Spreadsheet</a><span>›</span><span>{config.country}</span></nav>
+  <section class="locale-hero">
+    <div><p class="eyebrow">{config.country} · {isFrench ? 'catalogue vérifié le' : 'catalogue checked'} {formatCatalogCheckedAt(config.locale)}</p><h1>Oopbuy Spreadsheet {config.shortCountry}:<br /><em>{config.heroLead}</em></h1><p>{config.intro}</p><div class="locale-actions"><a class="button button-hot" href="/finds/">{isFrench ? 'Rechercher les trouvailles QC' : 'Search QC-reference finds'} →</a><a class="text-link" href={`/category/${config.categorySlugs[0]}/`}>{isFrench ? 'Voir une catégorie populaire' : 'Browse a popular category'}</a></div></div>
+    <aside><strong>{config.checklistTitle}</strong><ul>{config.checklist.map((item) => <li>{item}</li>)}</ul></aside>
+  </section>
+
+  <section class="locale-proof" aria-label={isFrench ? 'Données du catalogue' : 'Catalogue facts'}><article><strong>{catalogMeta.productCount.toLocaleString(config.locale)}</strong><span>{isFrench ? 'FICHES CATALOGUE' : 'CATALOGUE RECORDS'}</span></article><article><strong>{qcCatalogProducts.length}</strong><span>{isFrench ? 'FICHES AVEC RÉFÉRENCES QC' : 'QC-REFERENCE PAGES'}</span></article><article><strong>{config.symbol}</strong><span>{isFrench ? 'TOTAL À VÉRIFIER EN DIRECT' : `${config.currency} TOTAL CHECKED LIVE`}</span></article></section>
+
+  <section class="locale-content-grid">{config.steps.map((step, index) => <article><p class="eyebrow">{isFrench ? 'Étape' : 'Step'} {index + 1}</p><h2>{step.title}</h2><p>{step.text}</p>{index === 1 && <a class="text-link" href="/guides/oopbuy-size-guide/">{isFrench ? 'Ouvrir la checklist des tailles' : 'Open the sizing checklist'} →</a>}{index === 2 && <a class="text-link" href="/guides/oopbuy-shipping-guide/">{isFrench ? 'Ouvrir la checklist du colis' : 'Open the shipping checklist'} →</a>}</article>)}</section>
+
+  <section class="locale-category-links"><div><p class="eyebrow">{isFrench ? 'Points de départ' : 'Popular starting points'}</p><h2>{isFrench ? 'Catégories Oopbuy Spreadsheet' : 'Browse Oopbuy spreadsheet categories'}</h2></div><div>{config.categorySlugs.map((slug, index) => <a href={`/category/${slug}/`}>{config.categoryLabels[index]}</a>)}</div></section>
+
+  <section class="finds-section"><div class="section-heading"><div><p class="eyebrow">{isFrench ? 'Fiches ciblées' : 'Focused research pages'}</p><h2>{isFrench ? 'Trouvailles avec références QC' : 'Finds with current QC references'}</h2><p class="section-intro">{isFrench ? 'Chaque carte ouvre d’abord une fiche de recherche interne.' : 'Each card opens an internal research page before any external listing.'}</p></div><a class="section-link" href="/finds/">{isFrench ? 'Toutes les trouvailles QC' : 'All QC-reference finds'} →</a></div><div class="product-grid">{focusProducts.map((product) => <ProductCard product={product} placement={`${config.slug}_spreadsheet`} />)}</div></section>
+
+  <section class="locale-faq"><p class="eyebrow">{isFrench ? 'Questions fréquentes' : 'Common questions'}</p><h2>{config.faqHeading}</h2>{config.faq.map((item) => <details><summary>{item.question}</summary><p>{item.answer}</p></details>)}</section>
+  <script type="application/ld+json" set:html={schema} />
+</BaseLayout>

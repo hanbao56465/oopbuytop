@@ -3,6 +3,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import ProductCard from '../../components/ProductCard.astro';
 import { catalogMeta, formatCatalogCheckedAt, qcCatalogProducts } from '../../lib/catalog';
 import { priorityFindProducts } from '../../lib/find-content';
+import { countryAlternates } from '../../lib/country-seo';
 
 const focusProducts: typeof priorityFindProducts = [];
 for (const category of ['sneakers', 'hoodies-sweatshirts', 'jackets', 't-shirts', 'sandals-slippers', 'audio', 'tracksuits']) {
@@ -15,12 +16,6 @@ for (const product of priorityFindProducts) {
   if (!focusProducts.some((selected) => selected.slug === product.slug)) focusProducts.push(product);
 }
 const canonical = 'https://oopbuytop.net/uk/oopbuy-spreadsheet/';
-const alternates = [
-  { hreflang: 'x-default', href: 'https://oopbuytop.net/' },
-  { hreflang: 'en', href: 'https://oopbuytop.net/' },
-  { hreflang: 'de-DE', href: 'https://oopbuytop.net/de/oopbuy-spreadsheet/' },
-  { hreflang: 'en-GB', href: canonical },
-];
 const faq = [
   { question: 'Is this Oopbuy spreadsheet made for UK shoppers?', answer: 'This page adds UK-focused currency, sizing and parcel checks to the main research catalogue. Current checkout, carrier and import information still needs to be checked for the exact destination.' },
   { question: 'Are the displayed prices in pounds and delivered?', answer: 'No. Card prices are product snapshots, usually shown as an approximate US-dollar context. Exchange rates, selected options, services, shipping and possible import costs are separate.' },
@@ -42,7 +37,7 @@ const schema = JSON.stringify({
   title="Oopbuy Spreadsheet UK 2026: Finds, Prices & QC Photos"
   description={`UK Oopbuy spreadsheet with ${catalogMeta.productCount.toLocaleString('en-GB')} catalogue records, ${qcCatalogProducts.length} QC-reference finds, price context, sizing and parcel checks.`}
   canonical={canonical}
-  alternates={alternates}
+  alternates={countryAlternates}
 >
   <nav class="locale-breadcrumbs" aria-label="Breadcrumb"><a href="/">Oopbuy Spreadsheet</a><span>›</span><span>United Kingdom</span></nav>
   <section class="locale-hero locale-hero-uk">
