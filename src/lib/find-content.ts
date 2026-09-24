@@ -193,7 +193,7 @@ export const priorityFindProducts = selectedPriorityProducts;
 
 function generatedPriorityContent(product: Product): PriorityFindContent {
   const category = categoryName(product.category);
-  const compactTitle = product.title.split(/\s+/).slice(0, 7).join(' ');
+  const compactTitle = product.title.split(/\s+/).slice(0, 5).join(' ');
   const footwear = new Set(['shoes', 'sneakers', 'boots', 'loafers-flats', 'sandals-slippers']).has(product.category ?? '');
   const apparel = new Set(['hoodies-sweatshirts', 'jackets', 't-shirts', 'shirts-blouses', 'shorts', 'jeans', 'trousers-pants', 'tracksuits', 'sweaters-knits', 'parkas-down-jackets', 'coord-sets']).has(product.category ?? '');
   const fragrance = product.category === 'perfume';
