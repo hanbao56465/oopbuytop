@@ -1,0 +1,67 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ProductCard from '../../components/ProductCard.astro';
+import { catalogMeta, formatCatalogCheckedAt, qcCatalogProducts } from '../../lib/catalog';
+import { priorityFindProducts } from '../../lib/find-content';
+
+const focusProducts: typeof priorityFindProducts = [];
+for (const category of ['sneakers', 'hoodies-sweatshirts', 'jackets', 't-shirts', 'sandals-slippers', 'audio', 'tracksuits']) {
+  const product = priorityFindProducts.find((item) => item.category === category && !focusProducts.some((selected) => selected.slug === item.slug));
+  if (product) focusProducts.push(product);
+  if (focusProducts.length >= 6) break;
+}
+for (const product of priorityFindProducts) {
+  if (focusProducts.length >= 6) break;
+  if (!focusProducts.some((selected) => selected.slug === product.slug)) focusProducts.push(product);
+}
+const canonical = 'https://oopbuytop.net/uk/oopbuy-spreadsheet/';
+const alternates = [
+  { hreflang: 'x-default', href: 'https://oopbuytop.net/' },
+  { hreflang: 'en', href: 'https://oopbuytop.net/' },
+  { hreflang: 'de-DE', href: 'https://oopbuytop.net/de/oopbuy-spreadsheet/' },
+  { hreflang: 'en-GB', href: canonical },
+];
+const faq = [
+  { question: 'Is this Oopbuy spreadsheet made for UK shoppers?', answer: 'This page adds UK-focused currency, sizing and parcel checks to the main research catalogue. Current checkout, carrier and import information still needs to be checked for the exact destination.' },
+  { question: 'Are the displayed prices in pounds and delivered?', answer: 'No. Card prices are product snapshots, usually shown as an approximate US-dollar context. Exchange rates, selected options, services, shipping and possible import costs are separate.' },
+  { question: 'Should I convert a UK size directly from the product label?', answer: 'No. Use the current seller measurements and compare them with an item you own. Generic international labels are not a reliable fit check.' },
+  { question: 'Do warehouse QC photos guarantee quality?', answer: 'No. They can help identify visible order mismatches, but do not guarantee quality, authenticity, functionality, fit or durability.' },
+];
+const schema = JSON.stringify({
+  '@context': 'https://schema.org',
+  '@graph': [
+    { '@type': 'WebPage', name: 'Oopbuy Spreadsheet UK 2026', url: canonical, inLanguage: 'en-GB', description: `UK-focused Oopbuy spreadsheet guide with ${catalogMeta.productCount.toLocaleString('en-GB')} catalogue records and ${qcCatalogProducts.length} selected QC-reference finds.`, dateModified: catalogMeta.fetchedAt },
+    { '@type': 'BreadcrumbList', itemListElement: [{ '@type': 'ListItem', position: 1, name: 'Oopbuy Spreadsheet', item: 'https://oopbuytop.net/' }, { '@type': 'ListItem', position: 2, name: 'United Kingdom', item: canonical }] },
+    { '@type': 'ItemList', name: 'Oopbuy finds for UK research', numberOfItems: focusProducts.length, itemListElement: focusProducts.map((product, index) => ({ '@type': 'ListItem', position: index + 1, name: product?.title, url: `https://oopbuytop.net/finds/${product?.slug}/` })) },
+    { '@type': 'FAQPage', mainEntity: faq.map((item) => ({ '@type': 'Question', name: item.question, acceptedAnswer: { '@type': 'Answer', text: item.answer } })) },
+  ],
+});
+---
+<BaseLayout
+  lang="en-GB"
+  title="Oopbuy Spreadsheet UK 2026: Finds, Prices & QC Photos"
+  description={`UK Oopbuy spreadsheet with ${catalogMeta.productCount.toLocaleString('en-GB')} catalogue records, ${qcCatalogProducts.length} QC-reference finds, price context, sizing and parcel checks.`}
+  canonical={canonical}
+  alternates={alternates}
+>
+  <nav class="locale-breadcrumbs" aria-label="Breadcrumb"><a href="/">Oopbuy Spreadsheet</a><span>›</span><span>United Kingdom</span></nav>
+  <section class="locale-hero locale-hero-uk">
+    <div><p class="eyebrow">United Kingdom · catalogue checked {formatCatalogCheckedAt('en-GB')}</p><h1>Oopbuy Spreadsheet UK:<br /><em>finds with price and QC context</em></h1><p>Research {catalogMeta.productCount.toLocaleString('en-GB')} catalogue records by product or category. Start with {qcCatalogProducts.length} focused finds that currently report warehouse-photo references, then verify the live option before making a decision.</p><div class="locale-actions"><a class="button button-hot" href="/finds/">Search QC-reference finds →</a><a class="text-link" href="/category/hoodies-sweatshirts/">Browse hoodie finds</a></div></div>
+    <aside><strong>UK checklist</strong><ul><li>Do not treat a card price as a delivered GBP total.</li><li>Compare actual garment or internal shoe measurements.</li><li>Check current carrier and import information for your address.</li></ul></aside>
+  </section>
+
+  <section class="locale-proof" aria-label="Catalogue facts"><article><strong>{catalogMeta.productCount.toLocaleString('en-GB')}</strong><span>CATALOGUE RECORDS</span></article><article><strong>{qcCatalogProducts.length}</strong><span>QC-REFERENCE PAGES</span></article><article><strong>£</strong><span>FINAL COST CHECKED LIVE</span></article></section>
+
+  <section class="locale-content-grid">
+    <article><p class="eyebrow">Step 1</p><h2>Use the spreadsheet to make a shortlist</h2><p>Search by product type, brand label or model, then open only a few relevant research pages. Compare the selected live variant, current images and measurements rather than treating a large spreadsheet as a list of recommendations.</p><p>OopbuyTop is an independent discovery resource. It does not sell products or verify stock, quality or authenticity.</p></article>
+    <article><p class="eyebrow">Step 2</p><h2>Translate measurements, not just labels</h2><p>For clothing, compare chest, length, shoulder and sleeve measurements with an item you own. For footwear, use internal or insole length where available. Do not convert a familiar UK label without checking the seller's exact measuring method.</p><a class="text-link" href="/guides/oopbuy-size-guide/">Open the sizing checklist →</a></article>
+    <article><p class="eyebrow">Step 3</p><h2>Separate item price from parcel cost</h2><p>The snapshot price is not a delivered GBP quote. Selected variants, exchange rates, shipping, optional services and possible import charges can change the total. Use current checkout information for the exact UK destination.</p><a class="text-link" href="/guides/oopbuy-shipping-guide/">Open the shipping checklist →</a></article>
+  </section>
+
+  <section class="locale-category-links"><div><p class="eyebrow">Popular starting points</p><h2>Browse Oopbuy spreadsheet categories</h2></div><div><a href="/category/hoodies-sweatshirts/">Hoodies</a><a href="/category/sneakers/">Sneakers</a><a href="/category/shoes/">Shoes</a><a href="/category/jackets/">Jackets</a><a href="/category/t-shirts/">T-shirts</a><a href="/category/electronics/">Electronics</a></div></section>
+
+  <section class="finds-section"><div class="section-heading"><div><p class="eyebrow">Focused research pages</p><h2>Finds with current QC references</h2><p class="section-intro">Each card opens an internal research page before any external listing.</p></div><a class="section-link" href="/finds/">All QC-reference finds →</a></div><div class="product-grid">{focusProducts.map((product) => product && <ProductCard product={product} placement="uk_spreadsheet" />)}</div></section>
+
+  <section class="locale-faq"><p class="eyebrow">Common questions</p><h2>Oopbuy spreadsheet UK checks</h2>{faq.map((item) => <details><summary>{item.question}</summary><p>{item.answer}</p></details>)}</section>
+  <script type="application/ld+json" set:html={schema} />
+</BaseLayout>

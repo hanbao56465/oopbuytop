@@ -6,14 +6,22 @@ import LanguageMenu from '../components/LanguageMenu.astro';
 import Analytics from '../components/Analytics.astro';
 import ConsentBanner from '../components/ConsentBanner.astro';
 import { trackedOutboundUrl } from '../lib/outbound';
-interface Props { title: string; description: string; canonical?: string; noindex?: boolean; image?: string }
-const { title, description, canonical, noindex = false, image } = Astro.props;
+interface Props {
+  title: string;
+  description: string;
+  canonical?: string;
+  noindex?: boolean;
+  image?: string;
+  lang?: string;
+  alternates?: { hreflang: string; href: string }[];
+}
+const { title, description, canonical, noindex = false, image, lang = 'en', alternates = [] } = Astro.props;
 const url = canonical ?? new URL(Astro.url.pathname, Astro.site).href;
 const socialImage = new URL(image ?? '/warehouse-mascot.png', Astro.site).href;
 const gaMeasurementId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID?.trim();
 ---
 <!doctype html>
-<html lang="en">
+<html lang={lang}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -21,6 +29,7 @@ const gaMeasurementId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID?.trim();
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={url} />
+    {alternates.map((alternate) => <link rel="alternate" hreflang={alternate.hreflang} href={alternate.href} />)}
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="OopbuyTop" />
     <meta property="og:title" content={title} />
@@ -38,6 +47,6 @@ const gaMeasurementId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID?.trim();
     <header class="site-header"><a class="brand" href="/"><img src="/oopbuy-logo.png" alt="OopbuyTop" /></a><nav aria-label="Primary"><a href="/">Spreadsheet</a><a href="/finds/">QC finds</a><a href="/categories/">Categories</a><a href="/oopbuy-spreadsheet/">How it works</a><a href="/guides/oopbuy-qc-photos/">QC guide</a><a href="/blog/">Blog</a></nav><div class="header-actions"><LanguageMenu /><a class="header-cta" href="/finds/">Search finds</a></div></header>
     <main><slot /></main>
     {gaMeasurementId && <ConsentBanner />}
-    <footer class="site-footer"><div class="footer-grid"><div><h2>About</h2><a href="/about/">About & disclosure</a><a href="/guides/">Buyer guides</a></div><div><h2>Oopbuy Spreadsheet</h2><a href="/">Search the spreadsheet</a><a href="/finds/">Finds with QC references</a><a href="/categories/">Browse categories</a></div><div><h2>QC & Research</h2><a href="/guides/oopbuy-qc-photos/">Oopbuy QC photos</a><a href="/oopbuy-spreadsheet/">How to use the spreadsheet</a><a href="/guides/oopbuy-spreadsheet-categories/">Category guide</a></div><div><h2>Planning</h2><a href="/guides/oopbuy-size-guide/">Size guide</a><a href="/guides/oopbuy-shipping-guide/">Shipping guide</a></div><div><h2>Current Listings</h2><a href={trackedOutboundUrl('https://maisonlooks.com', 'footer_cta')} target="_blank" rel="sponsored noopener noreferrer">Check live listings ↗</a><a href="/buyer-shares/">Community research</a></div></div><div class="footer-bottom"><span>© 2026 OopbuyTop · Independent discovery resource</span><a href="/about/">Disclosure</a><a href="/guides/">Guides</a></div></footer>
+    <footer class="site-footer"><div class="footer-grid"><div><h2>About</h2><a href="/about/">About & disclosure</a><a href="/guides/">Buyer guides</a></div><div><h2>Oopbuy Spreadsheet</h2><a href="/">Search the spreadsheet</a><a href="/finds/">Finds with QC references</a><a href="/categories/">Browse categories</a></div><div><h2>QC & Research</h2><a href="/guides/oopbuy-qc-photos/">Oopbuy QC photos</a><a href="/oopbuy-spreadsheet/">How to use the spreadsheet</a><a href="/guides/oopbuy-spreadsheet-categories/">Category guide</a></div><div><h2>Country guides</h2><a href="/de/oopbuy-spreadsheet/" lang="de">Deutschland</a><a href="/uk/oopbuy-spreadsheet/" lang="en-GB">United Kingdom</a></div><div><h2>Current Listings</h2><a href={trackedOutboundUrl('https://maisonlooks.com', 'footer_cta')} target="_blank" rel="sponsored noopener noreferrer">Check live listings ↗</a><a href="/buyer-shares/">Community research</a></div></div><div class="footer-bottom"><span>© 2026 OopbuyTop · Independent discovery resource</span><a href="/about/">Disclosure</a><a href="/guides/">Guides</a></div></footer>
   </body>
 </html>
