@@ -6,6 +6,10 @@ Astro static site for Oopbuy spreadsheet category guides and product discovery.
 
 The site's primary discovery resource is the searchable [Oopbuy spreadsheet](https://oopbuytop.net/), supported by a focused [QC-reference finds directory](https://oopbuytop.net/finds/) and the [how-to guide](https://oopbuytop.net/oopbuy-spreadsheet/). The catalog build generates individual research pages only for entries that have current descriptive data, an image and a non-zero warehouse QC-photo count. This repository contains the static-site source, catalogue-refresh workflow and deployment configuration for those public resources.
 
+## Search indexing
+
+All local product detail pages (`/finds/<slug>/`) use `noindex,follow` and are excluded from the XML sitemap. Crawling stays allowed so search engines can read the directive. The `/finds/` directory, homepage, category pages and guides retain their existing indexing settings. This policy applies only to OopbuyTop and does not change Maisonlooks.
+
 ## Editorial scope
 
 OopbuyTop is an independent discovery resource. It does not sell products, verify authenticity, guarantee stock or publish invented reviews. Catalogue cards are build-time snapshots; visitors must verify the current live listing, selected option, price and delivery terms themselves. See the site's [editorial disclosure](https://oopbuytop.net/about/) for the full methodology and update boundaries.

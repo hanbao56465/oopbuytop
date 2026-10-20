@@ -61,6 +61,7 @@ if (priorityContent) {
 const pageSchema = JSON.stringify({ '@context': 'https://schema.org', '@graph': schemaGraph });
 ---
 <BaseLayout
+  noindex={true}
   title={priorityKeyword ? `${priorityKeyword} | OopbuyTop` : `${product.title} Oopbuy Find: Price & QC Photos | OopbuyTop`}
   description={metaDescription}
   image={product.images?.[0]}
