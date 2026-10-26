@@ -42,6 +42,20 @@
     "createdAt": "2026-03-23T11:14:05.408Z"
   },
   {
+    "id": "9kbowm2yga",
+    "resultImage": "https://cdn.maisonlooks.com/tryon/result-1774273032793-671824151.webp",
+    "modelImage": "https://cdn.maisonlooks.com/file-1774010261487-55827314.png",
+    "productSlugs": [
+      "the-woo-black-hoodie-with-rose-print-97cdf5",
+      "global-shop-tiger-print-denim-jeans-n08-light-blue-1a8e3f"
+    ],
+    "category": null,
+    "imageStyle": "street",
+    "likeCount": 2,
+    "isFeatured": true,
+    "createdAt": "2026-03-23T13:36:52.751Z"
+  },
+  {
     "id": "8buvq9sfln",
     "resultImage": "https://cdn.maisonlooks.com/tryon/result-1774279951663-465163597.webp",
     "modelImage": "https://cdn.maisonlooks.com/file-1774010261487-55827314.png",
@@ -71,18 +85,19 @@
     "createdAt": "2026-03-23T14:27:51.237Z"
   },
   {
-    "id": "9kbowm2yga",
-    "resultImage": "https://cdn.maisonlooks.com/tryon/result-1774273032793-671824151.webp",
+    "id": "5ikxs0ks3j",
+    "resultImage": "https://cdn.maisonlooks.com/tryon/result-1774275962372-538748719.webp",
     "modelImage": "https://cdn.maisonlooks.com/file-1774010261487-55827314.png",
     "productSlugs": [
-      "the-woo-black-hoodie-with-rose-print-97cdf5",
-      "global-shop-tiger-print-denim-jeans-n08-light-blue-1a8e3f"
+      "chrome-hearts-cross-logo-long-sleeve-t-shirt-in-white-b2b199",
+      "celine-cross-embroidered-light-blue-jeans-471210",
+      "fendi-denim-low-top-sneakers-in-blue-and-white-8bbe5c"
     ],
     "category": null,
     "imageStyle": "street",
     "likeCount": 1,
     "isFeatured": true,
-    "createdAt": "2026-03-23T13:36:52.751Z"
+    "createdAt": "2026-03-23T14:24:44.885Z"
   },
   {
     "id": "774jo3hlqs",
@@ -157,6 +172,21 @@
     "createdAt": "2026-03-23T10:13:08.436Z"
   },
   {
+    "id": "i09fhblmmx",
+    "resultImage": "https://cdn.maisonlooks.com/tryon/result-1774256807843-743117249.webp",
+    "modelImage": "https://cdn.maisonlooks.com/file-1774010261487-55827314.png",
+    "productSlugs": [
+      "louis-vuitton-monogram-print-crewneck-sweatshirt-8642f6",
+      "black-cargo-pants-with-yellow-graphic-patch-52d3c1",
+      "new-balance-550-sneakers-in-grey-blue-colorway-a34236"
+    ],
+    "category": null,
+    "imageStyle": "street",
+    "likeCount": 1,
+    "isFeatured": true,
+    "createdAt": "2026-03-23T09:06:24.908Z"
+  },
+  {
     "id": "u5wswax0ph",
     "resultImage": "https://cdn.maisonlooks.com/tryon/result-1774284349876-246205818.webp",
     "modelImage": "https://cdn.maisonlooks.com/file-1774010261487-55827314.png",
@@ -184,21 +214,6 @@
     "likeCount": 0,
     "isFeatured": true,
     "createdAt": "2026-03-23T14:29:49.961Z"
-  },
-  {
-    "id": "5ikxs0ks3j",
-    "resultImage": "https://cdn.maisonlooks.com/tryon/result-1774275962372-538748719.webp",
-    "modelImage": "https://cdn.maisonlooks.com/file-1774010261487-55827314.png",
-    "productSlugs": [
-      "chrome-hearts-cross-logo-long-sleeve-t-shirt-in-white-b2b199",
-      "celine-cross-embroidered-light-blue-jeans-471210",
-      "fendi-denim-low-top-sneakers-in-blue-and-white-8bbe5c"
-    ],
-    "category": null,
-    "imageStyle": "street",
-    "likeCount": 0,
-    "isFeatured": true,
-    "createdAt": "2026-03-23T14:24:44.885Z"
   },
   {
     "id": "3b21fthw64",
@@ -326,20 +341,5 @@
     "likeCount": 0,
     "isFeatured": true,
     "createdAt": "2026-03-23T09:07:31.467Z"
-  },
-  {
-    "id": "i09fhblmmx",
-    "resultImage": "https://cdn.maisonlooks.com/tryon/result-1774256807843-743117249.webp",
-    "modelImage": "https://cdn.maisonlooks.com/file-1774010261487-55827314.png",
-    "productSlugs": [
-      "louis-vuitton-monogram-print-crewneck-sweatshirt-8642f6",
-      "black-cargo-pants-with-yellow-graphic-patch-52d3c1",
-      "new-balance-550-sneakers-in-grey-blue-colorway-a34236"
-    ],
-    "category": null,
-    "imageStyle": "street",
-    "likeCount": 0,
-    "isFeatured": true,
-    "createdAt": "2026-03-23T09:06:24.908Z"
   }
 ]
