@@ -25,14 +25,14 @@
     "name": "Blazers",
     "parentSlug": "outerwear",
     "imageUrl": null,
-    "productCount": 768
+    "productCount": 764
   },
   {
     "slug": "boots",
     "name": "Boots",
     "parentSlug": "shoes",
     "imageUrl": null,
-    "productCount": 703
+    "productCount": 697
   },
   {
     "slug": "casual-dresses",
@@ -53,7 +53,7 @@
     "name": "Co-ord Sets",
     "parentSlug": "sets-suits",
     "imageUrl": null,
-    "productCount": 3056
+    "productCount": 3050
   },
   {
     "slug": "eyewear",
@@ -81,7 +81,7 @@
     "name": "Heels",
     "parentSlug": "shoes",
     "imageUrl": null,
-    "productCount": 88
+    "productCount": 87
   },
   {
     "slug": "hoodies-sweatshirts",
@@ -95,14 +95,14 @@
     "name": "Jackets",
     "parentSlug": "tops",
     "imageUrl": null,
-    "productCount": 1972
+    "productCount": 1971
   },
   {
     "slug": "jeans",
     "name": "Jeans",
     "parentSlug": "bottoms",
     "imageUrl": null,
-    "productCount": 8376
+    "productCount": 8368
   },
   {
     "slug": "jewelry-watches",
@@ -165,7 +165,7 @@
     "name": "Sandals & Slippers",
     "parentSlug": "shoes",
     "imageUrl": null,
-    "productCount": 2244
+    "productCount": 2241
   },
   {
     "slug": "scarves-ties",
@@ -179,14 +179,14 @@
     "name": "Shirts & Blouses",
     "parentSlug": "tops",
     "imageUrl": null,
-    "productCount": 18785
+    "productCount": 18771
   },
   {
     "slug": "shorts",
     "name": "Shorts",
     "parentSlug": "bottoms",
     "imageUrl": null,
-    "productCount": 6690
+    "productCount": 6687
   },
   {
     "slug": "skirts",
@@ -200,7 +200,7 @@
     "name": "Sneakers",
     "parentSlug": "shoes",
     "imageUrl": null,
-    "productCount": 27627
+    "productCount": 27602
   },
   {
     "slug": "socks-hosiery",
@@ -221,14 +221,14 @@
     "name": "Sweaters & Knits",
     "parentSlug": "tops",
     "imageUrl": null,
-    "productCount": 5325
+    "productCount": 5321
   },
   {
     "slug": "tracksuits",
     "name": "Tracksuits",
     "parentSlug": "sets-suits",
     "imageUrl": null,
-    "productCount": 2174
+    "productCount": 2172
   },
   {
     "slug": "trousers-pants",
