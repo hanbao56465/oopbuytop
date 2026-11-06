@@ -4,7 +4,7 @@ import { displayPrice, findPageUrl, maisonProductUrl } from '../lib/catalog';
 const { product, hideMissingQc = false, placement = 'product_card' } = Astro.props as { product: Product; hideMissingQc?: boolean; placement?: string };
 const image = product.images?.[0];
 const hasInternalResearchPage = product.qcPhotoCount > 0 && Boolean(product.description) && Boolean(image);
-const destination = hasInternalResearchPage ? findPageUrl(product) : maisonProductUrl(product.slug, placement);
+const destination = hasInternalResearchPage ? findPageUrl(product) : maisonProductUrl(product, placement);
 ---
 <a class:list={['product-card', { 'product-card-qc': Boolean(product.qcPhotoCount), 'product-card-no-qc': !product.qcPhotoCount }]} href={destination} target={hasInternalResearchPage ? undefined : '_blank'} rel={hasInternalResearchPage ? undefined : 'sponsored noopener noreferrer'} aria-label={hasInternalResearchPage ? `Research ${product.title}` : `Open current listing for ${product.title}`}>
   <div class="product-media">

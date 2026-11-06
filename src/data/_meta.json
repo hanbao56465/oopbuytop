@@ -1,7 +1,14 @@
 {
-  "fetchedAt": "2026-10-19T09:02:30.108Z",
-  "categoryCount": 49,
-  "productCount": 6776,
-  "outfitCount": 24,
-  "maxPerCategory": 200
+  "fetchedAt": "2026-11-06T01:34:07.738Z",
+  "source": "maisonlooks-general-api-v3",
+  "siteSeed": "oopbuytop.net",
+  "allowedShopIds": [
+    "965e4f17-a842-407d-a63c-04e00445cd34",
+    "aeabc616-01bb-4848-8ba8-f903cafa430b"
+  ],
+  "totalAvailable": 142397,
+  "perCategory": 15,
+  "categoryCount": 47,
+  "productCount": 542,
+  "outfitCount": 10
 }

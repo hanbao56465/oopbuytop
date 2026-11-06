@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "astro dev",
-    "prebuild": "node scripts/fetch-maisonlooks.mjs",
+    "sync:maisonlooks": "node --env-file=.env.general scripts/sync-maisonlooks.mjs --seed=oopbuytop.net --per-category=15",
     "build": "astro build",
     "preview": "astro preview",
     "check": "astro check"

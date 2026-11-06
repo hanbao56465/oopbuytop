@@ -10,6 +10,21 @@ import {
   qcCatalogProducts,
 } from '../../lib/catalog';
 import { priorityFindFor } from '../../lib/find-content';
+import { catalogCategories } from '../../lib/catalog';
+import { searchCategorySlugs } from '../../lib/category-content';
+
+// Only some categories have their own /category/ page. Link to the nearest
+// ancestor that has one (e.g. casual-dresses -> dresses) so we never link to a 404.
+function categoryPageFor(slug: string | null) {
+  let current = slug;
+  const seen = new Set<string>();
+  while (current && !seen.has(current)) {
+    if (searchCategorySlugs.includes(current)) return current;
+    seen.add(current);
+    current = catalogCategories.find((category) => category.slug === current)?.parentSlug ?? null;
+  }
+  return null;
+}
 
 export function getStaticPaths() {
   return qcCatalogProducts.map((product) => ({ params: { slug: product.slug }, props: { product } }));
@@ -19,6 +34,8 @@ const { product } = Astro.props;
 const priorityContent = priorityFindFor(product.slug);
 const priorityKeyword = priorityContent ? `${priorityContent.keyword.charAt(0).toUpperCase()}${priorityContent.keyword.slice(1)}` : undefined;
 const productCategory = categoryName(product.category);
+const categoryPage = categoryPageFor(product.category);
+const categoryPageName = categoryPage ? categoryName(categoryPage) : productCategory;
 const checkedAt = formatProductUpdatedAt(product);
 const relatedCandidates = qcCatalogProducts.filter((candidate) => candidate.slug !== product.slug);
 const related = [
@@ -82,7 +99,7 @@ const pageSchema = JSON.stringify({ '@context': 'https://schema.org', '@graph': 
         <div><dt>QC references</dt><dd>{product.qcPhotoCount}</dd></div>
         <div><dt>Snapshot updated</dt><dd>{checkedAt}</dd></div>
       </dl>
-      <a class="button button-hot" href={maisonProductUrl(product.slug, 'find_detail_primary')} target="_blank" rel="sponsored noopener noreferrer">Check the current listing ↗</a>
+      <a class="button button-hot" href={maisonProductUrl(product, 'find_detail_primary')} target="_blank" rel="sponsored noopener noreferrer">Check the current listing ↗</a>
       <p class="find-detail-disclosure">The displayed price is snapshot context and may refer to a different variant. OopbuyTop does not sell this item or guarantee stock, quality, authenticity, fit or final cost.</p>
     </div>
   </article>
@@ -92,7 +109,9 @@ const pageSchema = JSON.stringify({ '@context': 'https://schema.org', '@graph': 
       <p class="eyebrow">Listing summary</p>
       <h2>What the current snapshot says</h2>
       <p>{product.description}</p>
-      <p>This entry was grouped under <a href={`/category/${product.category}/`}>{productCategory}</a>. Use the category page to compare it with similar finds instead of relying on one cover image or price.</p>
+      {categoryPage
+        ? <p>This entry was grouped under {productCategory}{categoryPage !== product.category && <> in <a href={`/category/${categoryPage}/`}>{categoryPageName}</a></>}{categoryPage === product.category && <> — see the <a href={`/category/${categoryPage}/`}>{categoryPageName} category</a></>}. Use the category page to compare it with similar finds instead of relying on one cover image or price.</p>
+        : <p>This entry was grouped under {productCategory}. Compare it with similar finds instead of relying on one cover image or price.</p>}
     </div>
     <aside>
       <p class="eyebrow">Before ordering</p>
@@ -118,7 +137,7 @@ const pageSchema = JSON.stringify({ '@context': 'https://schema.org', '@graph': 
       <p class="eyebrow">Search phrase covered</p>
       <strong>{priorityKeyword}</strong>
       <p>This page is one of 15 focused entries chosen for clearer product intent and current QC-reference evidence. It remains a research page, not a product endorsement.</p>
-      <a class="text-link" href={`/category/${product.category}/`}>Compare the full {productCategory} category →</a>
+      {categoryPage && <a class="text-link" href={`/category/${categoryPage}/`}>Compare the full {categoryPageName} category →</a>}
     </aside>
   </section>}
 

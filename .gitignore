@@ -11,3 +11,6 @@ src/data/*.json
 !src/data/products.json
 maisonlooks-api-handoff.md
 oopbuytop-pages.zip
+
+# Private API handoff package (contains the key)
+新api/

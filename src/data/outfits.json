@@ -1,61 +1,5 @@
 [
   {
-    "id": "9a0yevn36b",
-    "resultImage": "https://cdn.maisonlooks.com/tryon/result-1774267986798-966622897.webp",
-    "modelImage": "https://cdn.maisonlooks.com/file-1774010261487-55827314.png",
-    "productSlugs": [
-      "black-wide-leg-jeans-with-flame-snake-print-bfec0b",
-      "air-jordan-4-retro-metallic-silver-sneakers-3fc266"
-    ],
-    "category": null,
-    "imageStyle": "street",
-    "likeCount": 4,
-    "isFeatured": true,
-    "createdAt": "2026-03-23T12:12:44.161Z"
-  },
-  {
-    "id": "8j8u2mp7nd",
-    "resultImage": "https://cdn.maisonlooks.com/tryon/result-1774283999572-421604325.webp",
-    "modelImage": "https://cdn.maisonlooks.com/file-1774010324915-367181007.png",
-    "productSlugs": [
-      "louis-vuitton-white-graphic-sweatshirt-7f2b5a",
-      "clot-x-nike-air-force-1-white-red-track-pants-69cd31"
-    ],
-    "category": null,
-    "imageStyle": "street",
-    "likeCount": 3,
-    "isFeatured": true,
-    "createdAt": "2026-03-23T16:39:33.179Z"
-  },
-  {
-    "id": "5e0osqhiwe",
-    "resultImage": "https://cdn.maisonlooks.com/tryon/result-1774264460692-812677418.webp",
-    "modelImage": "https://cdn.maisonlooks.com/file-1774010261487-55827314.png",
-    "productSlugs": [
-      "fear-of-god-essentials-light-blue-sweatpants-2f467e",
-      "air-jordan-6-unc-white-sneakers-2e135c"
-    ],
-    "category": null,
-    "imageStyle": "street",
-    "likeCount": 3,
-    "isFeatured": true,
-    "createdAt": "2026-03-23T11:14:05.408Z"
-  },
-  {
-    "id": "8buvq9sfln",
-    "resultImage": "https://cdn.maisonlooks.com/tryon/result-1774279951663-465163597.webp",
-    "modelImage": "https://cdn.maisonlooks.com/file-1774010261487-55827314.png",
-    "productSlugs": [
-      "vetements-orange-oversized-hoodie-bcdc05",
-      "grey-tech-fleece-sweatpants-with-black-zipper-pockets-4ec739"
-    ],
-    "category": null,
-    "imageStyle": "street",
-    "likeCount": 1,
-    "isFeatured": true,
-    "createdAt": "2026-03-23T15:32:03.486Z"
-  },
-  {
     "id": "bmkvcpg470",
     "resultImage": "https://cdn.maisonlooks.com/tryon/result-1774276091255-858289052.webp",
     "modelImage": "https://cdn.maisonlooks.com/file-1774010261487-55827314.png",
@@ -71,60 +15,19 @@
     "createdAt": "2026-03-23T14:27:51.237Z"
   },
   {
-    "id": "9kbowm2yga",
-    "resultImage": "https://cdn.maisonlooks.com/tryon/result-1774273032793-671824151.webp",
+    "id": "5ikxs0ks3j",
+    "resultImage": "https://cdn.maisonlooks.com/tryon/result-1774275962372-538748719.webp",
     "modelImage": "https://cdn.maisonlooks.com/file-1774010261487-55827314.png",
     "productSlugs": [
-      "the-woo-black-hoodie-with-rose-print-97cdf5",
-      "global-shop-tiger-print-denim-jeans-n08-light-blue-1a8e3f"
+      "chrome-hearts-cross-logo-long-sleeve-t-shirt-in-white-b2b199",
+      "celine-cross-embroidered-light-blue-jeans-471210",
+      "fendi-denim-low-top-sneakers-in-blue-and-white-8bbe5c"
     ],
     "category": null,
     "imageStyle": "street",
     "likeCount": 1,
     "isFeatured": true,
-    "createdAt": "2026-03-23T13:36:52.751Z"
-  },
-  {
-    "id": "774jo3hlqs",
-    "resultImage": "https://cdn.maisonlooks.com/tryon/result-1774272551555-418150558.webp",
-    "modelImage": "https://cdn.maisonlooks.com/file-1774010301050-594590723.png",
-    "productSlugs": [
-      "polo-ralph-lauren-black-slim-fit-sweatpants-0a503b",
-      "golden-goose-black-ball-star-sneakers-with-white-star-detail-508ad2"
-    ],
-    "category": null,
-    "imageStyle": "street",
-    "likeCount": 1,
-    "isFeatured": true,
-    "createdAt": "2026-03-23T13:28:29.780Z"
-  },
-  {
-    "id": "0p1mqyvpru",
-    "resultImage": "https://cdn.maisonlooks.com/tryon/result-1774272142395-45692258.webp",
-    "modelImage": "https://cdn.maisonlooks.com/file-1774010261487-55827314.png",
-    "productSlugs": [
-      "stussy-pink-box-logo-sweater-fd5751",
-      "vans-sk8-hi-navy-vn-0d5invy-sneakers-99f8a7"
-    ],
-    "category": null,
-    "imageStyle": "street",
-    "likeCount": 1,
-    "isFeatured": true,
-    "createdAt": "2026-03-23T13:21:53.846Z"
-  },
-  {
-    "id": "xjef8kfjp4",
-    "resultImage": "https://cdn.maisonlooks.com/tryon/result-1774270320049-604708526.webp",
-    "modelImage": "https://cdn.maisonlooks.com/file-1774010324915-367181007.png",
-    "productSlugs": [
-      "amiri-rainbow-drip-graphic-t-shirt-in-purple-280ea8",
-      "global-shop-tiger-print-denim-jeans-n08-light-blue-1a8e3f"
-    ],
-    "category": null,
-    "imageStyle": "street",
-    "likeCount": 1,
-    "isFeatured": true,
-    "createdAt": "2026-03-23T12:51:29.134Z"
+    "createdAt": "2026-03-23T14:24:44.885Z"
   },
   {
     "id": "gl1mhefsge",
@@ -157,18 +60,19 @@
     "createdAt": "2026-03-23T10:13:08.436Z"
   },
   {
-    "id": "u5wswax0ph",
-    "resultImage": "https://cdn.maisonlooks.com/tryon/result-1774284349876-246205818.webp",
+    "id": "i09fhblmmx",
+    "resultImage": "https://cdn.maisonlooks.com/tryon/result-1774256807843-743117249.webp",
     "modelImage": "https://cdn.maisonlooks.com/file-1774010261487-55827314.png",
     "productSlugs": [
-      "stussy-x-nike-black-shorts-with-white-logo-ada6df",
-      "air-jordan-13-retro-white-grey-red-sneakers-21b1d4"
+      "louis-vuitton-monogram-print-crewneck-sweatshirt-8642f6",
+      "black-cargo-pants-with-yellow-graphic-patch-52d3c1",
+      "new-balance-550-sneakers-in-grey-blue-colorway-a34236"
     ],
     "category": null,
     "imageStyle": "street",
-    "likeCount": 0,
+    "likeCount": 1,
     "isFeatured": true,
-    "createdAt": "2026-03-23T16:45:23.007Z"
+    "createdAt": "2026-03-23T09:06:24.908Z"
   },
   {
     "id": "mjizjg0ltw",
@@ -186,21 +90,6 @@
     "createdAt": "2026-03-23T14:29:49.961Z"
   },
   {
-    "id": "5ikxs0ks3j",
-    "resultImage": "https://cdn.maisonlooks.com/tryon/result-1774275962372-538748719.webp",
-    "modelImage": "https://cdn.maisonlooks.com/file-1774010261487-55827314.png",
-    "productSlugs": [
-      "chrome-hearts-cross-logo-long-sleeve-t-shirt-in-white-b2b199",
-      "celine-cross-embroidered-light-blue-jeans-471210",
-      "fendi-denim-low-top-sneakers-in-blue-and-white-8bbe5c"
-    ],
-    "category": null,
-    "imageStyle": "street",
-    "likeCount": 0,
-    "isFeatured": true,
-    "createdAt": "2026-03-23T14:24:44.885Z"
-  },
-  {
     "id": "3b21fthw64",
     "resultImage": "https://cdn.maisonlooks.com/tryon/result-1774274010313-103236228.webp",
     "modelImage": "https://cdn.maisonlooks.com/file-1774010261487-55827314.png",
@@ -214,74 +103,6 @@
     "likeCount": 0,
     "isFeatured": true,
     "createdAt": "2026-03-23T13:53:09.728Z"
-  },
-  {
-    "id": "v1hxovixj9",
-    "resultImage": "https://cdn.maisonlooks.com/tryon/result-1774273296507-173128862.webp",
-    "modelImage": "https://cdn.maisonlooks.com/file-1774010261487-55827314.png",
-    "productSlugs": [
-      "split-design-trap-t-shirt-in-21-black-grey-e8ed72",
-      "levi-s-vintage-501-wide-leg-jeans-b8c43b"
-    ],
-    "category": null,
-    "imageStyle": "street",
-    "likeCount": 0,
-    "isFeatured": true,
-    "createdAt": "2026-03-23T13:41:13.840Z"
-  },
-  {
-    "id": "c6t6y0afdh",
-    "resultImage": "https://cdn.maisonlooks.com/tryon/result-1774272905835-2506452.webp",
-    "modelImage": "https://cdn.maisonlooks.com/file-1774010301050-594590723.png",
-    "productSlugs": [
-      "unbranded-mustard-yellow-hoodie-sweatshirt-972ebd",
-      "badfriend-jeans-dark-indigo-with-yellow-badfriend-logo-acecf9"
-    ],
-    "category": null,
-    "imageStyle": "street",
-    "likeCount": 0,
-    "isFeatured": true,
-    "createdAt": "2026-03-23T13:34:07.131Z"
-  },
-  {
-    "id": "7pm2wtcubu",
-    "resultImage": "https://cdn.maisonlooks.com/tryon/result-1774272369630-36812682.webp",
-    "modelImage": "https://cdn.maisonlooks.com/file-1774010261487-55827314.png",
-    "productSlugs": [
-      "stone-island-white-t-shirt-with-blue-compass-logo-7c417c"
-    ],
-    "category": null,
-    "imageStyle": "street",
-    "likeCount": 0,
-    "isFeatured": true,
-    "createdAt": "2026-03-23T13:25:47.414Z"
-  },
-  {
-    "id": "c9qsso1swr",
-    "resultImage": "https://cdn.maisonlooks.com/tryon/result-1774268151392-214235662.webp",
-    "modelImage": "https://cdn.maisonlooks.com/file-1774008938653-12321745.png",
-    "productSlugs": [
-      "gallery-dept-doc-johnson-black-t-shirt-d9f45e"
-    ],
-    "category": null,
-    "imageStyle": "street",
-    "likeCount": 0,
-    "isFeatured": true,
-    "createdAt": "2026-03-23T12:15:14.524Z"
-  },
-  {
-    "id": "qpj9p6y44y",
-    "resultImage": "https://cdn.maisonlooks.com/tryon/result-1774257166528-950124461.webp",
-    "modelImage": "https://cdn.maisonlooks.com/file-1774010261487-55827314.png",
-    "productSlugs": [
-      "louis-vuitton-monogram-print-crewneck-sweatshirt-in-cream-a66513",
-      "black-cargo-pants-with-yellow-graphic-patch-52d3c1"
-    ],
-    "category": null,
-    "imageStyle": "street",
-    "likeCount": 0,
-    "isFeatured": true,
-    "createdAt": "2026-03-23T09:12:30.937Z"
   },
   {
     "id": "xnfbflywdf",
@@ -299,47 +120,33 @@
     "createdAt": "2026-03-23T09:11:10.934Z"
   },
   {
-    "id": "kohipeg6uw",
-    "resultImage": "https://cdn.maisonlooks.com/tryon/result-1774257007357-522924644.webp",
-    "modelImage": "https://iili.io/qHiivkb.png",
-    "productSlugs": [
-      "moncler-white-mountain-logo-tank-top-fb7905",
-      "floral-print-denim-jeans-in-blue-53d828"
-    ],
-    "category": null,
-    "imageStyle": "street",
-    "likeCount": 0,
-    "isFeatured": true,
-    "createdAt": "2026-03-23T09:09:32.671Z"
-  },
-  {
-    "id": "ho2d9oj8q3",
-    "resultImage": "https://cdn.maisonlooks.com/tryon/result-1774256884075-523078408.webp",
-    "modelImage": "https://cdn.maisonlooks.com/file-1774010301050-594590723.png",
-    "productSlugs": [
-      "louis-vuitton-cowboy-print-crewneck-sweatshirt-white-eaa1b7",
-      "balmain-light-blue-skinny-jeans-with-zipper-details-729cc5",
-      "mizuno-wave-rider-26-sneakers-in-teal-and-silver-c253e8"
-    ],
-    "category": null,
-    "imageStyle": "street",
-    "likeCount": 0,
-    "isFeatured": true,
-    "createdAt": "2026-03-23T09:07:31.467Z"
-  },
-  {
-    "id": "i09fhblmmx",
-    "resultImage": "https://cdn.maisonlooks.com/tryon/result-1774256807843-743117249.webp",
+    "id": "k8jg8blwku",
+    "resultImage": "https://cdn.maisonlooks.com/tryon/result-1774256726779-387476873.webp",
     "modelImage": "https://cdn.maisonlooks.com/file-1774010261487-55827314.png",
     "productSlugs": [
-      "louis-vuitton-monogram-print-crewneck-sweatshirt-8642f6",
-      "black-cargo-pants-with-yellow-graphic-patch-52d3c1",
-      "new-balance-550-sneakers-in-grey-blue-colorway-a34236"
+      "a-bathing-ape-camo-polo-shirt-8424c9",
+      "a-bathing-ape-shark-camo-shorts-acd8ea",
+      "nike-p-6000-sneakers-in-white-burgundy-red-8d0c2c"
     ],
     "category": null,
     "imageStyle": "street",
     "likeCount": 0,
     "isFeatured": true,
-    "createdAt": "2026-03-23T09:06:24.908Z"
+    "createdAt": "2026-03-23T09:05:09.367Z"
+  },
+  {
+    "id": "0u4yuqua5i",
+    "resultImage": "https://cdn.maisonlooks.com/tryon/result-1774249129115-391207003.webp",
+    "modelImage": "https://cdn.maisonlooks.com/file-1774010261487-55827314.png",
+    "productSlugs": [
+      "a-bathing-ape-x-mcm-camo-print-black-t-shirt-8748bf",
+      "balenciaga-hand-painted-jeans-e64ce2",
+      "dior-cd-sneakers-in-black-grey-627943"
+    ],
+    "category": null,
+    "imageStyle": "street",
+    "likeCount": 0,
+    "isFeatured": true,
+    "createdAt": "2026-03-23T06:58:33.041Z"
   }
 ]

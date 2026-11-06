@@ -14,29 +14,34 @@ All local product detail pages (`/finds/<slug>/`) use `noindex,follow` and are e
 
 OopbuyTop is an independent discovery resource. It does not sell products, verify authenticity, guarantee stock or publish invented reviews. Catalogue cards are build-time snapshots; visitors must verify the current live listing, selected option, price and delivery terms themselves. See the site's [editorial disclosure](https://oopbuytop.net/about/) for the full methodology and update boundaries.
 
+## Fixed catalog snapshot
+
+Product data comes from the MaisonLooks general API (official and PK shops only) and is committed to Git in `src/data/`. Builds, dev-server restarts and site edits never call the API, so the product set stays fixed until someone deliberately runs a sync.
+
 ## Local setup
 
-1. Copy `.env.example` to `.env` and set `MAISONLOOKS_API_KEY` locally. Do not commit the key.
-2. Run `npm install`.
-3. Refresh the catalog snapshot, then build:
+1. Put the private `.env.general` (contains `MATRIX_API_KEY`) in the project root. It is git-ignored; never commit it or expose it through a `PUBLIC_` variable.
+2. Run `npm install`, then `npm run build`. No API key is needed to build.
+
+## Refreshing products (manual only)
+
+Smoke-test with two products first (writes nothing):
 
 ```powershell
-$env:MAISONLOOKS_API_KEY = 'your-key'
-powershell -ExecutionPolicy Bypass -File scripts/fetch-maisonlooks.ps1
-npm run build
+node --env-file=.env.general scripts/sync-maisonlooks.mjs --seed=oopbuytop.net --max-products=2
 ```
 
-`scripts/fetch-maisonlooks.mjs` is the cross-platform build fetcher. It preserves the last valid snapshot if the API has a temporary failure. The PowerShell fetcher is provided for local Windows environments where Node's TLS connection is blocked by a network proxy.
+Then run the full sync (up to 15 products per category, roughly 11 minutes):
+
+```powershell
+npm run sync:maisonlooks
+```
+
+The script sends one request at a time, at least 1.1 s apart (API limit 120/min; every product detail counts as one request). On HTTP 429 it waits once for `Retry-After`, then stops. Any failure leaves `src/data/` unchanged. Never run two syncs at once. Review the diff and commit `src/data/` to publish the new set.
 
 ## Deployment
 
-Set `MAISONLOOKS_API_KEY` as a server-side build secret in the hosting provider. Do not use a `PUBLIC_` environment variable. The API is queried only during the build, and the published site contains static HTML and the product snapshot rendered into it.
-
-## Daily catalog refresh
-
-The repository includes `.github/workflows/refresh-catalog.yml`. It runs once per day, refreshes only `src/data/`, and commits a change only when the API snapshot has changed. A connected Cloudflare Pages project will then deploy the updated snapshot from GitHub.
-
-Before enabling it, add a GitHub Actions repository secret named `MAISONLOOKS_API_KEY` with the server-side API key. Never put that key in source files, `.env.example`, browser code, or a `PUBLIC_` environment variable. You can also run the workflow manually from the repository's **Actions** tab after adding the secret.
+Cloudflare Pages builds the committed snapshot with `npm run build`. The hosting provider does not need an API secret.
 
 ## Optional GA4 conversion reporting
 

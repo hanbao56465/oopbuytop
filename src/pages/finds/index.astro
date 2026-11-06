@@ -52,7 +52,7 @@ const collectionSchema = JSON.stringify({
     <div class="finds-directory-stats">
       <div><strong>{products.length}</strong><span>finds with QC references</span></div>
       <div><strong>{categories.length}</strong><span>represented categories</span></div>
-      <div><strong>Daily</strong><span>catalog refresh workflow</span></div>
+      <div><strong>{formatCatalogCheckedAt()}</strong><span>catalog snapshot date</span></div>
     </div>
   </section>
 
