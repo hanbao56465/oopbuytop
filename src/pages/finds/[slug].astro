@@ -1,12 +1,13 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import ProductCard from '../../components/ProductCard.astro';
 import {
   categoryName,
   displayPrice,
   formatProductUpdatedAt,
   maisonProductUrl,
+  productPageUrl,
+  englishSize,
   qcCatalogProducts,
 } from '../../lib/catalog';
 import { priorityFindFor } from '../../lib/find-content';
@@ -76,6 +77,33 @@ if (priorityContent) {
   });
 }
 const pageSchema = JSON.stringify({ '@context': 'https://schema.org', '@graph': schemaGraph });
+
+// Order block + QC strip data (all from the local snapshot).
+const backHref = categoryPage ? `/category/${categoryPage}/` : '/finds/';
+const backLabel = categoryPage ? `Back to ${categoryPageName}` : 'Back to catalog';
+const orderUrl = maisonProductUrl(product, 'find_detail_primary');
+const copyUrl = productPageUrl(product);
+const sizes = (product.variant?.availableSizes ?? []).filter(Boolean);
+// skuLabel is raw seller text (often Chinese); only surface the size token if present.
+const sizeHint = (label: string | null) => {
+  const raw = label?.match(/(?:尺码|size)\s*[:：]\s*([^;|]+)/i)?.[1];
+  const clean = raw ? englishSize(raw) : '';
+  return /[A-Za-z0-9]/.test(clean) ? clean : undefined;
+};
+const qcGroups = (product.qcGroups ?? [])
+  .filter((group) => group.images?.length)
+  .sort((a, b) => Number(b.isPreferred) - Number(a.isPreferred))
+  .map((group) => {
+    const size = sizeHint(group.skuLabel);
+    return {
+      label: group.isPreferred ? 'Matched style photos' : 'Other reference photos',
+      detail: size ? `Size ${size}` : null,
+      cover: group.images[0].thumbnailUrl || group.images[0].url,
+      images: group.images.map((image) => image.url),
+    };
+  });
+const qcPhotoTotal = qcGroups.reduce((sum, group) => sum + group.images.length, 0);
+const galleryData = JSON.stringify({ main: product.images?.[0] ?? null, title: product.title, groups: qcGroups.map(({ label, images }) => ({ label, images })) });
 ---
 <BaseLayout
   noindex={true}
@@ -83,26 +111,86 @@ const pageSchema = JSON.stringify({ '@context': 'https://schema.org', '@graph': 
   description={metaDescription}
   image={product.images?.[0]}
 >
-  <Breadcrumbs items={[{ label: 'Oopbuy finds', href: '/finds/' }, { label: product.title }]} />
-  <article class="find-detail">
-    <div class="find-detail-media">
-      {product.images?.[0] && <img src={product.images[0]} alt={product.title} width="760" height="760" loading="eager" />}
-      <span>{product.qcPhotoCount} warehouse QC photo{product.qcPhotoCount === 1 ? '' : 's'} referenced</span>
+  <a class="pd-back" href={backHref}>← {backLabel}</a>
+  <article class="pd" data-pd={galleryData}>
+    <div class="pd-media">
+      {product.images?.[0]
+        ? <button class="pd-zoom" type="button" data-open-main aria-label={`Enlarge photo of ${product.title}`}>
+            <img src={product.images[0]} alt={product.title} width="760" height="760" loading="eager" />
+          </button>
+        : <div class="pd-placeholder" aria-hidden="true">No photo yet</div>}
+      <p class="pd-hint"><span class="pd-hint-hover">Hover to zoom · click to enlarge</span><span class="pd-hint-touch">Tap to enlarge</span></p>
     </div>
-    <div class="find-detail-copy">
-      <p class="eyebrow">{priorityContent ? 'Priority long-tail research page' : `${productCategory} Oopbuy spreadsheet find`}</p>
+
+    <div class="pd-info">
+      <div class="pd-tags">
+        {product.brand && <span class="pd-tag">{product.brand}</span>}
+        {categoryPage
+          ? <a class="pd-tag pd-tag-lane" href={`/category/${categoryPage}/`}>{productCategory}</a>
+          : <span class="pd-tag pd-tag-lane">{productCategory}</span>}
+      </div>
       <h1>{product.title}</h1>
-      <p class="find-detail-deck">Research this listing with the available snapshot details, then confirm the exact live option, price and availability before ordering.</p>
-      <dl class="find-facts">
-        <div><dt>Brand label</dt><dd>{product.brand || 'Not specified'}</dd></div>
-        <div><dt>Price context</dt><dd>{displayPrice(product)}</dd></div>
-        <div><dt>QC references</dt><dd>{product.qcPhotoCount}</dd></div>
-        <div><dt>Snapshot updated</dt><dd>{checkedAt}</dd></div>
-      </dl>
-      <a class="button button-hot" href={maisonProductUrl(product, 'find_detail_primary')} target="_blank" rel="sponsored noopener noreferrer">Check the current listing ↗</a>
-      <p class="find-detail-disclosure">The displayed price is snapshot context and may refer to a different variant. OopbuyTop does not sell this item or guarantee stock, quality, authenticity, fit or final cost.</p>
+      <button class="pd-copy" type="button" data-copy={copyUrl}><span data-copy-label>Copy buy link</span></button>
+
+      <div class="pd-price">
+        <strong>{displayPrice(product)}</strong>
+        <span>Reference price · snapshot {checkedAt}</span>
+        <small>Excludes shipping, service and payment fees.</small>
+      </div>
+
+      <div class="pd-qc-entry">
+        <a class="pd-qc-button" href="#qc-photos">View QC photos{qcPhotoTotal ? ` (${qcPhotoTotal})` : ''}</a>
+        <span>Historical reference photos</span>
+      </div>
+
+      {sizes.length > 0 && <div class="pd-sizes">
+        <p class="pd-label">Size</p>
+        <div class="pd-size-list">{sizes.map((size) => <span>{size}</span>)}</div>
+        <p class="pd-note">Preview only — choose your size again on the order page to confirm stock.</p>
+      </div>}
+
+      <a class="pd-cta" href={orderUrl} target="_blank" rel="sponsored noopener noreferrer">View / Order this item <span aria-hidden="true">↗</span></a>
+      <p class="pd-note">Opens in a new tab. Confirm style, size and the final price on the order page. OopbuyTop does not sell items or take payment.</p>
+
+      <nav class="pd-help" aria-label="Buying help">
+        <a href="/oopbuy-spreadsheet/">How to buy →</a>
+        <a href="/guides/oopbuy-shipping-guide/">Shipping &amp; fees →</a>
+      </nav>
     </div>
   </article>
+
+  <section class="pd-qc" id="qc-photos">
+    <div class="pd-qc-head">
+      <div>
+        <h2>QC photos</h2>
+        <p class="pd-qc-stats">{qcGroups.length} QC group{qcGroups.length === 1 ? '' : 's'} · {qcPhotoTotal} photo{qcPhotoTotal === 1 ? '' : 's'}</p>
+        <p class="pd-note">Compare the style, colour and size in each group with the option you order. Only groups marked “matched” were checked against this style.</p>
+      </div>
+      {qcGroups.length > 1 && <div class="pd-qc-arrows">
+        <button type="button" data-qc-prev aria-label="Scroll QC groups left">←</button>
+        <button type="button" data-qc-next aria-label="Scroll QC groups right">→</button>
+      </div>}
+    </div>
+    {qcGroups.length
+      ? <>
+          <div class="pd-qc-track" data-qc-track>
+            {qcGroups.map((group, index) => <button class="pd-qc-card" type="button" data-qc-group={index} aria-label={`Open ${group.label}, ${group.images.length} photos`}>
+              <span class="pd-qc-cover"><img src={group.cover} alt="" loading="lazy" width="240" height="240" /><b>{group.images.length} photo{group.images.length === 1 ? '' : 's'}</b></span>
+              <span class="pd-qc-caption"><strong class:list={{ 'is-matched': group.label.startsWith('Matched') }}>{group.label}</strong>{group.detail && <small>{group.detail}</small>}</span>
+            </button>)}
+          </div>
+          <div class="pd-qc-bar" data-qc-bar aria-hidden="true"></div>
+          {product.qcTruncated && <p class="pd-note">More QC groups exist than are shown here.</p>}
+        </>
+      : <div class="pd-qc-empty"><span aria-hidden="true">📷</span><p>No QC photos in this snapshot yet. Ask for warehouse photos after you order.</p></div>}
+  </section>
+
+  <dialog class="pd-lightbox" data-lightbox aria-label="Photo viewer">
+    <button class="pd-lb-close" type="button" data-lb-close aria-label="Close">×</button>
+    <button class="pd-lb-nav pd-lb-prev" type="button" data-lb-prev aria-label="Previous photo">‹</button>
+    <figure><img data-lb-img alt="" /><figcaption data-lb-caption></figcaption></figure>
+    <button class="pd-lb-nav pd-lb-next" type="button" data-lb-next aria-label="Next photo">›</button>
+  </dialog>
 
   <section class="find-detail-content">
     <div>
@@ -153,3 +241,92 @@ const pageSchema = JSON.stringify({ '@context': 'https://schema.org', '@graph': 
   </section>
   <script type="application/ld+json" set:html={pageSchema} />
 </BaseLayout>
+
+<script>
+  const root = document.querySelector<HTMLElement>('[data-pd]');
+  if (root) {
+    const data = JSON.parse(root.dataset.pd || '{}') as { main: string | null; title: string; groups: { label: string; images: string[] }[] };
+
+    // Hover zoom on the main photo: scale toward the cursor.
+    const zoom = root.querySelector<HTMLElement>('.pd-zoom');
+    const zoomImg = zoom?.querySelector('img');
+    if (zoom && zoomImg && matchMedia('(hover: hover)').matches) {
+      zoom.addEventListener('mousemove', (event) => {
+        const box = zoom.getBoundingClientRect();
+        zoomImg.style.transformOrigin = `${((event.clientX - box.left) / box.width) * 100}% ${((event.clientY - box.top) / box.height) * 100}%`;
+        zoomImg.style.transform = 'scale(1.8)';
+      });
+      zoom.addEventListener('mouseleave', () => { zoomImg.style.transform = ''; });
+    }
+
+    // Copy buy link.
+    const copy = root.querySelector<HTMLButtonElement>('[data-copy]');
+    copy?.addEventListener('click', async () => {
+      const label = copy.querySelector('[data-copy-label]');
+      try {
+        await navigator.clipboard.writeText(copy.dataset.copy || '');
+        if (label) label.textContent = 'Link copied ✓';
+      } catch {
+        window.prompt('Copy this link:', copy.dataset.copy || '');
+      }
+      setTimeout(() => { if (label) label.textContent = 'Copy buy link'; }, 1800);
+    });
+
+    // QC strip: arrows + segmented progress bar.
+    const track = document.querySelector<HTMLElement>('[data-qc-track]');
+    const bar = document.querySelector<HTMLElement>('[data-qc-bar]');
+    if (track && bar) {
+      // clientWidth is 0 while the page is hidden or still laying out.
+      const pages = () => (track.clientWidth > 0 ? Math.min(30, Math.max(1, Math.ceil(track.scrollWidth / track.clientWidth - 0.05))) : 1);
+      const render = () => {
+        const total = pages();
+        bar.hidden = total < 2;
+        const current = Math.min(total - 1, Math.round(track.scrollLeft / Math.max(1, track.scrollWidth - track.clientWidth) * (total - 1)) || 0);
+        bar.innerHTML = Array.from({ length: total }, (_, i) => `<span class="${i === current ? 'is-active' : ''}"></span>`).join('');
+      };
+      const step = (dir: number) => track.scrollBy({ left: dir * track.clientWidth * 0.85, behavior: 'smooth' });
+      document.querySelector('[data-qc-prev]')?.addEventListener('click', () => step(-1));
+      document.querySelector('[data-qc-next]')?.addEventListener('click', () => step(1));
+      track.addEventListener('scroll', render, { passive: true });
+      addEventListener('resize', render);
+      render();
+    }
+
+    // Lightbox for the main photo and every QC group.
+    const box = document.querySelector<HTMLDialogElement>('[data-lightbox]');
+    const img = box?.querySelector<HTMLImageElement>('[data-lb-img]');
+    const caption = box?.querySelector<HTMLElement>('[data-lb-caption]');
+    let list: string[] = [];
+    let label = '';
+    let index = 0;
+    const show = () => {
+      if (!img || !caption || !box) return;
+      img.src = list[index];
+      img.alt = `${data.title} — ${label} ${index + 1}`;
+      caption.textContent = list.length > 1 ? `${label} · ${index + 1} / ${list.length}` : label;
+      box.classList.toggle('is-single', list.length < 2);
+    };
+    const open = (images: string[], name: string, start = 0) => {
+      if (!box || !images.length) return;
+      list = images; label = name; index = start;
+      show();
+      box.showModal();
+    };
+    const move = (dir: number) => { if (list.length > 1) { index = (index + dir + list.length) % list.length; show(); } };
+    root.querySelector('[data-open-main]')?.addEventListener('click', () => data.main && open([data.main], data.title));
+    document.querySelectorAll<HTMLElement>('[data-qc-group]').forEach((card) => {
+      card.addEventListener('click', () => {
+        const group = data.groups[Number(card.dataset.qcGroup)];
+        if (group) open(group.images, group.label);
+      });
+    });
+    box?.querySelector('[data-lb-close]')?.addEventListener('click', () => box.close());
+    box?.querySelector('[data-lb-prev]')?.addEventListener('click', () => move(-1));
+    box?.querySelector('[data-lb-next]')?.addEventListener('click', () => move(1));
+    box?.addEventListener('click', (event) => { if (event.target === box) box.close(); });
+    box?.addEventListener('keydown', (event) => {
+      if (event.key === 'ArrowLeft') move(-1);
+      if (event.key === 'ArrowRight') move(1);
+    });
+  }
+</script>

@@ -4,11 +4,59 @@ import meta from '../data/_meta.json';
 import { trackedOutboundUrl } from './outbound';
 
 export type Category = { slug: string; name: string; parentSlug: string | null; imageUrl: string | null; productCount: number | null };
-export type Product = { id: string; slug: string; shopSlug: string; productUrl: string; title: string; description: string | null; category: string | null; brand: string | null; priceCnyRange: [number, number] | null; priceCny: number | string | null; priceUsdEstimate: [number, number] | null; images: string[]; qcPhotoCount: number; hasTryOn: boolean; updatedAt: string };
+export type QcGroup = { isPreferred: boolean; skuLabel: string | null; images: { url: string; thumbnailUrl: string | null }[] };
+export type Product = { qcGroups?: QcGroup[]; qcTruncated?: boolean; variant?: { availableSizes?: string[] | null } | null; id: string; slug: string; shopSlug: string; productUrl: string; title: string; description: string | null; category: string | null; brand: string | null; priceCnyRange: [number, number] | null; priceCny: number | string | null; priceUsdEstimate: [number, number] | null; images: string[]; qcPhotoCount: number; hasTryOn: boolean; updatedAt: string };
 
 export const catalogCategories = categories as Category[];
-export const catalogProducts = (products as Product[]).filter((product) => product.brand !== 'Louis Vuitton');
-export const catalogMeta = meta as { fetchedAt: string; categoryCount: number; productCount: number; outfitCount: number };
+// Some seller titles mix in Chinese colour/model names (e.g. "UGG Classic Short贝莉…").
+// This is an English site, so strip CJK runs for display and drop items with no
+// English title left (they also get empty, ID-only slugs like "-1dc134").
+const CJK = /[　-〿㐀-鿿豈-﫿＀-￯]+/g;
+function englishTitle(title: string) {
+  return title
+    .replace(/[【】]/g, ' ')
+    .replace(CJK, ' ')
+    .replace(/\*/g, ' ')
+    .replace(/\s*-\s*(?=\s|$)/g, ' ')
+    .replace(/'\s*'/g, ' ')
+    .replace(/'([^']*?)\s+'/g, "'$1'")
+    .replace(/\s{2,}/g, ' ')
+    .replace(/^[\s\-–—'"]+|[\s\-–—'"]+$/g, '')
+    .trim();
+}
+
+// Seller size labels: translate the common words, then strip any remaining Chinese.
+const sizeWords: [RegExp, string][] = [
+  [/均码|通用|免费尺码/g, ' One size '],
+  [/可调节?/g, ' Adjustable '],
+  [/\b1\s*双/g, ' 1 pair '],
+  [/(\d+)\s*双/g, ' $1 pairs '],
+  [/(\d+)\s*(?:斤)/g, ' $1 jin '],
+  [/(\d+)\s*(?:个|只|件|支|瓶|盒)/g, ' $1 pcs '],
+  [/建议|适合/g, ' · '],
+];
+export function englishSize(label: string) {
+  let text = label;
+  for (const [pattern, replacement] of sizeWords) text = text.replace(pattern, replacement);
+  return englishTitle(text.replace(/[（(][^）)]*[）)]/g, ' ')).replace(/^·\s*|\s*·$/g, '').replace(/\s*·\s*/g, ' · ').trim();
+}
+
+export const catalogProducts = (products as Product[])
+  .filter((product) => product.brand !== 'Louis Vuitton' && !product.slug.startsWith('-'))
+  .map((product) => ({
+    ...product,
+    title: englishTitle(product.title),
+    // Descriptions are English prose: only remove Chinese runs, keep dashes/quotes intact.
+    description: product.description
+      ? product.description.replace(/[【】]/g, ' ').replace(CJK, ' ').replace(/[ \t]{2,}/g, ' ').replace(/\s+([,.;:!?'’])/g, '$1').trim()
+      : product.description,
+    variant: product.variant
+      ? { ...product.variant, availableSizes: [...new Set((product.variant.availableSizes ?? []).map(englishSize).filter((size) => /[A-Za-z0-9]/.test(size)))] }
+      : product.variant,
+  }))
+  .filter((product) => /[A-Za-z]{2,}/.test(product.title));
+// productCount reflects what the site actually shows (after title filtering), not the raw snapshot.
+export const catalogMeta = { ...(meta as { fetchedAt: string; categoryCount: number; productCount: number; outfitCount: number }), productCount: catalogProducts.length };
 export const qcCatalogProducts = catalogProducts.filter((product) => (
   product.qcPhotoCount > 0
   && Boolean(product.slug)
@@ -83,10 +131,14 @@ export function findPageUrl(product: Product) {
   return `/finds/${product.slug}/`;
 }
 
-// Always use the storefront URL returned by the API: official and PK products live
-// on different subdomains, so a slug must never be joined to a single shop domain.
-export function maisonProductUrl(product: Pick<Product, 'productUrl'>, placement = 'product_card') {
-  return trackedOutboundUrl(product.productUrl, placement);
+// Product pages on the main marketplace domain (works for both official and PK
+// items), not the individual shop subdomains returned in productUrl.
+export function productPageUrl(product: Pick<Product, 'slug'>) {
+  return `https://maisonlooks.com/en/p/${encodeURIComponent(product.slug)}`;
+}
+
+export function maisonProductUrl(product: Pick<Product, 'slug'>, placement = 'product_card') {
+  return trackedOutboundUrl(productPageUrl(product), placement);
 }
 
 export function displayPrice(product: Product) {

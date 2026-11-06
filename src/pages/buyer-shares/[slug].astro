@@ -37,7 +37,7 @@ const schema = JSON.stringify({
     <section class="original-post" aria-label="Original public post">
       <div class="original-label"><span>Original public post</span><b>REDDIT · {topic.subreddit}</b></div>
       <div class="reddit-source-embed">
-        <blockquote class="reddit-embed-bq" data-embed-height="500"><a href={topic.sourceUrl}>{topic.title}</a></blockquote>
+        <blockquote class="reddit-embed-bq" data-embed-height="500"><a href={topic.sourceUrl} target="_blank" rel="noopener noreferrer">{topic.title}</a></blockquote>
       </div>
       <div class="original-copy"><p class="eyebrow">Source title</p><h2>{topic.title}</h2><p>The original author and Reddit retain their content. This page summarizes the haul format and comment topics without presenting it as OopbuyTop’s own review.</p><a class="button-link" href={topic.sourceUrl} target="_blank" rel="nofollow noopener noreferrer">Open original Reddit post ↗</a></div>
     </section>

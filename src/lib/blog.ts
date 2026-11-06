@@ -1,3 +1,5 @@
+import { formatGrams, rowFor, weightRows, weightStats, VOLUMETRIC_DIVISOR } from './parcel-weights';
+
 export type BlogPost = {
   slug: string;
   category: string;
@@ -11,9 +13,75 @@ export type BlogPost = {
   sections: { heading: string; paragraphs: string[] }[];
   faq?: { question: string; answer: string }[];
   related: { label: string; href: string }[];
+  // Optional data table rendered after sections[afterSection].
+  table?: { afterSection: number; caption: string; columns: string[]; rows: { cells: string[]; href?: string | null }[]; note: string };
+};
+
+const w = (slug: string) => {
+  const row = rowFor(slug);
+  return row ? formatGrams(row.medianG) : 'n/a';
+};
+const v = (slug: string) => {
+  const row = rowFor(slug);
+  return row?.volumetricG ? formatGrams(row.volumetricG) : 'n/a';
+};
+const snapshotDate = new Date(weightStats.checkedAt).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+
+const parcelWeightPost: BlogPost = {
+  slug: 'oopbuy-shipping-weight-by-category', category: 'Shipping', readTime: '7 min read', published: '2026-11-06',
+  title: 'Oopbuy Shipping Weight by Category: Measured Parcel Data',
+  seoTitle: 'Oopbuy Shipping Weight by Category: Real Measured Data (2026) | OopbuyTop',
+  description: `Median parcel weights and box sizes for ${weightStats.categories} product categories, from ${weightStats.items} items measured at the warehouse. Use them to estimate a haul before you order.`,
+  keywords: ['oopbuy shipping weight', 'oopbuy parcel weight', 'how much does a hoodie weigh shipping', 'oopbuy volumetric weight', 'oopbuy haul weight estimate'],
+  intro: `Most shipping surprises start with a guess: “a hoodie is about half a kilo”, “shoes are light”. Instead of guessing, this guide uses warehouse measurements. In our ${snapshotDate} catalog snapshot, ${weightStats.items} items have a measured reference parcel, built from ${weightStats.samples.toLocaleString('en-US')} measured QC samples. Below are the typical weights and box sizes per category, and what they mean for your shipping estimate.`,
+  sections: [
+    { heading: 'Where these numbers come from', paragraphs: [
+      'Each figure is a warehouse QC measurement of a representative parcel for that item: weight in grams plus length, width and height in centimetres. Items are usually measured as they arrived, so the figure can include the item’s own packaging (such as a shoe box or perfume box). It does not include the outer box your whole haul is shipped in.',
+      'We show the median, the middle value, because a few unusual parcels would otherwise distort an average. The “typical range” column is the middle half of measured items. A measurement is not tied to every size: larger sizes and bulkier variants can weigh more than the figure shown.',
+    ] },
+    { heading: 'Typical parcel weight by category', paragraphs: [
+      `Footwear and electronics dominate the top of the list. Sneakers come in around ${w('sneakers')} each in their box, and personal-care devices such as hair stylers around ${w('personal-care-devices')}. Everyday clothing is much lighter: T-shirts about ${w('t-shirts')}, hoodies about ${w('hoodies-sweatshirts')}. Small accessories such as phone accessories (${w('phone-accessories')}) and headwear (${w('headwear')}) barely move the scale.`,
+    ] },
+    { heading: 'Why volume can cost more than weight', paragraphs: [
+      `Many shipping lines charge whichever is higher: the actual weight, or a volumetric weight calculated from the box size (length × width × height in cm ÷ a divisor, commonly 5,000 or 6,000). The “box-size weight” column uses ÷${VOLUMETRIC_DIVISOR.toLocaleString('en-US')} so you can compare.`,
+      `This is where bulky items hurt. A parka or down jacket weighs about ${w('parkas-down-jackets')}, but its parcel as measured works out to roughly ${v('parkas-down-jackets')} of box-size weight. Coats show the same pattern (${w('coats')} actual vs ${v('coats')} by volume), and so do sneakers in their boxes (${w('sneakers')} vs ${v('sneakers')}). Dense items such as perfume (${w('perfume')} vs ${v('perfume')}) are the opposite: their actual weight is what counts.`,
+      'If your agent offers options such as removing shoe boxes, compressing outerwear or consolidating into one tighter box, those are the levers that change the volumetric figure. Check which options are currently available, what they cost and whether they suit the item (some buyers want to keep original boxes).',
+    ] },
+    { heading: 'How to estimate a haul before you order', paragraphs: [
+      'Add up the median weight of each item you plan to buy, then leave a margin for the outer box and packing materials. Do the same with the box-size column for bulky items. The higher of the two totals is a more honest starting point than item weight alone.',
+      'Compare that estimate against the weight limits and pricing steps of the shipping lines available for your country. A haul that sits just above a weight step can sometimes be split, or trimmed by removing one heavy boxed item.',
+      'Treat the result as a planning range, not a quote. Your final parcel is weighed and measured after packing, and the line’s current pricing, surcharges and country rules decide the final cost.',
+    ] },
+    { heading: 'Limits of this data', paragraphs: [
+      'Categories with fewer than six measured items are left out because a median from a handful of parcels is not reliable, as are catch-all and visibly mixed categories. Measurements come from QC records linked to each item and may not match every size or colour option.',
+      `This table is recalculated whenever the catalog snapshot is updated; it currently reflects the snapshot from ${snapshotDate}. Always rely on your actual warehouse measurement once an item has arrived.`,
+    ] },
+  ],
+  table: {
+    afterSection: 1,
+    caption: `Measured parcel weight by category (${weightStats.items} items, snapshot ${snapshotDate})`,
+    columns: ['Category', 'Median weight', 'Typical range', 'Box-size weight (÷5,000)', 'Items'],
+    rows: weightRows.map((row) => ({
+      cells: [row.name, formatGrams(row.medianG), `${formatGrams(row.lowG)}–${formatGrams(row.highG)}`, row.volumetricG ? formatGrams(row.volumetricG) : '—', String(row.items)],
+      href: row.href,
+    })),
+    note: 'Median of warehouse-measured reference parcels (may include the item’s own packaging). Typical range = middle 50% of items. Box-size weight = L × W × H (cm) ÷ 5,000.',
+  },
+  faq: [
+    { question: 'How much does a hoodie weigh for Oopbuy shipping?', answer: `In our measured data a hoodie or sweatshirt parcel has a median of about ${w('hoodies-sweatshirts')}. Heavy fleece and larger sizes sit higher, so budget toward the top of the typical range.` },
+    { question: 'How much do sneakers weigh with the box?', answer: `Measured sneaker parcels have a median of about ${w('sneakers')}, usually with the shoe box. Their box size often makes the volumetric weight higher than the actual weight.` },
+    { question: 'Is the final shipping weight the same as these numbers?', answer: 'No. These are per-item reference parcels. Your shipped parcel adds an outer box and packing material, and is weighed and measured again after packing. Use these figures to plan, then rely on the warehouse measurement.' },
+  ],
+  related: [
+    { label: 'Oopbuy shipping guide', href: '/guides/oopbuy-shipping-guide/' },
+    { label: 'Why shipping estimates and final prices differ', href: '/blog/oopbuy-shipping-cost-explained/' },
+    { label: 'Size check before ordering', href: '/blog/oopbuy-size-check-before-ordering/' },
+    { label: 'Browse categories', href: '/categories/' },
+  ],
 };
 
 export const blogPosts: BlogPost[] = [
+  parcelWeightPost,
   {
     slug: 'oopbuy-spreadsheet-for-beginners', category: 'Beginner', readTime: '6 min read', published: '2026-08-29',
     title: 'Oopbuy Spreadsheet for Beginners: How to Build a Better Shortlist',
