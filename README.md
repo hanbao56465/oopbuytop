@@ -8,7 +8,7 @@ The site's primary discovery resource is the searchable [Oopbuy spreadsheet](htt
 
 ## Search indexing
 
-All local product detail pages (`/finds/<slug>/`) use `noindex,follow` and are excluded from the XML sitemap. Crawling stays allowed so search engines can read the directive. The `/finds/` directory, homepage, category pages and guides retain their existing indexing settings. This policy applies only to OopbuyTop and does not change Maisonlooks.
+QC-reference product research pages (`/finds/<slug>/`) are indexable and included in the XML sitemap. Each page targets a long-tail find query (product + brand + QC/price context). Brand lanes (`/brand/<slug>/`, listed at `/brands/`) cover brands with at least three QC finds. The homepage owns the head term “Oopbuy spreadsheet”; `/oopbuy-spreadsheet/` is the how-to guide; `/categories/` is the browse hub; country landings are destination checklists (currency, sizing, parcel), not second homepages. Buyer-shares pagination and thin `/finds/?q=` parameter URLs are excluded from the sitemap.
 
 ## Editorial scope
 

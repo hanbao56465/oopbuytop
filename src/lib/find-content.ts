@@ -39,24 +39,52 @@ const priorityFindContent: Record<string, PriorityFindContent> = {
       { question: 'What do slide QC photos not show?', answer: 'They cannot establish comfort, grip, material performance or long-term durability.' },
     ],
   },
-  'creed-silver-mountain-water-perfume-224fb6': {
-    keyword: 'Creed Silver Mountain Water Oopbuy spreadsheet find',
-    heading: 'What to verify on this 100 ml fragrance listing',
-    intro: 'Fragrance titles can group bottle sizes, concentrations and packaging variants. Confirm that the live selected option still states 100 ml and the same concentration before considering price or shipping.',
-    comparisonPoints: ['Match the stated bottle volume and concentration to the selected option.', 'Compare visible bottle, cap, label and packaging details across the current images.', 'Check current destination-specific fragrance shipping restrictions separately.'],
+  'venenum-32-75ml-perfume-dc5b30': {
+    keyword: 'Venenum 32 Oopbuy spreadsheet perfume find',
+    heading: 'Evidence checklist for this 75 ml Venenum 32 spreadsheet find',
+    intro: 'This is the highest-QC perfume row in the current Oopbuy spreadsheet snapshot: 65 warehouse photos across multiple QC groups, with a measured reference parcel of about 427 g in a 20×12×7 cm box. Use that evidence to match packaging and option details—not to certify scent or authenticity.',
+    comparisonPoints: [
+      'Confirm the live option still states 75 ml and matches the bottle/cap shape in the matched QC set.',
+      'Compare box markings and bottle silhouette across several QC angles before approving shipment.',
+      'Treat the ~$30 snapshot price as product context only; perfume lines can be restricted by destination.',
+      'Use the measured ~427 g parcel weight for haul planning, then recheck the live packed weight.',
+    ],
     faqs: [
-      { question: 'Can these QC photos verify Creed Silver Mountain Water?', answer: 'They can show visible packaging and the ordered option only; they cannot verify scent, formula or authenticity.' },
-      { question: 'Is the displayed price the delivered price?', answer: 'No. It is snapshot product context and excludes any current service, parcel or destination costs.' },
+      { question: 'Why does this perfume find have so many QC photos?', answer: 'The catalogue snapshot reports 65 warehouse-photo references for this listing. A higher count means more angles to compare, not a quality grade or authenticity certificate.' },
+      { question: 'What does the 427 g measurement include?', answer: 'It is a warehouse QC measurement of a representative parcel for this item and can include the item’s own packaging. It is not your final haul weight.' },
+      { question: 'Can I assume perfume shipping is allowed?', answer: 'No. Fragrance rules are destination- and line-specific. Read the live checkout restrictions after QC review.' },
     ],
   },
-  'chanel-bleu-de-chanel-parfum-pour-homme-100ml-faec0a': {
-    keyword: 'Bleu de Chanel Oopbuy spreadsheet find',
-    heading: 'Bottle and option checks for this Bleu de Chanel listing',
-    intro: 'Use this page to identify the listing and its warehouse-photo count, then verify the exact volume and concentration on the current option. A familiar product name is not proof of what a seller will supply.',
-    comparisonPoints: ['Confirm that the selected option says parfum and shows the intended bottle volume.', 'Review the bottle shape, cap, label and any included packaging from several angles.', 'Recheck fragrance shipping eligibility for the destination before parcel planning.'],
+  'saint-laurent-born-in-roma-the-gold-eau-de-parfum-3fe172': {
+    keyword: 'YSL Born in Roma Gold Oopbuy spreadsheet find',
+    heading: 'Bottle, EDP claim and parcel checks for this YSL spreadsheet find',
+    intro: 'This Saint Laurent Born in Roma The Gold Oopbuy spreadsheet entry currently reports 18 QC photos and a measured reference parcel of about 487 g (19×14×11 cm). Confirm the eau de parfum claim and bottle presentation on the live option before comparing price or planning a restricted perfume shipment.',
+    comparisonPoints: [
+      'Match “eau de parfum” / The Gold naming on the selected live option, not only the card title.',
+      'Review bottle, cap and packaging against the matched QC group before parcel building.',
+      'Use the ~$48 snapshot only as product context; convert and add shipping separately.',
+      'Compare the ~487 g measured parcel with other perfume finds when estimating a haul.',
+    ],
     faqs: [
-      { question: 'Do product or QC images prove this fragrance is authentic?', answer: 'No. Images cannot establish authenticity, scent, formula or performance.' },
-      { question: 'Why should I check the concentration again?', answer: 'Listings can group parfum, eau de parfum and other variants under similar titles, so the selected live option matters.' },
+      { question: 'Does “Born in Roma The Gold” guarantee the same juice as retail?', answer: 'No. The title is catalogue metadata. Confirm the live option text and packaging; QC photos cannot verify scent or formula.' },
+      { question: 'Is 487 g a typical perfume parcel?', answer: 'In this snapshot’s measured perfume set it sits toward the heavier end. Use it as a planning reference, then rely on your warehouse measurement.' },
+      { question: 'What should I check in YSL perfume QC photos?', answer: 'Bottle shape, cap, label text where visible, box condition and whether the received option matches the ordered concentration/size.' },
+    ],
+  },
+  'le-labo-another-13-perfume-100ml-badef0': {
+    keyword: 'Le Labo Another 13 Oopbuy spreadsheet find',
+    heading: '100 ml option and packaging checks for this Le Labo spreadsheet find',
+    intro: 'This Le Labo Another 13 Oopbuy spreadsheet page currently has 16 QC photos and a measured reference parcel of about 420 g in an 18×12×10 cm box. Minimalist packaging makes option mismatches easier to miss—confirm the 100 ml claim and label details carefully.',
+    comparisonPoints: [
+      'Verify the live selected option still says 100 ml Another 13 before trusting the card.',
+      'Compare kraft-box and bottle label details across QC angles; ask for a missing label shot if needed.',
+      'Keep the ~$23 snapshot separate from shipping and destination fees.',
+      'Dense perfume parcels often bill closer to actual weight than volume—use the measured 420 g as a planning input.',
+    ],
+    faqs: [
+      { question: 'Can QC photos prove this is real Le Labo Another 13?', answer: 'No. They can show packaging and the ordered option only. They cannot verify scent, formula or authenticity.' },
+      { question: 'Why does volume matter so much on this find?', answer: 'Fragrance listings often group sizes. A 100 ml card price or photo set may not match a smaller live option.' },
+      { question: 'Where should I go after reviewing this find?', answer: 'Compare it on the perfume spreadsheet category, then read the perfume shipping and QC checklist before building a parcel.' },
     ],
   },
   'apple-airpods-pro-wireless-earbuds-b59559': {

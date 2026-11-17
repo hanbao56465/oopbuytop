@@ -2,8 +2,11 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import ProductCard from '../../components/ProductCard.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
-import { catalogCategories, catalogMeta, formatCatalogCheckedAt, maisonCategoryUrl, productsForCategory } from '../../lib/catalog';
+import { catalogCategories, formatCatalogCheckedAt, maisonCategoryUrl, productsForCategory } from '../../lib/catalog';
 import { categoryContent, searchCategorySlugs } from '../../lib/category-content';
+import { formatGrams } from '../../lib/parcel-weights';
+import { formatUsdBand, perfumeDemoProducts, perfumeEvidence } from '../../lib/perfume-evidence';
+
 export function getStaticPaths() {
   return catalogCategories
     .filter((category) => searchCategorySlugs.includes(category.slug))
@@ -19,17 +22,179 @@ const representedBrands = new Set(products.map((product) => product.brand).filte
 const pricedItems = products.filter((product) => product.priceUsdEstimate || product.priceCny || product.priceCnyRange).length;
 const snapshotDate = formatCatalogCheckedAt();
 const content = categoryContent(category.slug, category.name);
-const title = `${content.title}: ${categoryProducts.length.toLocaleString('en-US')} Finds & QC | OopbuyTop`;
+const guideHref = content.guideSlug.startsWith('/') ? content.guideSlug : `/guides/${content.guideSlug}/`;
+const perfumeLongTail = category.slug === 'perfume';
+const title = perfumeLongTail
+  ? `Oopbuy Perfume Spreadsheet: ${perfumeEvidence.findCount} QC Finds, Weights & Prices | OopbuyTop`
+  : `${content.title}: ${categoryProducts.length.toLocaleString('en-US')} Spreadsheet Finds & QC | OopbuyTop`;
+const description = perfumeLongTail
+  ? `Oopbuy perfume spreadsheet with ${perfumeEvidence.findCount} QC-reference finds, ${perfumeEvidence.qcPhotoTotal} warehouse photos, measured parcel weights and a ${formatUsdBand(perfumeEvidence.priceMinUsd, perfumeEvidence.priceMedUsd, perfumeEvidence.priceMaxUsd)} snapshot band. Part of the main Oopbuy spreadsheet — compare bottles, then check shipping restrictions.`
+  : `Oopbuy ${category.name.toLowerCase()} spreadsheet: browse ${categoryProducts.length.toLocaleString('en-US')} spreadsheet finds with QC photos, price context and pre-order checks. Compare options, then verify the live listing.`;
 const faqSchema = content.faq ? JSON.stringify({ '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: content.faq.map((item) => ({ '@type': 'Question', name: item.question, acceptedAnswer: { '@type': 'Answer', text: item.answer } })) }) : null;
+const perfumeSchema = perfumeLongTail ? JSON.stringify({
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'CollectionPage',
+      name: 'Oopbuy Perfume Spreadsheet',
+      url: 'https://oopbuytop.net/category/perfume/',
+      description,
+      dateModified: snapshotDate,
+    },
+    {
+      '@type': 'ItemList',
+      name: 'Oopbuy perfume spreadsheet finds with QC photos',
+      numberOfItems: perfumeEvidence.rows.length,
+      itemListElement: perfumeEvidence.rows.map((row, index) => ({
+        '@type': 'ListItem',
+        position: index + 1,
+        name: row.title,
+        url: `https://oopbuytop.net${row.href}`,
+      })),
+    },
+  ],
+}) : null;
 ---
-<BaseLayout title={title} description={`Browse ${categoryProducts.length.toLocaleString('en-US')} ${category.name.toLowerCase()} finds with current price context, available QC-photo references and practical pre-order checks.`}>
+<BaseLayout title={title} description={description}>
  <Breadcrumbs items={[{ label: 'Categories', href: '/categories/' }, { label: category.name }]} />
- <section class="hero compact"><p class="eyebrow">{categoryProducts.length.toLocaleString('en-US')} Oopbuy spreadsheet finds · checked {snapshotDate}</p><h1>{content.title}</h1><p>{content.intro}</p><p><a class="text-link" href={`/finds/?category=${encodeURIComponent(category.slug)}`}>Search {category.name} finds with QC references →</a></p><a class="button" href={maisonCategoryUrl(category.slug, 'category_hero_cta')} target="_blank" rel="sponsored noopener noreferrer">Check current {category.name} listings</a></section>
- <section class="category-listings"><div class="listing-heading"><div><p class="eyebrow">QC-first picks · snapshot checked {snapshotDate}</p><h2>Current {category.name} listings to explore</h2></div><span class:list={['listing-qc-count', { 'has-qc': qcCount > 0 }]}>{qcCount ? `${qcCount} QC pick${qcCount === 1 ? '' : 's'} shown first` : 'No QC picks in this snapshot'}</span></div><p class="section-intro">A focused 15-item preview. QC availability is highlighted only where warehouse photos are actually available; open any card for the current listing and options.</p>{products.length ? <><div class="product-grid">{products.map((product) => <ProductCard product={product} hideMissingQc placement="category_card" />)}</div><a class="text-link live-category-link" href={maisonCategoryUrl(category.slug, 'category_all_listings')} target="_blank" rel="sponsored noopener noreferrer">Browse all live {category.name} listings ↗</a></> : <p>Catalog items are being refreshed. Open the live category to browse current listings.</p>}</section>
- <section class="category-snapshot"><p class="eyebrow">Snapshot boundaries</p><h2>What this {category.name} preview can actually show</h2><div class="snapshot-facts"><div><strong>{products.length}</strong><span>comparison cards</span></div><div><strong>{representedBrands}</strong><span>visible brand labels</span></div><div><strong>{qcCount}</strong><span>cards with QC photos</span></div><div><strong>{pricedItems}</strong><span>cards with price context</span></div></div><p>This page uses a catalog snapshot checked in {snapshotDate}. It is designed to make a small comparison practical: product title, visible image, price context and any actual QC availability. It does not claim that every item is still available or that a card’s price applies to every option.</p><p>Open the current listing before deciding. Confirm the exact variant, measurements or specifications, current price and availability there; leave anything not shown clearly as unresolved.</p></section>
+ <section class="hero compact">
+   <p class="eyebrow">{perfumeLongTail ? `Oopbuy perfume spreadsheet · ${perfumeEvidence.findCount} QC finds · ${perfumeEvidence.qcPhotoTotal} warehouse photos · checked ${snapshotDate}` : `Oopbuy ${category.name.toLowerCase()} spreadsheet · ${categoryProducts.length.toLocaleString('en-US')} finds · checked ${snapshotDate}`}</p>
+   <h1>{content.title}</h1>
+   <p>{perfumeLongTail
+     ? `This Oopbuy perfume spreadsheet lane sits inside the main spreadsheet catalogue: ${perfumeEvidence.findCount} QC-reference finds across ${perfumeEvidence.brandCount} brand labels, ${perfumeEvidence.qcPhotoTotal} QC photos total, and ${perfumeEvidence.measuredCount} bottles with measured reference parcels. Use the evidence table below to shortlist, then verify volume, packaging and shipping rules before you order.`
+     : content.intro}</p>
+   <div class="locale-actions">
+     <a class="button button-hot" href={`/finds/?category=${encodeURIComponent(category.slug)}`}>Search this spreadsheet category →</a>
+     <a class="text-link" href="/finds/">Oopbuy spreadsheet with QC</a>
+   </div>
+   {perfumeLongTail && <p class="section-intro"><a class="text-link" href="/">Back to main Oopbuy spreadsheet →</a> · <a class="text-link" href="/blog/oopbuy-perfume-shipping-and-qc-review/">Perfume shipping &amp; QC checklist →</a></p>}
+ </section>
+
+ {perfumeLongTail && (
+   <section class="category-snapshot perfume-proof" aria-label="Perfume snapshot facts">
+     <div class="snapshot-facts">
+       <div><strong>{perfumeEvidence.findCount}</strong><span>QC-reference perfume finds</span></div>
+       <div><strong>{perfumeEvidence.qcPhotoTotal}</strong><span>warehouse QC photos</span></div>
+       <div><strong>{perfumeEvidence.weightMedG ? formatGrams(perfumeEvidence.weightMedG) : '—'}</strong><span>median measured parcel</span></div>
+       <div><strong>{perfumeEvidence.priceMedUsd != null ? `~$${perfumeEvidence.priceMedUsd.toFixed(0)}` : '—'}</strong><span>median snapshot USD</span></div>
+     </div>
+   </section>
+ )}
+
+ {perfumeLongTail && (
+   <section class="category-evidence">
+     <div class="section-heading">
+       <div>
+         <p class="eyebrow">Real snapshot evidence</p>
+         <h2>Oopbuy perfume spreadsheet data you can actually use</h2>
+         <p class="section-intro">
+           Figures below come from the committed Oopbuy spreadsheet snapshot checked {perfumeEvidence.checkedAt}.
+           Weights are warehouse QC measurements of a representative parcel (often including the item’s own packaging).
+           Prices are product snapshots, not delivered totals. Fragrance shipping eligibility is never decided on a spreadsheet card.
+         </p>
+       </div>
+     </div>
+     <figure class="blog-table">
+       <p class="blog-table-title" id="perfume-evidence-title">Perfume finds ranked by QC-photo count</p>
+       <div class="blog-table-scroll" tabindex="0" role="region" aria-labelledby="perfume-evidence-title">
+         <table aria-labelledby="perfume-evidence-title">
+           <thead>
+             <tr>
+               <th scope="col">Find</th>
+               <th scope="col">Brand</th>
+               <th scope="col">QC photos</th>
+               <th scope="col">Volume hint</th>
+               <th scope="col">Snapshot price</th>
+               <th scope="col">Measured parcel</th>
+               <th scope="col">Box size</th>
+             </tr>
+           </thead>
+           <tbody>
+             {perfumeEvidence.rows.map((row) => (
+               <tr>
+                 <th scope="row"><a href={row.href}>{row.title}{row.isDemo ? ' · deep page' : ''}</a></th>
+                 <td>{row.brand}</td>
+                 <td>{row.qcPhotoCount}{row.qcGroups ? ` / ${row.qcGroups} groups` : ''}</td>
+                 <td>{row.volumeHint ?? '—'}</td>
+                 <td>{row.priceLabel}</td>
+                 <td>{row.weightLabel ?? '—'}</td>
+                 <td>{row.boxLabel ?? '—'}</td>
+               </tr>
+             ))}
+           </tbody>
+         </table>
+       </div>
+       <figcaption>
+         Price band in this snapshot: {formatUsdBand(perfumeEvidence.priceMinUsd, perfumeEvidence.priceMedUsd, perfumeEvidence.priceMaxUsd)}.
+         Measured weight range where available: {perfumeEvidence.weightLowG && perfumeEvidence.weightHighG ? `${formatGrams(perfumeEvidence.weightLowG)}–${formatGrams(perfumeEvidence.weightHighG)}` : 'n/a'}.
+         Dense perfume parcels usually bill closer to actual weight than box-size weight.
+       </figcaption>
+     </figure>
+   </section>
+ )}
+
+ {perfumeLongTail && (
+   <section class="category-research">
+     <p class="eyebrow">Decision order for perfume</p>
+     <div>
+       <h2>Bottle first. QC second. Shipping last.</h2>
+       <p>Search queries like “oopbuy shipping perfume qc review” mix three jobs. Keep them separate so a spreadsheet card is not mistaken for a shipping approval.</p>
+       <ol class="perfume-decision-list">
+         <li><strong>Identify the bottle.</strong> Confirm volume, concentration and set vs single bottle on the live option.</li>
+         <li><strong>Review warehouse photos.</strong> Match packaging and option details; ask for a missing angle when a decisive detail is absent.</li>
+         <li><strong>Read destination rules.</strong> Fragrance/liquid restrictions are line-specific—check the live parcel screen before payment.</li>
+       </ol>
+       <p><a class="text-link" href="/blog/oopbuy-perfume-shipping-and-qc-review/">Open the full perfume shipping &amp; QC checklist →</a></p>
+     </div>
+   </section>
+ )}
+
+ {perfumeLongTail && perfumeDemoProducts.length > 0 && (
+   <section class="finds-section">
+     <div class="section-heading">
+       <div>
+         <p class="eyebrow">Deep evidence pages</p>
+         <h2>Three perfume spreadsheet finds with measured parcels + QC depth</h2>
+         <p class="section-intro">These Oopbuy spreadsheet pages carry the snapshot’s strongest perfume evidence: high QC-photo counts plus warehouse weight/box measurements. Open them for a focused check, then return to the perfume spreadsheet category to compare alternatives.</p>
+       </div>
+       <a class="section-link" href="/finds/?category=perfume">All perfume spreadsheet finds →</a>
+     </div>
+     <div class="product-grid">
+       {perfumeDemoProducts.map((product) => <ProductCard product={product} hideMissingQc placement="perfume_demo_card" />)}
+     </div>
+   </section>
+ )}
+
+ <section class="category-listings">
+   <div class="listing-heading">
+     <div>
+       <p class="eyebrow">QC-first picks · snapshot checked {snapshotDate}</p>
+       <h2>Oopbuy {category.name.toLowerCase()} spreadsheet finds with QC photos</h2>
+     </div>
+     <span class:list={['listing-qc-count', { 'has-qc': qcCount > 0 }]}>{qcCount ? `${qcCount} QC pick${qcCount === 1 ? '' : 's'} shown first` : 'No QC picks in this snapshot'}</span>
+   </div>
+   <p class="section-intro">{perfumeLongTail ? 'Full perfume shortlist from the current Oopbuy spreadsheet snapshot, sorted by QC-photo count.' : `A focused 15-item preview for “oopbuy ${category.name.toLowerCase()} spreadsheet” research. QC availability is highlighted only where warehouse photos are actually available; open any card for price context and options.`}</p>
+   {products.length ? <div class="product-grid">{products.map((product) => <ProductCard product={product} hideMissingQc placement="category_card" />)}</div> : <p>Catalog items are being refreshed. Search the <a href="/finds/">Oopbuy spreadsheet with QC</a> or browse <a href="/categories/">spreadsheet categories</a>.</p>}
+ </section>
+
+ <section class="category-snapshot">
+   <p class="eyebrow">Snapshot boundaries</p>
+   <h2>What this {category.name} preview can actually show</h2>
+   <div class="snapshot-facts">
+     <div><strong>{perfumeLongTail ? perfumeEvidence.findCount : products.length}</strong><span>comparison cards</span></div>
+     <div><strong>{representedBrands}</strong><span>visible brand labels</span></div>
+     <div><strong>{qcCount}</strong><span>cards with QC photos</span></div>
+     <div><strong>{pricedItems}</strong><span>cards with price context</span></div>
+   </div>
+   <p>This page uses a catalog snapshot checked in {snapshotDate}. It is designed to make a small comparison practical: product title, visible image, price context and any actual QC availability. It does not claim that every item is still available or that a card’s price applies to every option.</p>
+   <p>Open the current listing before deciding. Confirm the exact variant, measurements or specifications, current price and availability there; leave anything not shown clearly as unresolved.</p>
+   <p><a class="text-link live-category-link" href={maisonCategoryUrl(category.slug, 'category_all_listings')} target="_blank" rel="sponsored noopener noreferrer">Check live {category.name} listings on the partner catalog ↗</a></p>
+ </section>
+
  {content.research && <section class="category-research"><p class="eyebrow">Research notes</p>{content.research.map((section) => <div><h2>{section.heading}</h2>{section.paragraphs.map((paragraph) => <p>{paragraph}</p>)}</div>)}</section>}
- <section class="notice"><h2>Before you choose</h2><ul>{content.checklist.map((item) => <li>{item}</li>)}</ul><p><a class="text-link" href={`/guides/${content.guideSlug}/`}>{content.guideLabel} →</a></p></section>
+ <section class="notice"><h2>Before you choose</h2><ul>{content.checklist.map((item) => <li>{item}</li>)}</ul><p><a class="text-link" href={guideHref}>{content.guideLabel} →</a></p></section>
  {content.qcChecks && <section class="category-qc"><p class="eyebrow">QC photo checks</p><h2>What to compare after warehouse arrival</h2><ol>{content.qcChecks.map((item) => <li>{item}</li>)}</ol><a class="text-link" href="/guides/oopbuy-qc-photos/">Read the Oopbuy QC photo guide →</a></section>}
  {content.faq && <section class="guide-faq category-faq"><p class="eyebrow">Category FAQ</p><h2>{category.name} questions before ordering</h2>{content.faq.map((item) => <details><summary>{item.question}</summary><p>{item.answer}</p></details>)}</section>}
  {faqSchema && <script type="application/ld+json" set:html={faqSchema} />}
+ {perfumeSchema && <script type="application/ld+json" set:html={perfumeSchema} />}
 </BaseLayout>

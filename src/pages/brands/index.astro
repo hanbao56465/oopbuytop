@@ -1,0 +1,49 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { catalogBrands } from '../../lib/brands';
+import { formatCatalogCheckedAt } from '../../lib/catalog';
+
+const totalFinds = catalogBrands.reduce((sum, brand) => sum + brand.productCount, 0);
+const schema = JSON.stringify({
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  name: 'Oopbuy Spreadsheet Brands with QC Photos',
+  url: 'https://oopbuytop.net/brands/',
+  description: `Browse ${catalogBrands.length} Oopbuy spreadsheet brand lanes with QC-reference finds.`,
+  mainEntity: {
+    '@type': 'ItemList',
+    numberOfItems: catalogBrands.length,
+    itemListElement: catalogBrands.slice(0, 40).map((brand, index) => ({
+      '@type': 'ListItem',
+      position: index + 1,
+      name: brand.brand,
+      url: `https://oopbuytop.net/brand/${brand.slug}/`,
+    })),
+  },
+});
+---
+<BaseLayout
+  title={`Oopbuy Spreadsheet Brands: ${catalogBrands.length} QC Brand Lanes | OopbuyTop`}
+  description={`Browse ${catalogBrands.length} Oopbuy spreadsheet brand lanes covering ${totalFinds} QC-reference finds. Open Nike, Gucci, Dior, Apple and more inside the spreadsheet, then verify the live listing.`}
+>
+  <section class="hero compact">
+    <p class="eyebrow">Oopbuy spreadsheet brand lanes · checked {formatCatalogCheckedAt()}</p>
+    <h1>Oopbuy spreadsheet brands<br /><em>with QC finds</em></h1>
+    <p>
+      Start with a brand inside the Oopbuy spreadsheet, compare QC-reference finds, then open the live listing for the exact option.
+      The searchable spreadsheet stays on the homepage; category spreadsheet pages sit under <a href="/categories/">categories</a>.
+    </p>
+    <p><a class="text-link" href="/finds/">Search spreadsheet finds with QC →</a> · <a class="text-link" href="/">Back to Oopbuy spreadsheet</a></p>
+  </section>
+  <section>
+    <div class="brand-grid brand-directory">
+      {catalogBrands.map((brand) => (
+        <a class="brand-chip" href={`/brand/${brand.slug}/`}>
+          <span>{brand.brand}</span>
+          <small>{brand.productCount} QC finds</small>
+        </a>
+      ))}
+    </div>
+  </section>
+  <script type="application/ld+json" set:html={schema} />
+</BaseLayout>

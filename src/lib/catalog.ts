@@ -5,7 +5,35 @@ import { trackedOutboundUrl } from './outbound';
 
 export type Category = { slug: string; name: string; parentSlug: string | null; imageUrl: string | null; productCount: number | null };
 export type QcGroup = { isPreferred: boolean; skuLabel: string | null; images: { url: string; thumbnailUrl: string | null }[] };
-export type Product = { qcGroups?: QcGroup[]; qcTruncated?: boolean; variant?: { availableSizes?: string[] | null } | null; id: string; slug: string; shopSlug: string; productUrl: string; title: string; description: string | null; category: string | null; brand: string | null; priceCnyRange: [number, number] | null; priceCny: number | string | null; priceUsdEstimate: [number, number] | null; images: string[]; qcPhotoCount: number; hasTryOn: boolean; updatedAt: string };
+export type ProductMeasurements = {
+  weightG: number;
+  lengthCm: number | null;
+  widthCm: number | null;
+  heightCm: number | null;
+  source?: string;
+  sampleCount?: number;
+};
+export type Product = {
+  qcGroups?: QcGroup[];
+  qcTruncated?: boolean;
+  measurements?: ProductMeasurements | null;
+  variant?: { availableSizes?: string[] | null } | null;
+  id: string;
+  slug: string;
+  shopSlug: string;
+  productUrl: string;
+  title: string;
+  description: string | null;
+  category: string | null;
+  brand: string | null;
+  priceCnyRange: [number, number] | null;
+  priceCny: number | string | null;
+  priceUsdEstimate: [number, number] | null;
+  images: string[];
+  qcPhotoCount: number;
+  hasTryOn: boolean;
+  updatedAt: string;
+};
 
 export const catalogCategories = categories as Category[];
 // Some seller titles mix in Chinese colour/model names (e.g. "UGG Classic Short贝莉…").

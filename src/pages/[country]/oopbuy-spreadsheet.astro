@@ -23,13 +23,13 @@ for (const product of priorityFindProducts) {
 const canonical = `https://oopbuytop.net/${config.slug}/oopbuy-spreadsheet/`;
 const isFrench = config.lang === 'fr-FR';
 const description = `${config.descriptionLead} avec ${catalogMeta.productCount.toLocaleString(config.locale)} fiches catalogue, ${qcCatalogProducts.length} trouvailles avec références QC, prix et vérifications de taille et de colis.`;
-const englishDescription = `${config.descriptionLead} with ${catalogMeta.productCount.toLocaleString(config.locale)} catalogue records, ${qcCatalogProducts.length} QC-reference finds, price, sizing and parcel checks.`;
+const englishDescription = `${config.descriptionLead}: ${config.currency} totals, sizing and parcel checks, plus ${qcCatalogProducts.length} QC-reference finds from the current catalogue.`;
 const schema = JSON.stringify({
   '@context': 'https://schema.org',
   '@graph': [
     { '@type': 'WebPage', name: config.title, url: canonical, inLanguage: config.lang, description: isFrench ? description : englishDescription, dateModified: catalogMeta.fetchedAt },
     { '@type': 'BreadcrumbList', itemListElement: [{ '@type': 'ListItem', position: 1, name: 'Oopbuy Spreadsheet', item: 'https://oopbuytop.net/' }, { '@type': 'ListItem', position: 2, name: config.country, item: canonical }] },
-    { '@type': 'ItemList', name: `${config.country} Oopbuy spreadsheet research finds`, numberOfItems: focusProducts.length, itemListElement: focusProducts.map((product, index) => ({ '@type': 'ListItem', position: index + 1, name: product.title, url: `https://oopbuytop.net/finds/${product.slug}/` })) },
+    { '@type': 'ItemList', name: `${config.country} Oopbuy research finds`, numberOfItems: focusProducts.length, itemListElement: focusProducts.map((product, index) => ({ '@type': 'ListItem', position: index + 1, name: product.title, url: `https://oopbuytop.net/finds/${product.slug}/` })) },
     { '@type': 'FAQPage', mainEntity: config.faq.map((item) => ({ '@type': 'Question', name: item.question, acceptedAnswer: { '@type': 'Answer', text: item.answer } })) },
   ],
 });
@@ -37,7 +37,7 @@ const schema = JSON.stringify({
 <BaseLayout lang={config.lang} title={config.title} description={isFrench ? description : englishDescription} canonical={canonical} alternates={countryAlternates}>
   <nav class="locale-breadcrumbs" aria-label={isFrench ? 'Fil d’Ariane' : 'Breadcrumb'}><a href="/">Oopbuy Spreadsheet</a><span>›</span><span>{config.country}</span></nav>
   <section class="locale-hero">
-    <div><p class="eyebrow">{config.country} · {isFrench ? 'catalogue vérifié le' : 'catalogue checked'} {formatCatalogCheckedAt(config.locale)}</p><h1>Oopbuy Spreadsheet {config.shortCountry}:<br /><em>{config.heroLead}</em></h1><p>{config.intro}</p><div class="locale-actions"><a class="button button-hot" href="/finds/">{isFrench ? 'Rechercher les trouvailles QC' : 'Search QC-reference finds'} →</a><a class="text-link" href={`/category/${config.categorySlugs[0]}/`}>{isFrench ? 'Voir une catégorie populaire' : 'Browse a popular category'}</a></div></div>
+    <div><p class="eyebrow">{config.country} · {isFrench ? 'catalogue vérifié le' : 'catalogue checked'} {formatCatalogCheckedAt(config.locale)}</p><h1>{config.heroTitle}:<br /><em>{config.heroLead}</em></h1><p>{config.intro}</p><div class="locale-actions"><a class="button button-hot" href="/finds/">{isFrench ? 'Rechercher les trouvailles QC' : 'Search QC-reference finds'} →</a><a class="text-link" href={`/category/${config.categorySlugs[0]}/`}>{isFrench ? 'Voir une catégorie populaire' : 'Browse a popular category'}</a></div></div>
     <aside><strong>{config.checklistTitle}</strong><ul>{config.checklist.map((item) => <li>{item}</li>)}</ul></aside>
   </section>
 
@@ -45,7 +45,7 @@ const schema = JSON.stringify({
 
   <section class="locale-content-grid">{config.steps.map((step, index) => <article><p class="eyebrow">{isFrench ? 'Étape' : 'Step'} {index + 1}</p><h2>{step.title}</h2><p>{step.text}</p>{index === 1 && <a class="text-link" href="/guides/oopbuy-size-guide/">{isFrench ? 'Ouvrir la checklist des tailles' : 'Open the sizing checklist'} →</a>}{index === 2 && <a class="text-link" href="/guides/oopbuy-shipping-guide/">{isFrench ? 'Ouvrir la checklist du colis' : 'Open the shipping checklist'} →</a>}</article>)}</section>
 
-  <section class="locale-category-links"><div><p class="eyebrow">{isFrench ? 'Points de départ' : 'Popular starting points'}</p><h2>{isFrench ? 'Catégories Oopbuy Spreadsheet' : 'Browse Oopbuy spreadsheet categories'}</h2></div><div>{config.categorySlugs.map((slug, index) => <a href={`/category/${slug}/`}>{config.categoryLabels[index]}</a>)}</div></section>
+  <section class="locale-category-links"><div><p class="eyebrow">{isFrench ? 'Points de départ' : 'Popular starting points'}</p><h2>{isFrench ? `Catégories utiles pour ${config.country}` : `Useful categories for ${config.country}`}</h2></div><div>{config.categorySlugs.map((slug, index) => <a href={`/category/${slug}/`}>{config.categoryLabels[index]}</a>)}</div></section>
 
   <section class="finds-section"><div class="section-heading"><div><p class="eyebrow">{isFrench ? 'Fiches ciblées' : 'Focused research pages'}</p><h2>{isFrench ? 'Trouvailles avec références QC' : 'Finds with current QC references'}</h2><p class="section-intro">{isFrench ? 'Chaque carte ouvre d’abord une fiche de recherche interne.' : 'Each card opens an internal research page before any external listing.'}</p></div><a class="section-link" href="/finds/">{isFrench ? 'Toutes les trouvailles QC' : 'All QC-reference finds'} →</a></div><div class="product-grid">{focusProducts.map((product) => <ProductCard product={product} placement={`${config.slug}_spreadsheet`} />)}</div></section>
 

@@ -80,7 +80,79 @@ const parcelWeightPost: BlogPost = {
   ],
 };
 
+const perfumeShippingQcPost: BlogPost = {
+  slug: 'oopbuy-perfume-shipping-and-qc-review',
+  category: 'Shipping',
+  readTime: '7 min read',
+  published: '2026-11-17',
+  title: 'Oopbuy Perfume Shipping & QC Review: What to Check Before a Parcel',
+  seoTitle: 'Oopbuy Perfume Shipping & QC Review Checklist (2026) | OopbuyTop',
+  description: 'A practical Oopbuy perfume shipping and QC review checklist: bottle volume, concentration, warehouse photos, fragrance restrictions and parcel planning before you ship.',
+  keywords: [
+    'oopbuy perfume spreadsheet',
+    'oopbuy spreadsheet perfume',
+    'oopbuy shipping perfume qc review',
+    'oopbuy perfume shipping',
+    'oopbuy perfumes',
+    'oopbuy spreadsheet with qc',
+    'oopbuy fragrance QC',
+  ],
+  intro: 'Perfume rows in an Oopbuy spreadsheet attract two separate decisions that often get mixed together: whether the bottle and option still match what you researched, and whether fragrance can travel on the shipping line available for your destination. This page keeps those checks in order so a perfume spreadsheet card is not mistaken for a shipping approval.',
+  sections: [
+    {
+      heading: 'Start in the Oopbuy perfume spreadsheet, not the parcel screen',
+      paragraphs: [
+        'Open the Oopbuy perfume spreadsheet category or the main spreadsheet QC finds first. Compare a short shortlist of bottles that report warehouse QC-photo references, then open each research page for volume, concentration and image context. A familiar fragrance name is not proof that the selected live option is the same concentration, size or set.',
+        'Use the perfume spreadsheet category as the browse hub and treat individual find pages as the long-tail research record. Only after the bottle option is clear should you move to warehouse QC review and destination shipping rules.',
+      ],
+    },
+    {
+      heading: 'QC review for perfume: packaging first, scent never',
+      paragraphs: [
+        'Warehouse QC photos can help you compare bottle shape, cap, label, box and any visible volume marking against the option you ordered. Ask for the missing angle when a decisive detail is not shown. Do not treat a QC-photo count as a quality score or authenticity certificate.',
+        'QC images cannot verify scent, formula, batch performance or authenticity. If the visible bottle or packaging does not match the selected option, resolve that mismatch before the item enters a parcel. Keep a short note of the ordered volume and concentration so the review stays specific.',
+      ],
+    },
+    {
+      heading: 'Perfume shipping restrictions are destination-specific',
+      paragraphs: [
+        'Fragrance is often treated as a restricted or liquid category. Available lines, declared contents, quantity limits and carrier rules can change by destination and by the service you see at checkout. An old community haul that shipped perfume to another country is not a promise for your parcel.',
+        'Read the live shipping-line description and any fragrance or liquid restrictions in your own account before payment. If a line excludes perfume, remove the bottle from the parcel or choose a currently eligible option—do not rely on a spreadsheet card or this guide as a customs or carrier ruling.',
+      ],
+    },
+    {
+      heading: 'Separate product cost from perfume parcel cost',
+      paragraphs: [
+        'A perfume card price is snapshot product context. Delivered cost can add service fees, packing, shipping, surcharges and destination charges. Dense bottles often bill closer to actual weight than bulky apparel, but that still does not fix the restriction question.',
+        'Estimate haul weight with category medians only as a planning aid, then wait for the warehouse measurement of your packed parcel. Confirm the selected bottle option price again on the live listing immediately before you order.',
+      ],
+    },
+    {
+      heading: 'A short perfume QC-and-shipping checklist',
+      paragraphs: [
+        '1) Confirm volume, concentration and set vs single bottle on the live option. 2) Review warehouse photos against that same option. 3) Resolve visible mismatches before parcel building. 4) Read current fragrance/liquid rules for your destination line. 5) Save the order and parcel references after payment.',
+        'When a search query mixes “shipping”, “perfume” and “QC review”, answer it in that order: identify the bottle, review the photos, then check the live shipping screen. Skipping ahead is how restricted items and wrong variants reach a paid parcel.',
+      ],
+    },
+  ],
+  faq: [
+    { question: 'Can Oopbuy QC photos verify a perfume is authentic?', answer: 'No. Warehouse photos can show visible packaging and the ordered option only. They cannot verify scent, formula, authenticity or performance.' },
+    { question: 'Why do perfume shipping options disappear for some destinations?', answer: 'Fragrance and liquids are often restricted by line or country. Always read the live checkout rules for your destination rather than assuming a previous haul still applies.' },
+    { question: 'Where should I browse Oopbuy perfumes first?', answer: 'Start with the Oopbuy perfume spreadsheet category or the main Oopbuy spreadsheet with QC filtered to perfume, then open individual spreadsheet finds before any parcel decision.' },
+    { question: 'Is an Oopbuy perfume spreadsheet a shipping approval?', answer: 'No. It is one category lane inside the main Oopbuy spreadsheet. Shipping eligibility is decided only on the current parcel screen for your account and destination.' },
+  ],
+  related: [
+    { label: 'Oopbuy perfume spreadsheet', href: '/category/perfume/' },
+    { label: 'Oopbuy spreadsheet with QC', href: '/finds/' },
+    { label: 'Venenum 32 spreadsheet find', href: '/finds/venenum-32-75ml-perfume-dc5b30/' },
+    { label: 'YSL Born in Roma Gold spreadsheet find', href: '/finds/saint-laurent-born-in-roma-the-gold-eau-de-parfum-3fe172/' },
+    { label: 'Le Labo Another 13 spreadsheet find', href: '/finds/le-labo-another-13-perfume-100ml-badef0/' },
+    { label: 'Main Oopbuy spreadsheet', href: '/' },
+  ],
+};
+
 export const blogPosts: BlogPost[] = [
+  perfumeShippingQcPost,
   parcelWeightPost,
   {
     slug: 'oopbuy-spreadsheet-for-beginners', category: 'Beginner', readTime: '6 min read', published: '2026-08-29',

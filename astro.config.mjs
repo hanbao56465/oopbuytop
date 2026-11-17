@@ -5,8 +5,12 @@ export default defineConfig({
   site: 'https://oopbuytop.net',
   output: 'static',
   integrations: [sitemap({
-    // Product detail pages are noindex; keep the finds directory indexable.
-    filter: (page) => !/^\/finds\/[^/]+\/?$/.test(new URL(page).pathname),
+    filter(page) {
+      const path = new URL(page).pathname;
+      // Pagination and thin parameter mirrors waste crawl budget.
+      if (/^\/buyer-shares\/page\//.test(path)) return false;
+      return true;
+    },
   })],
   redirects: {
     '/guides/qc-photo-checklist/': '/guides/oopbuy-qc-photos/',

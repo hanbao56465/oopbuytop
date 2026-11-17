@@ -5,14 +5,30 @@ import { priorityCategorySlugs } from '../lib/category-content';
 const categoryIcons: Record<string, string> = { 't-shirts': '👕', dresses: '👗', jackets: '🧥', shoes: '👟', heels: '👠', 'trousers-pants': '👖', eyewear: '🕶️', perfume: '🧴', headwear: '🧢', 'underwear-swim': '🩱', electronics: '📱', 'scarves-ties': '🧣', 'jewelry-watches': '💍', 'socks-hosiery': '🧦' };
 const categoryLabels: Record<string, string> = { heels: 'High Heels', 'trousers-pants': 'Pants', eyewear: 'Sunglasses', headwear: 'Hats', 'underwear-swim': 'Underwear', 'scarves-ties': 'Scarves', 'jewelry-watches': 'Jewelry', 'socks-hosiery': 'Socks' };
 const guideCategories = priorityCategorySlugs.map((slug) => catalogCategories.find((category) => category.slug === slug)).filter(Boolean);
-const faqSchema = JSON.stringify({
+const pageSchema = JSON.stringify({
   '@context': 'https://schema.org',
-  '@type': 'FAQPage',
-  mainEntity: [
-    { '@type': 'Question', name: 'What is an Oopbuy spreadsheet?', acceptedAnswer: { '@type': 'Answer', text: 'An Oopbuy spreadsheet is an independent product-discovery resource that groups current-looking finds into categories. It helps users compare listings and QC availability, but it is not a checkout page or a guarantee of stock.' } },
-    { '@type': 'Question', name: 'How should I use an Oopbuy spreadsheet?', acceptedAnswer: { '@type': 'Answer', text: 'Start with one focused category, compare a small shortlist, then verify the exact product, size, option, price and availability on the live listing. Review available warehouse QC photos before deciding about shipping.' } },
-    { '@type': 'Question', name: 'Are Oopbuy spreadsheet links always current?', acceptedAnswer: { '@type': 'Answer', text: 'No. Products, variants, prices and availability can change. Treat a spreadsheet card as a starting point and verify the current live listing before taking any action.' } }
-  ]
+  '@graph': [
+    {
+      '@type': 'HowTo',
+      name: 'How to use an Oopbuy spreadsheet',
+      description: 'Five steps to search focused finds, compare categories and prices, review QC photos and verify the live listing before ordering.',
+      step: [
+        { '@type': 'HowToStep', position: 1, name: 'Start with a specific category', text: 'Choose one product type so comparable finds stay side by side.' },
+        { '@type': 'HowToStep', position: 2, name: 'Use the card for context', text: 'Treat title, price context and QC count as research signals, not a final decision.' },
+        { '@type': 'HowToStep', position: 3, name: 'Open the current listing', text: 'Verify size, variant, photos, price and availability on the live page.' },
+        { '@type': 'HowToStep', position: 4, name: 'Review QC before a parcel', text: 'Compare warehouse photos with the selected option before shipping.' },
+        { '@type': 'HowToStep', position: 5, name: 'Keep shipping separate', text: 'Check destination-specific options in the live checkout, not on a discovery card.' },
+      ],
+    },
+    {
+      '@type': 'FAQPage',
+      mainEntity: [
+        { '@type': 'Question', name: 'What is an Oopbuy spreadsheet?', acceptedAnswer: { '@type': 'Answer', text: 'An Oopbuy spreadsheet is an independent product-discovery resource that groups current-looking finds into categories. It helps users compare listings and QC availability, but it is not a checkout page or a guarantee of stock.' } },
+        { '@type': 'Question', name: 'How should I use an Oopbuy spreadsheet?', acceptedAnswer: { '@type': 'Answer', text: 'Start with one focused category, compare a small shortlist, then verify the exact product, size, option, price and availability on the live listing. Review available warehouse QC photos before deciding about shipping.' } },
+        { '@type': 'Question', name: 'Are Oopbuy spreadsheet links always current?', acceptedAnswer: { '@type': 'Answer', text: 'No. Products, variants, prices and availability can change. Treat a spreadsheet card as a starting point and verify the current live listing before taking any action.' } },
+      ],
+    },
+  ],
 });
 ---
 <BaseLayout title="How to Use an Oopbuy Spreadsheet: 5-Step Buyer Guide | OopbuyTop" description="Learn how to use an Oopbuy spreadsheet: search focused finds, compare categories and prices, review available QC photos and verify the current listing before ordering.">
@@ -48,4 +64,4 @@ const faqSchema = JSON.stringify({
     <p><a class="button button-hot" href="/categories/">Browse Oopbuy spreadsheet categories →</a></p>
   </article>
 </BaseLayout>
-<script type="application/ld+json" set:html={faqSchema} />
+<script type="application/ld+json" set:html={pageSchema} />

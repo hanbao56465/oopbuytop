@@ -17,7 +17,7 @@ for (const product of priorityFindProducts) {
 }
 const canonical = 'https://oopbuytop.net/uk/oopbuy-spreadsheet/';
 const faq = [
-  { question: 'Is this Oopbuy spreadsheet made for UK shoppers?', answer: 'This page adds UK-focused currency, sizing and parcel checks to the main research catalogue. Current checkout, carrier and import information still needs to be checked for the exact destination.' },
+  { question: 'Is this the main Oopbuy spreadsheet for the UK?', answer: 'No. Search finds on the homepage. This UK page focuses on GBP totals, UK sizing checks and parcel planning for British addresses.' },
   { question: 'Are the displayed prices in pounds and delivered?', answer: 'No. Card prices are product snapshots, usually shown as an approximate US-dollar context. Exchange rates, selected options, services, shipping and possible import costs are separate.' },
   { question: 'Should I convert a UK size directly from the product label?', answer: 'No. Use the current seller measurements and compare them with an item you own. Generic international labels are not a reliable fit check.' },
   { question: 'Do warehouse QC photos guarantee quality?', answer: 'No. They can help identify visible order mismatches, but do not guarantee quality, authenticity, functionality, fit or durability.' },
@@ -25,7 +25,7 @@ const faq = [
 const schema = JSON.stringify({
   '@context': 'https://schema.org',
   '@graph': [
-    { '@type': 'WebPage', name: 'Oopbuy Spreadsheet UK 2026', url: canonical, inLanguage: 'en-GB', description: `UK-focused Oopbuy spreadsheet guide with ${catalogMeta.productCount.toLocaleString('en-GB')} catalogue records and ${qcCatalogProducts.length} selected QC-reference finds.`, dateModified: catalogMeta.fetchedAt },
+    { '@type': 'WebPage', name: 'Oopbuy spreadsheet for the UK: GBP, sizing and QC', url: canonical, inLanguage: 'en-GB', description: `UK Oopbuy spreadsheet checklist covering GBP totals, sizing and parcel checks, with ${qcCatalogProducts.length} QC-reference finds.`, dateModified: catalogMeta.fetchedAt },
     { '@type': 'BreadcrumbList', itemListElement: [{ '@type': 'ListItem', position: 1, name: 'Oopbuy Spreadsheet', item: 'https://oopbuytop.net/' }, { '@type': 'ListItem', position: 2, name: 'United Kingdom', item: canonical }] },
     { '@type': 'ItemList', name: 'Oopbuy finds for UK research', numberOfItems: focusProducts.length, itemListElement: focusProducts.map((product, index) => ({ '@type': 'ListItem', position: index + 1, name: product?.title, url: `https://oopbuytop.net/finds/${product?.slug}/` })) },
     { '@type': 'FAQPage', mainEntity: faq.map((item) => ({ '@type': 'Question', name: item.question, acceptedAnswer: { '@type': 'Answer', text: item.answer } })) },
@@ -34,14 +34,14 @@ const schema = JSON.stringify({
 ---
 <BaseLayout
   lang="en-GB"
-  title="Oopbuy Spreadsheet UK 2026: Finds, Prices & QC Photos"
-  description={`UK Oopbuy spreadsheet with ${catalogMeta.productCount.toLocaleString('en-GB')} catalogue records, ${qcCatalogProducts.length} QC-reference finds, price context, sizing and parcel checks.`}
+  title="Oopbuy Spreadsheet for the UK: GBP Totals, Sizing & QC | OopbuyTop"
+  description={`UK Oopbuy spreadsheet checklist for GBP totals, UK sizing and parcel planning, with ${qcCatalogProducts.length} QC-reference finds from the current catalogue.`}
   canonical={canonical}
   alternates={countryAlternates}
 >
   <nav class="locale-breadcrumbs" aria-label="Breadcrumb"><a href="/">Oopbuy Spreadsheet</a><span>›</span><span>United Kingdom</span></nav>
   <section class="locale-hero locale-hero-uk">
-    <div><p class="eyebrow">United Kingdom · catalogue checked {formatCatalogCheckedAt('en-GB')}</p><h1>Oopbuy Spreadsheet UK:<br /><em>finds with price and QC context</em></h1><p>Research {catalogMeta.productCount.toLocaleString('en-GB')} catalogue records by product or category. Start with {qcCatalogProducts.length} focused finds that currently report warehouse-photo references, then verify the live option before making a decision.</p><div class="locale-actions"><a class="button button-hot" href="/finds/">Search QC-reference finds →</a><a class="text-link" href="/category/hoodies-sweatshirts/">Browse hoodie finds</a></div></div>
+    <div><p class="eyebrow">United Kingdom · catalogue checked {formatCatalogCheckedAt('en-GB')}</p><h1>Oopbuy spreadsheet for the UK:<br /><em>GBP totals, sizing and QC before you ship</em></h1><p>Use this UK page as a destination checklist after you shortlist spreadsheet finds: separate card prices from delivered GBP totals, compare real measurements, and review QC photos before a UK address parcel. The searchable Oopbuy spreadsheet stays on the homepage.</p><div class="locale-actions"><a class="button button-hot" href="/finds/">Oopbuy spreadsheet with QC →</a><a class="text-link" href="/">Back to main spreadsheet</a></div></div>
     <aside><strong>UK checklist</strong><ul><li>Do not treat a card price as a delivered GBP total.</li><li>Compare actual garment or internal shoe measurements.</li><li>Check current carrier and import information for your address.</li></ul></aside>
   </section>
 
@@ -53,10 +53,10 @@ const schema = JSON.stringify({
     <article><p class="eyebrow">Step 3</p><h2>Separate item price from parcel cost</h2><p>The snapshot price is not a delivered GBP quote. Selected variants, exchange rates, shipping, optional services and possible import charges can change the total. Use current checkout information for the exact UK destination.</p><a class="text-link" href="/guides/oopbuy-shipping-guide/">Open the shipping checklist →</a></article>
   </section>
 
-  <section class="locale-category-links"><div><p class="eyebrow">Popular starting points</p><h2>Browse Oopbuy spreadsheet categories</h2></div><div><a href="/category/hoodies-sweatshirts/">Hoodies</a><a href="/category/sneakers/">Sneakers</a><a href="/category/shoes/">Shoes</a><a href="/category/jackets/">Jackets</a><a href="/category/t-shirts/">T-shirts</a><a href="/category/electronics/">Electronics</a></div></section>
+  <section class="locale-category-links"><div><p class="eyebrow">Popular starting points</p><h2>Useful categories for UK shoppers</h2></div><div><a href="/category/hoodies-sweatshirts/">Hoodies</a><a href="/category/sneakers/">Sneakers</a><a href="/category/shoes/">Shoes</a><a href="/category/jackets/">Jackets</a><a href="/category/t-shirts/">T-shirts</a><a href="/category/electronics/">Electronics</a></div></section>
 
   <section class="finds-section"><div class="section-heading"><div><p class="eyebrow">Focused research pages</p><h2>Finds with current QC references</h2><p class="section-intro">Each card opens an internal research page before any external listing.</p></div><a class="section-link" href="/finds/">All QC-reference finds →</a></div><div class="product-grid">{focusProducts.map((product) => product && <ProductCard product={product} placement="uk_spreadsheet" />)}</div></section>
 
-  <section class="locale-faq"><p class="eyebrow">Common questions</p><h2>Oopbuy spreadsheet UK checks</h2>{faq.map((item) => <details><summary>{item.question}</summary><p>{item.answer}</p></details>)}</section>
+  <section class="locale-faq"><p class="eyebrow">Common questions</p><h2>UK Oopbuy GBP & parcel questions</h2>{faq.map((item) => <details><summary>{item.question}</summary><p>{item.answer}</p></details>)}</section>
   <script type="application/ld+json" set:html={schema} />
 </BaseLayout>

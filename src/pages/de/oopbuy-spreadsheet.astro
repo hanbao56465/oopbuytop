@@ -17,7 +17,7 @@ for (const product of priorityFindProducts) {
 }
 const canonical = 'https://oopbuytop.net/de/oopbuy-spreadsheet/';
 const faq = [
-  { question: 'Ist diese Oopbuy Spreadsheet speziell für Deutschland?', answer: 'Diese Seite bündelt deutschsprachige Recherchehinweise und passende Kategorien. Preise, Versandwege, Einfuhrabgaben und Verfügbarkeit müssen immer im aktuellen Checkout für das eigene Ziel geprüft werden.' },
+  { question: 'Ist dies die zentrale Oopbuy Spreadsheet?', answer: 'Nein. Die durchsuchbare Spreadsheet bleibt auf der Startseite. Diese Deutschland-Seite fokussiert Euro-Gesamtkosten, Größenvergleich und Paketplanung.' },
   { question: 'Sind die Preise bereits in Euro und inklusive Versand?', answer: 'Nein. Die angezeigten Produktpreise sind Momentaufnahmen und keine Endpreise. Währungskurs, gewählte Variante, Versand, Versicherung und mögliche Abgaben können den Gesamtbetrag verändern.' },
   { question: 'Was bedeutet die Anzahl der QC-Fotos?', answer: 'Sie zeigt nur, wie viele Lagerfoto-Referenzen der Katalog zum Zeitpunkt der Aktualisierung gemeldet hat. Sie ist keine Qualitätsnote und keine Echtheitsgarantie.' },
   { question: 'Wie finde ich passende Größen?', answer: 'Vergleiche die aktuellen Produktmaße mit einem eigenen Kleidungsstück oder Schuh, das gut passt. Verlasse dich nicht ausschließlich auf internationale Größenangaben.' },
@@ -25,7 +25,7 @@ const faq = [
 const schema = JSON.stringify({
   '@context': 'https://schema.org',
   '@graph': [
-    { '@type': 'WebPage', name: 'Oopbuy Spreadsheet Deutschland 2026', url: canonical, inLanguage: 'de-DE', description: `Deutschsprachige Oopbuy Spreadsheet mit ${catalogMeta.productCount.toLocaleString('de-DE')} Katalogeinträgen und ${qcCatalogProducts.length} ausgewählten QC-Fundstücken.`, dateModified: catalogMeta.fetchedAt },
+    { '@type': 'WebPage', name: 'Oopbuy Spreadsheet für Deutschland: Euro, Größen und QC', url: canonical, inLanguage: 'de-DE', description: `Deutschland-Checklist für die Oopbuy Spreadsheet mit Euro-Gesamtkosten, Größen- und Versandchecks sowie ${qcCatalogProducts.length} QC-Fundstücken.`, dateModified: catalogMeta.fetchedAt },
     { '@type': 'BreadcrumbList', itemListElement: [{ '@type': 'ListItem', position: 1, name: 'Oopbuy Spreadsheet', item: 'https://oopbuytop.net/' }, { '@type': 'ListItem', position: 2, name: 'Deutschland', item: canonical }] },
     { '@type': 'ItemList', name: 'Oopbuy Funde für die Deutschland-Recherche', numberOfItems: focusProducts.length, itemListElement: focusProducts.map((product, index) => ({ '@type': 'ListItem', position: index + 1, name: product?.title, url: `https://oopbuytop.net/finds/${product?.slug}/` })) },
     { '@type': 'FAQPage', mainEntity: faq.map((item) => ({ '@type': 'Question', name: item.question, acceptedAnswer: { '@type': 'Answer', text: item.answer } })) },
@@ -34,14 +34,14 @@ const schema = JSON.stringify({
 ---
 <BaseLayout
   lang="de-DE"
-  title="Oopbuy Spreadsheet Deutschland 2026: Funde, Preise & QC"
-  description={`Oopbuy Spreadsheet Deutschland mit ${catalogMeta.productCount.toLocaleString('de-DE')} Katalogeinträgen, ${qcCatalogProducts.length} QC-Fundstücken, Preis-Kontext sowie Größen- und Versandchecks.`}
+  title="Oopbuy Spreadsheet für Deutschland: Euro-Gesamtkosten, Größen & QC | OopbuyTop"
+  description={`Deutschland-Checklist für die Oopbuy Spreadsheet: Euro-Gesamtkosten, Maße und Versand prüfen, mit ${qcCatalogProducts.length} QC-Fundstücken aus dem aktuellen Katalog.`}
   canonical={canonical}
   alternates={countryAlternates}
 >
   <nav class="locale-breadcrumbs" aria-label="Brotkrümelnavigation"><a href="/">Oopbuy Spreadsheet</a><span>›</span><span>Deutschland</span></nav>
   <section class="locale-hero locale-hero-de">
-    <div><p class="eyebrow">Deutschland · geprüft am {formatCatalogCheckedAt('de-DE')}</p><h1>Oopbuy Spreadsheet Deutschland:<br /><em>Funde mit Preis- und QC-Kontext</em></h1><p>Durchsuche einen unabhängigen Katalog mit {catalogMeta.productCount.toLocaleString('de-DE')} Einträgen. Beginne mit {qcCatalogProducts.length} Fundstücken, für die aktuell Lagerfoto-Referenzen gemeldet sind, und prüfe anschließend immer die Live-Variante.</p><div class="locale-actions"><a class="button button-hot" href="/finds/">QC-Funde durchsuchen →</a><a class="text-link" href="/category/perfume/">Parfüm-Funde ansehen</a></div></div>
+    <div><p class="eyebrow">Deutschland · geprüft am {formatCatalogCheckedAt('de-DE')}</p><h1>Oopbuy Spreadsheet für Deutschland:<br /><em>Euro-Gesamtkosten, Maße und QC vor dem Versand</em></h1><p>Nutze diese Seite als Ziel-Checklist nach der Spreadsheet-Recherche: Produktpreis vom gelieferten Euro-Total trennen, Maße vergleichen und QC-Fotos prüfen, bevor ein Paket nach Deutschland geplant wird. Die durchsuchbare Oopbuy Spreadsheet bleibt auf der Startseite.</p><div class="locale-actions"><a class="button button-hot" href="/finds/">Oopbuy Spreadsheet mit QC →</a><a class="text-link" href="/">Zur Haupt-Spreadsheet</a></div></div>
     <aside><strong>Wichtig für Deutschland</strong><ul><li>Produktpreis ist nicht der endgültige Paketpreis.</li><li>Maße statt vertrauter Größenetiketten vergleichen.</li><li>Aktuelle Versand- und Einfuhrinformationen im Checkout prüfen.</li></ul></aside>
   </section>
 
@@ -53,10 +53,10 @@ const schema = JSON.stringify({
     <article><p class="eyebrow">Schritt 3</p><h2>Euro- und Versandkontext trennen</h2><p>Der Produktpreis kann sich durch Variante und Wechselkurs ändern. Versand, Versicherung, optionale Services und mögliche Einfuhrkosten gehören nicht automatisch zum angezeigten Betrag. Verwende für die Entscheidung ausschließlich die aktuellen Angaben für deine Adresse.</p><a class="text-link" href="/guides/oopbuy-shipping-guide/">Versand-Checkliste öffnen →</a></article>
   </section>
 
-  <section class="locale-category-links"><div><p class="eyebrow">Beliebte Einstiege</p><h2>Oopbuy Spreadsheet Kategorien</h2></div><div><a href="/category/perfume/">Parfüm</a><a href="/category/hoodies-sweatshirts/">Hoodies</a><a href="/category/shoes/">Schuhe</a><a href="/category/jackets/">Jacken</a><a href="/category/belts/">Gürtel</a><a href="/category/electronics/">Elektronik</a></div></section>
+  <section class="locale-category-links"><div><p class="eyebrow">Beliebte Einstiege</p><h2>Nützliche Kategorien für Deutschland</h2></div><div><a href="/category/perfume/">Parfüm</a><a href="/category/hoodies-sweatshirts/">Hoodies</a><a href="/category/shoes/">Schuhe</a><a href="/category/jackets/">Jacken</a><a href="/category/belts/">Gürtel</a><a href="/category/electronics/">Elektronik</a></div></section>
 
   <section class="finds-section"><div class="section-heading"><div><p class="eyebrow">Ausgewählte Recherche-Seiten</p><h2>Funde mit aktuellen QC-Referenzen</h2><p class="section-intro">Die Karten führen zuerst zu einer internen Prüfseite und nicht direkt zu einer externen Produktseite.</p></div><a class="section-link" href="/finds/">Alle QC-Funde →</a></div><div class="product-grid">{focusProducts.map((product) => product && <ProductCard product={product} placement="de_spreadsheet" />)}</div></section>
 
-  <section class="locale-faq"><p class="eyebrow">Häufige Fragen</p><h2>Oopbuy Spreadsheet Deutschland</h2>{faq.map((item) => <details><summary>{item.question}</summary><p>{item.answer}</p></details>)}</section>
+  <section class="locale-faq"><p class="eyebrow">Häufige Fragen</p><h2>Oopbuy für Deutschland: Euro & Versand</h2>{faq.map((item) => <details><summary>{item.question}</summary><p>{item.answer}</p></details>)}</section>
   <script type="application/ld+json" set:html={schema} />
 </BaseLayout>

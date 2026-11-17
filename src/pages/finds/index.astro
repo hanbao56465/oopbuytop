@@ -13,7 +13,7 @@ const collectionSchema = JSON.stringify({
   '@type': 'CollectionPage',
   name: `Oopbuy Spreadsheet Finds with QC Photos`,
   url: 'https://oopbuytop.net/finds/',
-  description: `Search ${products.length} Oopbuy spreadsheet finds with warehouse QC-photo counts, price context and current-listing checks.`,
+  description: `Search an Oopbuy spreadsheet with ${products.length} QC-reference finds, warehouse photo counts, price context and current-listing checks.`,
   dateModified: catalogMeta.fetchedAt,
   mainEntity: {
     '@type': 'ItemList',
@@ -28,13 +28,13 @@ const collectionSchema = JSON.stringify({
 });
 ---
 <BaseLayout
-  title={`Oopbuy Spreadsheet Finds: ${products.length} Items with QC Photos | OopbuyTop`}
-  description={`Search ${products.length} current Oopbuy spreadsheet finds with warehouse QC-photo counts, price context, categories and individual research pages.`}
+  title={`Oopbuy Spreadsheet with QC Photos: ${products.length} Finds | OopbuyTop`}
+  description={`Oopbuy spreadsheet with QC photos — search ${products.length} warehouse-backed finds by brand or category, then open a research page before you order.`}
 >
   <section class="finds-directory-hero">
-    <p class="eyebrow">Searchable Oopbuy spreadsheet · checked {formatCatalogCheckedAt()}</p>
-    <h1>Oopbuy spreadsheet finds<br /><em>with QC-photo context</em></h1>
-    <p>Search the focused set of catalog items that currently have warehouse QC-photo references. Open a result to review its price context, category, update date and live-listing checks.</p>
+    <p class="eyebrow">Oopbuy spreadsheet · QC-reference finds · checked {formatCatalogCheckedAt()}</p>
+    <h1>Oopbuy spreadsheet<br /><em>with QC photos</em></h1>
+    <p>Search this Oopbuy spreadsheet lane for catalog items that currently have warehouse QC-photo references. Open a result to review price context, category, update date and live-listing checks.</p>
     <form class="finds-filter" action="/finds/" method="get" data-finds-filter>
       <label>
         <span>Search products or brands</span>
@@ -47,7 +47,7 @@ const collectionSchema = JSON.stringify({
           {categories.map(([slug, count]) => <option value={slug}>{categoryName(slug)} ({count})</option>)}
         </select>
       </label>
-      <button type="submit">Search finds</button>
+      <button type="submit">Search spreadsheet</button>
     </form>
     <div class="finds-directory-stats">
       <div><strong>{products.length}</strong><span>finds with QC references</span></div>
@@ -58,7 +58,7 @@ const collectionSchema = JSON.stringify({
 
   <section class="finds-directory-results">
     <div class="section-heading">
-      <div><p class="eyebrow">Current research set</p><h2>Browse Oopbuy finds</h2></div>
+      <div><p class="eyebrow">Current research set</p><h2>Browse Oopbuy spreadsheet finds</h2></div>
       <p><strong data-results-count>{products.length}</strong> matching finds. QC count is a warehouse-photo signal, not a quality or authenticity grade.</p>
     </div>
     <p class="finds-empty" hidden data-finds-empty>No current QC-reference finds match that search. Try a broader product or brand term.</p>
